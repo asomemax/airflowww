@@ -41,7 +41,6 @@ public class Draw extends JFrame {
 		});
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				JDialog popup = new JDialog(new Dialog(), );
 				try {
 					Controller.saveFile();
 				} catch (FileNotFoundException e) {
