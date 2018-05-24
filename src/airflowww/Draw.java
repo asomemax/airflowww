@@ -38,6 +38,7 @@ public class Draw extends JFrame {
 				}
 				Controller.packShape();
 				canvas.repaint();
+				Controller.hasBeenPaintedatLeastOnce = true;
 				requestFocus();
 			}
 
@@ -58,14 +59,14 @@ public class Draw extends JFrame {
 				adap = new MouseAdapter() {
 					@Override
 					public void mousePressed(MouseEvent evt) {
-						System.out.println(Arrays.toString(Controller.hasClosePoint(evt.getX(), evt.getY())));
 						if (Controller.hasClosePoint(evt.getX(), evt.getY())[0] == 1) {
 							System.out.println("Close point");
-							Controller.removeP(Controller.hasClosePoint(evt.getX(), evt.getY())[1]);
+							Controller.removePoint(Controller.hasClosePoint(evt.getX(), evt.getY())[1]);
 						} else {
 							Controller.addPoint(evt.getX(), evt.getY());
 						}
 						Controller.packShape();
+						Controller.hasBeenPaintedatLeastOnce = true;
 						canvas.repaint();
 					}
 				};
@@ -92,10 +93,12 @@ public class Draw extends JFrame {
 						Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
 						Double ang = Helperjunk.getAngle(loc, center);
 						Controller.setAirAng(ang);
+						Controller.changeStatus(3);
+						canvas.repaint();
 					}
 				};
 				canvas.addMouseListener(adap);
-				canvas.repaint();
+
 			}
 		});
 		canvas = new DrawCanvas();

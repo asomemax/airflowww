@@ -13,13 +13,12 @@ public class DrawCanvas extends JPanel {
 		setBackground(Color.decode("#b3ffb3"));
 		int[] xs = Controller.getXs();
 		int[] ys = Controller.getYs();
-		if (Controller.status == 1) {
+		if (Controller.status == 1 || Controller.hasBeenPaintedatLeastOnce) {
 			drawShape(g, xs, ys);
 		}
 		if (Controller.status == 3) {
+			g.setColor(Color.ORANGE);
 			drawWindDir(g);
-			//git do you see this
-			//i do - t
 		}
 	}
 	

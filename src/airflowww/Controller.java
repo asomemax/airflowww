@@ -16,6 +16,7 @@ public class Controller {
 	static ArrayList<Integer> xs;
 	static ArrayList<Integer> ys;
 	static Windtunnel wind;
+	public static boolean hasBeenPaintedatLeastOnce;
 
 	public static void main(String[] args) {
 		fig = new Figure();
@@ -37,6 +38,7 @@ public class Controller {
 		System.out.println("x's : " + Arrays.toString(x) + " y's : " + Arrays.toString(y));
 		status = 1;
 		window.repaint();
+		hasBeenPaintedatLeastOnce = false;
 	}
 
 	private static void parseFiles(ArrayList<Integer> xs, ArrayList<Integer> ys) throws FileNotFoundException {
