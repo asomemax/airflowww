@@ -18,14 +18,21 @@ public class DrawCanvas extends JPanel {
 		}
 		if (Controller.status == 3) {
 			drawWindDir(g);
+<<<<<<< HEAD
+=======
+			//git do you see this
+			//i do - t
+>>>>>>> c0539f6d43b1d61515c43203274f80c6e7024589
 		}
 	}
-
+	
+	// draws the wind direction, represented by an arrow
 	public void drawWindDir(Graphics g) {
 		g.drawPolygon(Controller.wind.arrow.getXs(), Controller.wind.arrow.getYs(),
 				Controller.wind.arrow.getXs().length);
 	}
-
+	
+	// draws the shape of object to be tested on
 	public void drawShape(Graphics g, int[] x, int[] y) {
 		super.paintComponent(g);
 		g.setColor(Color.GRAY);

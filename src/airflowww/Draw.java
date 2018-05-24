@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import javax.swing.*; // Using Swing's components and containers
 
-public class draw extends JFrame {
+public class Draw extends JFrame {
 	public static final int CANVAS_WIDTH = 640;
 	public static final int CANVAS_HEIGHT = 480;
 	private int x1 = CANVAS_WIDTH / 2;

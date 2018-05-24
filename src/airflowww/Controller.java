@@ -3,6 +3,7 @@ package airflowww;
 import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ public class Controller {
 	static int status;
 	static Figure fig;
 	static String input;
-	static draw window;
+	static Draw window;
 	static ArrayList<Integer> xs;
 	static ArrayList<Integer> ys;
 	static Windtunnel wind;
@@ -19,8 +20,12 @@ public class Controller {
 	public static void main(String[] args) {
 		fig = new Figure();
 		status = 0;
+<<<<<<< HEAD
 		window = new draw();
 		wind = new Windtunnel();
+=======
+		window = new Draw();
+>>>>>>> c0539f6d43b1d61515c43203274f80c6e7024589
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter a point in this form x , y");
 		xs = new ArrayList<Integer>();
@@ -37,7 +42,7 @@ public class Controller {
 		window.repaint();
 	}
 
-	private static void parseFiless(ArrayList<Integer> xs, ArrayList<Integer> ys) throws FileNotFoundException {
+	private static void parseFiles(ArrayList<Integer> xs, ArrayList<Integer> ys) throws FileNotFoundException {
 		File f = new File("pointslist.txt");
 		Scanner sc = new Scanner(f);
 		String input = "";
@@ -51,9 +56,20 @@ public class Controller {
 	}
 
 	public static void readFile() throws FileNotFoundException {
-		parseFiless(xs, ys);
+		parseFiles(xs, ys);
 	}
-
+	
+	// making dialogue boxes reference:
+	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
+	public static void saveFile() throws FileNotFoundException{
+		// creating a new file
+		PrintStream output = new PrintStream(new File(fileName));
+		for (int i = 0; i < xs.size(); i++) {
+			output.println("("+ xs.get(i) + ", " + ys.get(i) + ")");	// output will be "(<x_coord>, <y_coord>)"
+		}
+		output.close();
+	}
+	
 	public static int[] arraylisttoArray(ArrayList<Integer> a) {
 		int[] b = new int[a.size()];
 		for (int i = 0; i < a.size(); i++) {
@@ -62,7 +78,6 @@ public class Controller {
 		return b;
 	}
 
-
 	public static void packShape() {
 			int[] x = arraylisttoArray(xs);
 			int[] y = arraylisttoArray(ys);
@@ -70,7 +85,7 @@ public class Controller {
 			System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
 			status = 1;
 	}
-
+	
 	public static void changeStatus(int stat) {
 		status = stat;
 	}
@@ -110,12 +125,12 @@ public class Controller {
 		int[] ret = { 0, 0 };
 		return ret;
 	}
-
+	
 	public static void removeP(int i) {
 		xs.remove(i);
 		ys.remove(i);
 	}
-
+	
 	public static void setAirAng(Double ang) {
 		wind = new Windtunnel(ang);
 	}
