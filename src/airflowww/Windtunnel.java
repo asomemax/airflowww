@@ -2,7 +2,7 @@ package airflowww;
 
 public class Windtunnel {
 	public double angle;
-	public double power;
+	public double power;	// velocity of the wind
 	public Figure arrow;
 	int[] x;
 	int[] y;
@@ -10,12 +10,11 @@ public class Windtunnel {
 	public Windtunnel(Double angle) {
 		this.angle = angle;
 		power = 1;
-		 int[] xa = { 0, 10, 10, 50, 50, 10, 10 };
-		 int[] ya = { 30, 0, 25, 25, 35, 35, 60 };
-		 x = xa;
-		 y = ya;
+		int[] xa = { 0, 10, 10, 50, 50, 10, 10 };
+		int[] ya = { 30, 0, 25, 25, 35, 35, 60 };
+		x = xa;
+		y = ya;
 		arrow = new Figure(x, y);
-
 	}
 
 	public Windtunnel() {

@@ -61,11 +61,7 @@ public class Controller {
 	// making dialogue boxes reference so user can change file name and maybe where it will be saved to:
 	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
 	// file will be saved as .txt
-<<<<<<< HEAD
 	public static void saveFile() throws FileNotFoundException{
-=======
-	public static void saveFile() throws FileNotFoundException {
->>>>>>> parent of fd4f9a0... Merge branch 'adding-airflow' of https://github.com/asomemax/airflowww into adding-airflow
 		// creating a new file
 		PrintStream output = new PrintStream(new File("t.txt"));
 		for (int i = 0; i < xs.size(); i++) {
@@ -83,19 +79,11 @@ public class Controller {
 	}
 
 	public static void packShape() {
-<<<<<<< HEAD
 			int[] x = arrayListToArray(xs);
 			int[] y = arrayListToArray(ys);
 			fig = new Figure(x, y);
 			System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
 			status = 1;
-=======
-		int[] x = arrayListToArray(xs);
-		int[] y = arrayListToArray(ys);
-		fig = new Figure(x, y);
-		System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
-		status = "shapeReady";
->>>>>>> parent of fd4f9a0... Merge branch 'adding-airflow' of https://github.com/asomemax/airflowww into adding-airflow
 	}
 	
 	public static void changeStatus(int stat) {
@@ -111,15 +99,14 @@ public class Controller {
 	}
 
 	public static void addPoint(int x, int y) {
-		System.out.println("AddedPoint");
+		System.out.println("Added Point");
 		xs.add((int) x);
 		ys.add((int) y);
 
 	}
 
 	public static void clearlist() {
-		int t = xs.size();
-		for (int i = 0; i < t; i++) {
+		for (int i = 0; i < xs.size(); i++) {
 			xs.remove(0);
 			ys.remove(0);
 		}
