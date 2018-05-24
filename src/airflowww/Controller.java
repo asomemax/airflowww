@@ -20,12 +20,9 @@ public class Controller {
 	public static void main(String[] args) {
 		fig = new Figure();
 		status = 0;
-<<<<<<< HEAD
-		window = new draw();
-		wind = new Windtunnel();
-=======
 		window = new Draw();
->>>>>>> c0539f6d43b1d61515c43203274f80c6e7024589
+		wind = new Windtunnel();
+		window = new Draw();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter a point in this form x , y");
 		xs = new ArrayList<Integer>();
@@ -63,7 +60,7 @@ public class Controller {
 	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
 	public static void saveFile() throws FileNotFoundException{
 		// creating a new file
-		PrintStream output = new PrintStream(new File(fileName));
+		PrintStream output = new PrintStream(new File("t.txt"));
 		for (int i = 0; i < xs.size(); i++) {
 			output.println("("+ xs.get(i) + ", " + ys.get(i) + ")");	// output will be "(<x_coord>, <y_coord>)"
 		}

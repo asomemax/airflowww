@@ -18,11 +18,8 @@ public class DrawCanvas extends JPanel {
 		}
 		if (Controller.status == 3) {
 			drawWindDir(g);
-<<<<<<< HEAD
-=======
 			//git do you see this
 			//i do - t
->>>>>>> c0539f6d43b1d61515c43203274f80c6e7024589
 		}
 	}
 	

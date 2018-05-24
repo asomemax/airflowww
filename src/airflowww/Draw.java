@@ -16,7 +16,7 @@ public class Draw extends JFrame {
 	private MouseAdapter adap;
 	private boolean curwind = false;
 
-	public draw() {
+	public Draw() {
 		// Set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
 		JButton btnLeft = new JButton("Draw Shape");
@@ -132,7 +132,7 @@ public class Draw extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new draw(); // Let the constructor do the job
+				new Draw(); // Let the constructor do the job
 			}
 		});
 	}
