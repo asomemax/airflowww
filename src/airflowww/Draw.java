@@ -27,8 +27,18 @@ public class Draw extends JFrame {
 		btnPanel.add(btnLoad);
 		JButton btnAirspawn = new JButton("Choose Airflow Direction");
 		btnPanel.add(btnAirspawn);
-		
+		JButton btnRun = new JButton("Run");
+		btnPanel.add(btnRun);
+
 		// functionality to buttons
+		btnRun.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+			System.out.println("Ran? Runned?");
+				
+			}
+		});
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
@@ -49,6 +59,7 @@ public class Draw extends JFrame {
 				}
 				Controller.packShape();
 				canvas.repaint();
+				Controller.hasBeenPaintedatLeastOnce = true;
 				requestFocus();
 			}
 
@@ -69,7 +80,6 @@ public class Draw extends JFrame {
 				adap = new MouseAdapter() {
 					@Override
 					public void mousePressed(MouseEvent evt) {
-						System.out.println(Arrays.toString(Controller.hasClosePoint(evt.getX(), evt.getY())));
 						if (Controller.hasClosePoint(evt.getX(), evt.getY())[0] == 1) {
 							System.out.println("Close point");
 							Controller.removePoint(Controller.hasClosePoint(evt.getX(), evt.getY())[1]);
@@ -77,6 +87,7 @@ public class Draw extends JFrame {
 							Controller.addPoint(evt.getX(), evt.getY());
 						}
 						Controller.packShape();
+						Controller.hasBeenPaintedatLeastOnce = true;
 						canvas.repaint();
 					}
 				};
@@ -103,10 +114,12 @@ public class Draw extends JFrame {
 						Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
 						Double ang = Helperjunk.getAngle(loc, center);
 						Controller.setAirAng(ang);
+						Controller.changeStatus(3);
+						canvas.repaint();
 					}
 				};
 				canvas.addMouseListener(adap);
-				canvas.repaint();
+
 			}
 		});
 		
