@@ -51,7 +51,6 @@ public class Draw extends JFrame {
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				Controller.clearlist();
-				Controller.changeStatus(2);
 				try {
 					Controller.readFile();
 				} catch (FileNotFoundException e) {
@@ -114,7 +113,7 @@ public class Draw extends JFrame {
 						Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
 						Double ang = Helperjunk.getAngle(loc, center);
 						Controller.setAirAng(ang);
-						Controller.changeStatus(3);
+						Controller.changeStatus("airReady");
 						canvas.repaint();
 					}
 				};

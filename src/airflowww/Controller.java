@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Controller {
-	static int status;
+	static String status;
 	static Figure fig;
 	static String input;
 	static Draw window;
@@ -20,7 +20,7 @@ public class Controller {
 
 	public static void main(String[] args) {
 		fig = new Figure();
-		status = 0;
+		status = "none";
 		window = new Draw();
 		wind = new Windtunnel();
 		window = new Draw();
@@ -36,10 +36,10 @@ public class Controller {
 		y = arrayListToArray(ys);
 		fig = new Figure(x, y);
 		System.out.println("x's : " + Arrays.toString(x) + " y's : " + Arrays.toString(y));
-		status = 0;
 		window.repaint();
 		hasBeenPaintedatLeastOnce = false;
 	}
+
 
 	private static void parseFiles(ArrayList<Integer> xs, ArrayList<Integer> ys) throws FileNotFoundException {
 		File f = new File("pointslist.txt");
@@ -57,19 +57,20 @@ public class Controller {
 	public static void readFile() throws FileNotFoundException {
 		parseFiles(xs, ys);
 	}
-	
-	// making dialogue boxes reference so user can change file name and maybe where it will be saved to:
+
+	// making dialogue boxes reference so user can change file name and maybe where
+	// it will be saved to:
 	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
 	// file will be saved as .txt
-	public static void saveFile() throws FileNotFoundException{
+	public static void saveFile() throws FileNotFoundException {
 		// creating a new file
 		PrintStream output = new PrintStream(new File("t.txt"));
 		for (int i = 0; i < xs.size(); i++) {
-			output.println(xs.get(i) + "," + ys.get(i));	// output will be "<x_coord>,<y_coord>"
+			output.println(xs.get(i) + "," + ys.get(i)); // output will be "<x_coord>,<y_coord>"
 		}
 		output.close();
 	}
-	
+
 	public static int[] arrayListToArray(ArrayList<Integer> a) {
 		int[] b = new int[a.size()];
 		for (int i = 0; i < a.size(); i++) {
@@ -79,14 +80,14 @@ public class Controller {
 	}
 
 	public static void packShape() {
-			int[] x = arrayListToArray(xs);
-			int[] y = arrayListToArray(ys);
-			fig = new Figure(x, y);
-			System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
-			status = 1;
+		int[] x = arrayListToArray(xs);
+		int[] y = arrayListToArray(ys);
+		fig = new Figure(x, y);
+		System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
+		status = "shapeReady";
 	}
-	
-	public static void changeStatus(int stat) {
+
+	public static void changeStatus(String stat) {
 		status = stat;
 	}
 
@@ -124,12 +125,12 @@ public class Controller {
 		int[] ret = { 0, 0 };
 		return ret;
 	}
-	
+
 	public static void removePoint(int i) {
 		xs.remove(i);
 		ys.remove(i);
 	}
-	
+
 	public static void setAirAng(Double ang) {
 		wind = new Windtunnel(ang);
 	}
