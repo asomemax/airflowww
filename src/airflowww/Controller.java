@@ -11,7 +11,7 @@ public class Controller {
 	static int status;
 	static Figure fig;
 	static String input;
-	static draw window;
+	static Draw window;
 	static ArrayList<Integer> xs;
 	static ArrayList<Integer> ys;
 	static Windtunnel wind;
@@ -19,7 +19,7 @@ public class Controller {
 	public static void main(String[] args) {
 		fig = new Figure();
 		status = 0;
-		window = new draw();
+		window = new Draw();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter a point in this form x , y");
 		xs = new ArrayList<Integer>();
@@ -36,7 +36,7 @@ public class Controller {
 		window.repaint();
 	}
 
-	private static void parseFiless(ArrayList<Integer> xs, ArrayList<Integer> ys) throws FileNotFoundException {
+	private static void parseFiles(ArrayList<Integer> xs, ArrayList<Integer> ys) throws FileNotFoundException {
 		File f = new File("pointslist.txt");
 		Scanner sc = new Scanner(f);
 		String input = "";
@@ -50,9 +50,12 @@ public class Controller {
 	}
 
 	public static void readFile() throws FileNotFoundException {
-		parseFiless(xs, ys);
+		parseFiles(xs, ys);
 	}
 
+	public static void saveFile() {
+		
+	}
 	public static int[] arraylisttoArray(ArrayList<Integer> a) {
 		int[] b = new int[a.size()];
 		for (int i = 0; i < a.size(); i++) {
@@ -60,7 +63,6 @@ public class Controller {
 		}
 		return b;
 	}
-
 
 	public static void packShape() {
 		while (status == 2) {
@@ -71,7 +73,7 @@ public class Controller {
 			status = 1;
 		}
 	}
-
+	
 	public static void changeStatus(int stat) {
 		status = stat;
 	}
@@ -111,12 +113,12 @@ public class Controller {
 		int[] ret = { 0, 0 };
 		return ret;
 	}
-
+	
 	public static void removeP(int i) {
 		xs.remove(i);
 		ys.remove(i);
 	}
-
+	
 	public static void setAirAng(Double ang) {
 		wind = new Windtunnel(ang);
 	}

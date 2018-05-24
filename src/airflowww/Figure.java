@@ -1,14 +1,14 @@
 package airflowww;
 
 public class Figure {
-	int npoints;
+	int numPoints;
 	int[] xs;
 	int[] ys;
 
 	public Figure(int[] xs, int[] ys) {
 		this.xs = xs;
 		this.ys = ys;
-		npoints = xs.length;
+		numPoints = xs.length;
 	}
 
 	public Figure() {
