@@ -27,8 +27,18 @@ public class Draw extends JFrame {
 		btnPanel.add(btnLoad);
 		JButton btnAirspawn = new JButton("Choose Airflow Direction");
 		btnPanel.add(btnAirspawn);
-		
+		JButton btnRun = new JButton("Run");
+		btnPanel.add(btnRun);
+
 		// functionality to buttons
+		btnRun.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+			System.out.println("Ran? Runned?");
+				
+			}
+		});
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
