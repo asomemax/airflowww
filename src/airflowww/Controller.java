@@ -62,15 +62,7 @@ public class Controller {
 	// it will be saved to:
 	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
 	// file will be saved as .txt
-<<<<<<< HEAD
 	public static void saveFile() throws FileNotFoundException {
-=======
-<<<<<<< HEAD
-	public static void saveFile() throws FileNotFoundException{
-=======
-	public static void saveFile() throws FileNotFoundException {
->>>>>>> parent of fd4f9a0... Merge branch 'adding-airflow' of https://github.com/asomemax/airflowww into adding-airflow
->>>>>>> parent of cd7436c... Revert "f"
 		// creating a new file
 		PrintStream output = new PrintStream(new File("t.txt"));
 		for (int i = 0; i < xs.size(); i++) {
@@ -88,25 +80,11 @@ public class Controller {
 	}
 
 	public static void packShape() {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-			int[] x = arrayListToArray(xs);
-			int[] y = arrayListToArray(ys);
-			fig = new Figure(x, y);
-			System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
-			status = 1;
-=======
->>>>>>> parent of cd7436c... Revert "f"
 		int[] x = arrayListToArray(xs);
 		int[] y = arrayListToArray(ys);
 		fig = new Figure(x, y);
 		System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
 		status = "shapeReady";
-<<<<<<< HEAD
-=======
->>>>>>> parent of fd4f9a0... Merge branch 'adding-airflow' of https://github.com/asomemax/airflowww into adding-airflow
->>>>>>> parent of cd7436c... Revert "f"
 	}
 
 	public static void changeStatus(String stat) {
