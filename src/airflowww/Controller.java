@@ -56,11 +56,12 @@ public class Controller {
 	
 	// making dialogue boxes reference:
 	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
+	// file will be saved as .txt
 	public static void saveFile() throws FileNotFoundException{
 		// creating a new file
 		PrintStream output = new PrintStream(new File(fileName));
 		for (int i = 0; i < xs.size(); i++) {
-			output.println("("+ xs.get(i) + ", " + ys.get(i) + ")");	// output will be "(<x_coord>, <y_coord>)"
+			output.println(xs.get(i) + "," + ys.get(i));	// output will be "<x_coord>,<y_coord>"
 		}
 		output.close();
 	}
