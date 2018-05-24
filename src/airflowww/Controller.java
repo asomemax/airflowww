@@ -62,9 +62,14 @@ public class Controller {
 	// it will be saved to:
 	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
 	// file will be saved as .txt
+<<<<<<< HEAD
 	public static void saveFile() throws FileNotFoundException {
 		// creating a new file
 		PrintStream output = new PrintStream(new File("t.txt"));
+=======
+	public static void saveFile() throws FileNotFoundException{
+		PrintStream output = new PrintStream(new File("save.txt"));
+>>>>>>> c1f555b3d075cdf1412911a6cc25349c3206f052
 		for (int i = 0; i < xs.size(); i++) {
 			output.println(xs.get(i) + "," + ys.get(i)); // output will be "<x_coord>,<y_coord>"
 		}
@@ -84,7 +89,11 @@ public class Controller {
 		int[] y = arrayListToArray(ys);
 		fig = new Figure(x, y);
 		System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
+<<<<<<< HEAD
 		status = "shapeReady";
+=======
+		status = 1;
+>>>>>>> c1f555b3d075cdf1412911a6cc25349c3206f052
 	}
 
 	public static void changeStatus(String stat) {
@@ -100,15 +109,14 @@ public class Controller {
 	}
 
 	public static void addPoint(int x, int y) {
-		System.out.println("AddedPoint");
+		System.out.println("Added Point");
 		xs.add((int) x);
 		ys.add((int) y);
 
 	}
 
 	public static void clearlist() {
-		int t = xs.size();
-		for (int i = 0; i < t; i++) {
+		for (int i = 0; i < xs.size(); i++) {
 			xs.remove(0);
 			ys.remove(0);
 		}
