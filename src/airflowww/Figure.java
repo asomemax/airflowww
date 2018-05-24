@@ -17,7 +17,7 @@ public class Figure {
 		xs = fx;
 		ys = fy;
 	}
-
+	
 	public void rotate(Double theta) {
 		
 	}
