@@ -36,7 +36,7 @@ public class Controller {
 		y = arrayListToArray(ys);
 		fig = new Figure(x, y);
 		System.out.println("x's : " + Arrays.toString(x) + " y's : " + Arrays.toString(y));
-		status = 1;
+		status = 0;
 		window.repaint();
 		hasBeenPaintedatLeastOnce = false;
 	}
