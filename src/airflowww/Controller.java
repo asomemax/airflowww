@@ -124,7 +124,7 @@ public class Controller {
 		return ret;
 	}
 	
-	public static void removeP(int i) {
+	public static void removePoint(int i) {
 		xs.remove(i);
 		ys.remove(i);
 	}
