@@ -3,23 +3,27 @@ package airflowww;
 import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Controller {
-	static int status;
+	static String status;
 	static Figure fig;
 	static String input;
-	static draw window;
+	static Draw window;
 	static ArrayList<Integer> xs;
 	static ArrayList<Integer> ys;
 	static Windtunnel wind;
+	public static boolean hasBeenPaintedatLeastOnce;
 
 	public static void main(String[] args) {
 		fig = new Figure();
-		status = 0;
-		window = new draw();
+		status = "none";
+		window = new Draw();
+		wind = new Windtunnel();
+		window = new Draw();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter a point in this form x , y");
 		xs = new ArrayList<Integer>();
@@ -28,17 +32,16 @@ public class Controller {
 		ys.add(0);
 		int[] x = null;
 		int[] y = null;
-		x = arraylisttoArray(xs);
-		y = arraylisttoArray(ys);
+		x = arrayListToArray(xs);
+		y = arrayListToArray(ys);
 		fig = new Figure(x, y);
-
 		System.out.println("x's : " + Arrays.toString(x) + " y's : " + Arrays.toString(y));
-
-		status = 1;
 		window.repaint();
+		hasBeenPaintedatLeastOnce = false;
 	}
 
-	private static void parseFiless(ArrayList<Integer> xs, ArrayList<Integer> ys) throws FileNotFoundException {
+
+	private static void parseFiles(ArrayList<Integer> xs, ArrayList<Integer> ys) throws FileNotFoundException {
 		File f = new File("pointslist.txt");
 		Scanner sc = new Scanner(f);
 		String input = "";
@@ -52,10 +55,23 @@ public class Controller {
 	}
 
 	public static void readFile() throws FileNotFoundException {
-		parseFiless(xs, ys);
+		parseFiles(xs, ys);
 	}
 
-	public static int[] arraylisttoArray(ArrayList<Integer> a) {
+	// making dialogue boxes reference so user can change file name and maybe where
+	// it will be saved to:
+	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
+	// file will be saved as .txt
+	public static void saveFile() throws FileNotFoundException {
+		// creating a new file
+		PrintStream output = new PrintStream(new File("t.txt"));
+		for (int i = 0; i < xs.size(); i++) {
+			output.println(xs.get(i) + "," + ys.get(i)); // output will be "<x_coord>,<y_coord>"
+		}
+		output.close();
+	}
+
+	public static int[] arrayListToArray(ArrayList<Integer> a) {
 		int[] b = new int[a.size()];
 		for (int i = 0; i < a.size(); i++) {
 			b[i] = a.get(i);
@@ -63,22 +79,15 @@ public class Controller {
 		return b;
 	}
 
-	public int hatToDo() {
-		return status;
-
-	}
-
 	public static void packShape() {
-		while (status == 2) {
-			int[] x = arraylisttoArray(xs);
-			int[] y = arraylisttoArray(ys);
-			fig = new Figure(x, y);
-			System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
-			status = 1;
-		}
+		int[] x = arrayListToArray(xs);
+		int[] y = arrayListToArray(ys);
+		fig = new Figure(x, y);
+		System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
+		status = "shapeReady";
 	}
 
-	public static void changeStatus(int stat) {
+	public static void changeStatus(String stat) {
 		status = stat;
 	}
 
@@ -118,8 +127,7 @@ public class Controller {
 		return ret;
 	}
 
-	public static void removeP(int i) {
-		// TODO Auto-generated method stub
+	public static void removePoint(int i) {
 		xs.remove(i);
 		ys.remove(i);
 	}

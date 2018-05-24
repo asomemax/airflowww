@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import javax.swing.*; // Using Swing's components and containers
 
-public class draw extends JFrame {
+public class Draw extends JFrame {
 	public static final int CANVAS_WIDTH = 640;
 	public static final int CANVAS_HEIGHT = 480;
 	private int x1 = CANVAS_WIDTH / 2;
@@ -16,20 +16,43 @@ public class draw extends JFrame {
 	private MouseAdapter adap;
 	private boolean curwind = false;
 
-	public draw() {
+	public Draw() {
 		// Set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
-		JButton btnLeft = new JButton("Draw Shape");
-		btnPanel.add(btnLeft);
-		JButton btnRight = new JButton("Load File");
-		btnPanel.add(btnRight);
-		JButton btnAirspawn = new JButton("Choose Airflow");
-		btnRight.addActionListener(new ActionListener() {
+		JButton btnDraw = new JButton("Draw Shape");
+		btnPanel.add(btnDraw);
+		JButton btnSave = new JButton("Save File");
+		btnPanel.add(btnSave);
+		JButton btnLoad = new JButton("Load File");
+		btnPanel.add(btnLoad);
+		JButton btnAirspawn = new JButton("Choose Airflow Direction");
+		btnPanel.add(btnAirspawn);
+		JButton btnRun = new JButton("Run");
+		btnPanel.add(btnRun);
+
+		// functionality to buttons
+		btnRun.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+			System.out.println("Ran? Runned?");
+				
+			}
+		});
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					Controller.saveFile();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		btnLoad.addActionListener(new ActionListener() {
 
 			// TODO Auto-generated method stub
 			public void actionPerformed(ActionEvent evt) {
 				Controller.clearlist();
-				Controller.changeStatus(2);
 				try {
 					Controller.readFile();
 				} catch (FileNotFoundException e) {
@@ -37,35 +60,35 @@ public class draw extends JFrame {
 				}
 				Controller.packShape();
 				canvas.repaint();
+				Controller.hasBeenPaintedatLeastOnce = true;
 				requestFocus();
 			}
 
 		});
-		btnLeft.addActionListener(new ActionListener() {
+		btnDraw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if (!curdraw) {
 					Controller.clearlist();
 					curdraw = true;
-					btnLeft.setText("Finish");
-					btnLeft.repaint();
+					btnDraw.setText("Finish");
+					btnDraw.repaint();
 					canvas.repaint();
 				} else {
 					curdraw = false;
-					btnLeft.setText("Draw Shape");
+					btnDraw.setText("Draw Shape");
 				}
 				canvas.removeMouseListener(adap);
 				adap = new MouseAdapter() {
 					@Override
 					public void mousePressed(MouseEvent evt) {
-						Controller.changeStatus(2);
-						System.out.println(Arrays.toString(Controller.hasClosePoint(evt.getX(), evt.getY())));
 						if (Controller.hasClosePoint(evt.getX(), evt.getY())[0] == 1) {
 							System.out.println("Close point");
-							Controller.removeP(Controller.hasClosePoint(evt.getX(), evt.getY())[1]);
+							Controller.removePoint(Controller.hasClosePoint(evt.getX(), evt.getY())[1]);
 						} else {
 							Controller.addPoint(evt.getX(), evt.getY());
 						}
 						Controller.packShape();
+						Controller.hasBeenPaintedatLeastOnce = true;
 						canvas.repaint();
 					}
 				};
@@ -77,6 +100,14 @@ public class draw extends JFrame {
 		btnAirspawn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
+				if (!curwind) {
+					curwind = true;
+					btnAirspawn.setText("Place airflow");
+					canvas.repaint();
+				} else {
+					curwind = false;
+					btnAirspawn.setText("Choose Airflow Direction");
+				}
 				canvas.removeMouseListener(adap);
 				adap = new MouseAdapter() {
 					public void mousePressed(MouseEvent evt) {
@@ -84,10 +115,12 @@ public class draw extends JFrame {
 						Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
 						Double ang = Helperjunk.getAngle(loc, center);
 						Controller.setAirAng(ang);
+						Controller.changeStatus("airReady");
+						canvas.repaint();
 					}
 				};
 				canvas.addMouseListener(adap);
-				canvas.repaint();
+
 			}
 		});
 		canvas = new DrawCanvas();
@@ -124,7 +157,7 @@ public class draw extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new draw(); // Let the constructor do the job
+				new Draw(); // Let the constructor do the job
 			}
 		});
 	}
