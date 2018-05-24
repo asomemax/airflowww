@@ -31,8 +31,8 @@ public class Controller {
 		ys.add(0);
 		int[] x = null;
 		int[] y = null;
-		x = arraylisttoArray(xs);
-		y = arraylisttoArray(ys);
+		x = arrayListToArray(xs);
+		y = arrayListToArray(ys);
 		fig = new Figure(x, y);
 		System.out.println("x's : " + Arrays.toString(x) + " y's : " + Arrays.toString(y));
 		status = 1;
@@ -56,7 +56,7 @@ public class Controller {
 		parseFiles(xs, ys);
 	}
 	
-	// making dialogue boxes reference:
+	// making dialogue boxes reference so user can change file name and maybe where it will be saved to:
 	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
 	// file will be saved as .txt
 	public static void saveFile() throws FileNotFoundException{
@@ -68,7 +68,7 @@ public class Controller {
 		output.close();
 	}
 	
-	public static int[] arraylisttoArray(ArrayList<Integer> a) {
+	public static int[] arrayListToArray(ArrayList<Integer> a) {
 		int[] b = new int[a.size()];
 		for (int i = 0; i < a.size(); i++) {
 			b[i] = a.get(i);
@@ -77,8 +77,8 @@ public class Controller {
 	}
 
 	public static void packShape() {
-			int[] x = arraylisttoArray(xs);
-			int[] y = arraylisttoArray(ys);
+			int[] x = arrayListToArray(xs);
+			int[] y = arrayListToArray(ys);
 			fig = new Figure(x, y);
 			System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
 			status = 1;

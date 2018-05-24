@@ -61,7 +61,7 @@ public class Draw extends JFrame {
 						System.out.println(Arrays.toString(Controller.hasClosePoint(evt.getX(), evt.getY())));
 						if (Controller.hasClosePoint(evt.getX(), evt.getY())[0] == 1) {
 							System.out.println("Close point");
-							Controller.removeP(Controller.hasClosePoint(evt.getX(), evt.getY())[1]);
+							Controller.removePoint(Controller.hasClosePoint(evt.getX(), evt.getY())[1]);
 						} else {
 							Controller.addPoint(evt.getX(), evt.getY());
 						}
