@@ -20,6 +20,7 @@ public class Controller {
 		fig = new Figure();
 		status = 0;
 		window = new draw();
+		wind = new Windtunnel();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter a point in this form x , y");
 		xs = new ArrayList<Integer>();
@@ -63,13 +64,11 @@ public class Controller {
 
 
 	public static void packShape() {
-		while (status == 2) {
 			int[] x = arraylisttoArray(xs);
 			int[] y = arraylisttoArray(ys);
 			fig = new Figure(x, y);
 			System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
 			status = 1;
-		}
 	}
 
 	public static void changeStatus(int stat) {
