@@ -16,14 +16,15 @@ public class Draw extends JFrame {
 	private MouseAdapter adap;
 	private boolean curwind = false;
 
-	public draw() {
+	public Draw() {
 		// Set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
 		JButton btnLeft = new JButton("Draw Shape");
 		btnPanel.add(btnLeft);
 		JButton btnRight = new JButton("Load File");
 		btnPanel.add(btnRight);
-		JButton btnAirspawn = new JButton("Choose Airflow");
+		JButton btnAirspawn = new JButton("Choose Airflow Direction");
+		btnPanel.add(btnAirspawn);
 		btnRight.addActionListener(new ActionListener() {
 
 			// TODO Auto-generated method stub
@@ -57,7 +58,6 @@ public class Draw extends JFrame {
 				adap = new MouseAdapter() {
 					@Override
 					public void mousePressed(MouseEvent evt) {
-						Controller.changeStatus(2);
 						System.out.println(Arrays.toString(Controller.hasClosePoint(evt.getX(), evt.getY())));
 						if (Controller.hasClosePoint(evt.getX(), evt.getY())[0] == 1) {
 							System.out.println("Close point");
@@ -77,6 +77,14 @@ public class Draw extends JFrame {
 		btnAirspawn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
+				if (!curwind) {
+					curwind = true;
+					btnAirspawn.setText("Place airflow");
+					canvas.repaint();
+				} else {
+					curwind = false;
+					btnAirspawn.setText("Choose Airflow Direction");
+				}
 				canvas.removeMouseListener(adap);
 				adap = new MouseAdapter() {
 					public void mousePressed(MouseEvent evt) {
@@ -124,7 +132,7 @@ public class Draw extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new draw(); // Let the constructor do the job
+				new Draw(); // Let the constructor do the job
 			}
 		});
 	}
