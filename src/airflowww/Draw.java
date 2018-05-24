@@ -39,8 +39,6 @@ public class Draw extends JFrame {
 			}
 		});
 		btnLoad.addActionListener(new ActionListener() {
-
-			// TODO Auto-generated method stub
 			public void actionPerformed(ActionEvent evt) {
 				Controller.clearlist();
 				Controller.changeStatus(2);
@@ -111,6 +109,8 @@ public class Draw extends JFrame {
 				canvas.repaint();
 			}
 		});
+		
+		// sets up canvas GUI
 		canvas = new DrawCanvas();
 		canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 		Container cp = getContentPane();
@@ -129,7 +129,7 @@ public class Draw extends JFrame {
 			}
 		});
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Handle the CLOSE //
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Handle the CLOSE 
 		setTitle("Airflow Simulator 2018");
 		pack();
 		setVisible(true); // show it

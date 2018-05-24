@@ -60,8 +60,7 @@ public class Controller {
 	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
 	// file will be saved as .txt
 	public static void saveFile() throws FileNotFoundException{
-		// creating a new file
-		PrintStream output = new PrintStream(new File("t.txt"));
+		PrintStream output = new PrintStream(new File("save.txt"));
 		for (int i = 0; i < xs.size(); i++) {
 			output.println(xs.get(i) + "," + ys.get(i));	// output will be "<x_coord>,<y_coord>"
 		}
@@ -77,11 +76,11 @@ public class Controller {
 	}
 
 	public static void packShape() {
-			int[] x = arrayListToArray(xs);
-			int[] y = arrayListToArray(ys);
-			fig = new Figure(x, y);
-			System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
-			status = 1;
+		int[] x = arrayListToArray(xs);
+		int[] y = arrayListToArray(ys);
+		fig = new Figure(x, y);
+		System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
+		status = 1;
 	}
 	
 	public static void changeStatus(int stat) {
@@ -97,15 +96,14 @@ public class Controller {
 	}
 
 	public static void addPoint(int x, int y) {
-		System.out.println("AddedPoint");
+		System.out.println("Added Point");
 		xs.add((int) x);
 		ys.add((int) y);
 
 	}
 
 	public static void clearlist() {
-		int t = xs.size();
-		for (int i = 0; i < t; i++) {
+		for (int i = 0; i < xs.size(); i++) {
 			xs.remove(0);
 			ys.remove(0);
 		}
