@@ -13,4 +13,10 @@ public class Windtunnel {
 		arrow = new Figure(x, y);
 
 	}
+	public Windtunnel() {
+		this.angle = 0;
+		int[] x = { 0, 10, 10, 50, 50, 10, 10 };
+		int[] y = { 30, 0, 25, 25, 35, 35, 60 };
+		arrow = new Figure(x, y);
+	}
 }

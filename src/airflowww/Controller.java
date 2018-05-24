@@ -31,9 +31,7 @@ public class Controller {
 		x = arraylisttoArray(xs);
 		y = arraylisttoArray(ys);
 		fig = new Figure(x, y);
-
 		System.out.println("x's : " + Arrays.toString(x) + " y's : " + Arrays.toString(y));
-
 		status = 1;
 		window.repaint();
 	}
@@ -63,10 +61,6 @@ public class Controller {
 		return b;
 	}
 
-	public int hatToDo() {
-		return status;
-
-	}
 
 	public static void packShape() {
 		while (status == 2) {
@@ -119,7 +113,6 @@ public class Controller {
 	}
 
 	public static void removeP(int i) {
-		// TODO Auto-generated method stub
 		xs.remove(i);
 		ys.remove(i);
 	}
