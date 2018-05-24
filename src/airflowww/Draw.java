@@ -27,6 +27,17 @@ public class Draw extends JFrame {
 		btnPanel.add(btnLoad);
 		JButton btnAirspawn = new JButton("Choose Airflow Direction");
 		btnPanel.add(btnAirspawn);
+		
+		// functionality to buttons
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					Controller.saveFile();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		btnLoad.addActionListener(new ActionListener() {
 
 			// TODO Auto-generated method stub
