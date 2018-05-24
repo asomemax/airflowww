@@ -3,6 +3,7 @@ package airflowww;
 import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -52,10 +53,18 @@ public class Controller {
 	public static void readFile() throws FileNotFoundException {
 		parseFiles(xs, ys);
 	}
-
-	public static void saveFile() {
-		
+	
+	// making dialogue boxes reference:
+	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
+	public static void saveFile() throws FileNotFoundException{
+		// creating a new file
+		PrintStream output = new PrintStream(new File(fileName));
+		for (int i = 0; i < xs.size(); i++) {
+			output.println("("+ xs.get(i) + ", " + ys.get(i) + ")");	// output will be "(<x_coord>, <y_coord>)"
+		}
+		output.close();
 	}
+	
 	public static int[] arraylisttoArray(ArrayList<Integer> a) {
 		int[] b = new int[a.size()];
 		for (int i = 0; i < a.size(); i++) {
