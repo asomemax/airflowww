@@ -23,7 +23,6 @@ public class Controller {
 		status = "none";
 		window = new Draw();
 		wind = new Windtunnel();
-		window = new Draw();
 		//test
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter a point in this form x , y");
