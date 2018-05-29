@@ -24,15 +24,15 @@ public class Figure {
 
 	public void rotate(Double theta) {
 		System.out.println("Figure Rotating " + Math.toDegrees(theta) + " degrees");
-		double mx = Helperjunk.average(getXs());
+		double mx = Helperjunk.average(getXs());// mid x and mid y (center of mass)
 		double my = Helperjunk.average(getYs());
 		for (int i = 0; i < getXs().length; i++) {
-			theta += Math.atan(getYs()[i] - my / getXs()[i] - mx);
+			double actualtheta = theta + Math.atan(getYs()[i] - my / getXs()[i] - mx);
 			double dy = getYs()[i] - my;
 			double dx = getXs()[i] - mx;
 			double dhyp = Math.sqrt(Math.pow(dy, 2) + Math.pow(dx, 2));
-			dx = Math.sin(theta) * dhyp;
-			dy = Math.cos(theta) * dhyp;
+			dx = Math.sin(actualtheta) * dhyp;
+			dy = Math.cos(actualtheta) * dhyp;
 			xs[i] = (int) (dx + mx);
 			ys[i] = (int) (dy + my);
 		}
