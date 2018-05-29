@@ -24,7 +24,7 @@ public class DrawCanvas extends JPanel {
 	
 	// draws the wind direction, represented by an arrow
 	public void drawWindDir(Graphics g) {
-		g.drawPolygon(Controller.wind.arrow.getXs(), Controller.wind.arrow.getYs(),
+		g.fillPolygon(Controller.wind.arrow.getXs(), Controller.wind.arrow.getYs(),
 				Controller.wind.arrow.getXs().length);
 	}
 	
