@@ -23,14 +23,13 @@ public class Figure {
 	}
 
 	public void rotate(Double theta) {
-		System.out.println("Figure Rotating " + theta + " degrees");
+		System.out.println("Figure Rotating " + Math.toDegrees(theta) + " degrees");
 		double mx = Helperjunk.average(getXs());
 		double my = Helperjunk.average(getYs());
 		for (int i = 0; i < getXs().length; i++) {
-			double preTheta = Math.atan(getYs()[i] - my / getXs()[i] - mx);
+			theta += Math.atan(getYs()[i] - my / getXs()[i] - mx);
 			double dy = getYs()[i] - my;
 			double dx = getXs()[i] - mx;
-			System.out.println(dx + " " + dy);
 			double dhyp = Math.sqrt(Math.pow(dy, 2) + Math.pow(dx, 2));
 			dx = Math.sin(theta) * dhyp;
 			dy = Math.cos(theta) * dhyp;

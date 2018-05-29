@@ -17,27 +17,19 @@ public class Controller {
 	static ArrayList<Integer> ys;
 	static Windtunnel wind;
 	public static boolean hasBeenPaintedatLeastOnce;
+	public static boolean AirHasBeenPlacedAtLeastOnce;
 
 	public static void main(String[] args) {
 		fig = new Figure();
 		status = "none";
-		window = new Draw();
 		wind = new Windtunnel();
-		//test
-		Scanner sc = new Scanner(System.in);
+		window = new Draw();
 		System.out.println("Enter a point in this form x , y");
 		xs = new ArrayList<Integer>();
 		ys = new ArrayList<Integer>();
-		xs.add(0);
-		ys.add(0);
-		int[] x = null;
-		int[] y = null;
-		x = arrayListToArray(xs);
-		y = arrayListToArray(ys);
-		fig = new Figure(x, y);
-		System.out.println("x's : " + Arrays.toString(x) + " y's : " + Arrays.toString(y));
 		window.repaint();
 		hasBeenPaintedatLeastOnce = false;
+		AirHasBeenPlacedAtLeastOnce = false;
 	}
 
 
@@ -134,5 +126,6 @@ public class Controller {
 
 	public static void setAirAng(Double ang) {
 		wind = new Windtunnel(ang);
+		wind.arrow.rotate(ang);
 	}
 }
