@@ -31,5 +31,4 @@ public class Figure {
 
 		return this.ys;
 	}
-
 }

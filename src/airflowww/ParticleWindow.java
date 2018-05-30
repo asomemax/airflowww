@@ -88,7 +88,7 @@ public class ParticleWindow extends JFrame {
  
         setBounds(nWidth-(width/2), nHeight-(height/2), width, height);
         render.setBounds(nWidth-(width/2), nHeight-(height/2), width, height);
- 
+
         add(render);
         pack();
         setVisible(true);
@@ -113,8 +113,17 @@ public class ParticleWindow extends JFrame {
             }
         }
     }
- 
+    
+    // updates particle position
     public void update(){
+    	/*
+    	Point p = Figure.getLocation();	// gets location of air direction arrow
+    	if (p != null) {
+    		x = p.x;
+    		y = p.y;
+    	}
+    	*/
+    	
         Point p = render.getMousePosition();
         if(p !=null ){
             x = p.x;
@@ -125,7 +134,8 @@ public class ParticleWindow extends JFrame {
                 particles.remove(i);
         }
     }
- 
+    
+    // renders particles
     public void render(){
         do{
             do{
