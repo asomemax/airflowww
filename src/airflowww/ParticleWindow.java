@@ -14,7 +14,8 @@ import java.util.ArrayList;
  
 import javax.swing.JFrame;
  
-public class Window extends JFrame {
+// test area for particle effects
+public class ParticleWindow extends JFrame {
  
     private ArrayList<Particle> particles = new ArrayList<Particle>(500);
  
@@ -25,7 +26,7 @@ public class Window extends JFrame {
  
     public static void main(String[] args)
     {
-        Window window = new Window(450, 280, "Particles: ");
+        ParticleWindow window = new ParticleWindow(450, 280, "Particles: ");
         window.pollInput();
         window.loop();
     }
@@ -33,32 +34,46 @@ public class Window extends JFrame {
     public void pollInput()
     {
         render.addMouseListener(new MouseListener(){
- 
-        	public void mouseClicked(MouseEvent e) {
-                addParticle(true);addParticle(false);addParticle(true);
-                addParticle(false);addParticle(true);addParticle(false);
+        	
+        	public void mouseClicked(MouseEvent e) {	// when mouse is pressed and released
+                addParticle(true);	
+                addParticle(false);
+                addParticle(true);
+                addParticle(false);
+                addParticle(true);
+                addParticle(false);
+            }
+        	 
+            public void mouseEntered(MouseEvent e) {	// when mouse enters canvas area
+            	 addParticle(true);	
+                 addParticle(false);
+                 addParticle(true);
+                 addParticle(false);
+                 addParticle(true);
+                 addParticle(false);
             }
  
-            public void mouseEntered(MouseEvent e) {
+            public void mouseExited(MouseEvent e) {		// when mouse exits canvas area
+            	 addParticle(true);	
+                 addParticle(false);
+                 addParticle(true);
+                 addParticle(false);
+                 addParticle(true);
+                 addParticle(false);
+            }
+ 
+            public void mousePressed(MouseEvent e) {	// when mouse is pressed 
  
             }
  
-            public void mouseExited(MouseEvent e) {
- 
-            }
- 
-            public void mousePressed(MouseEvent e) {
- 
-            }
- 
-            public void mouseReleased(MouseEvent e) {
- 
+            public void mouseReleased(MouseEvent e) {	// when mouse is released
+
             }
  
         });
     }
  
-    public Window( int width, int height, String title){
+    public ParticleWindow( int width, int height, String title){
         super();
         setTitle(title);
         setIgnoreRepaint(true);
@@ -130,7 +145,6 @@ public class Window extends JFrame {
             particles.get(i).render(g2d);
         }
     }
-    
     
     public void addParticle(boolean bool){
         int dx,dy;
