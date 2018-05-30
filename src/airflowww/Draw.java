@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import javax.swing.*; // Using Swing's components and containers
 
+// creates GUI window for drawing 
 public class Draw extends JFrame {
 	public static final int CANVAS_WIDTH = 640;
 	public static final int CANVAS_HEIGHT = 480;
@@ -17,6 +18,11 @@ public class Draw extends JFrame {
 	private boolean curwind = false;
 
 	public Draw() {
+		JFrame frame = new JFrame("Calculations:");
+		JLabel label = new JLabel("What");
+		label.setFont(new Font("Serif", Font.PLAIN, 36));
+		frame.add(label);
+		
 		// Set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
 		JButton btnDraw = new JButton("Draw Shape");
@@ -39,6 +45,7 @@ public class Draw extends JFrame {
 				
 			}
 		});
+		// saving
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
@@ -48,6 +55,7 @@ public class Draw extends JFrame {
 				}
 			}
 		});
+		// loading
 		btnLoad.addActionListener(new ActionListener() {
 
 			// TODO Auto-generated method stub
