@@ -65,6 +65,7 @@ public class Figure {
 			double base = xs[i - 1] * xs[i];
 			areaSum += avgHeight * base;	// finding area of trapezoid
 		}
+		areaSum += 0.5 * (ys[0] + ys[ys.length - 1]) * xs[0] * xs[xs.length - 1];
 		return areaSum;	
 	}
 }
