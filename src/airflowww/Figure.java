@@ -54,5 +54,17 @@ public class Figure {
 
 		return ret;
 	}
-
+	
+	// finds area of irregular polygon
+	// reference: https://www.mathsisfun.com/geometry/area-irregular-polygons.html
+	public double getArea() {
+		assert(xs.length >= 3); 
+		double areaSum = 0.0;
+		for (int i = 1; i < xs.length; i++) {
+			double avgHeight = 0.5 * (ys[i - 1] + ys[i]);
+			double base = xs[i - 1] * xs[i];
+			areaSum += avgHeight * base;	// finding area of trapezoid
+		}
+		return areaSum;	
+	}
 }
