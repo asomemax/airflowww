@@ -17,7 +17,7 @@ public class Controller {
 	static ArrayList<Integer> ys;
 	static Windtunnel wind;
 	public static boolean hasBeenPaintedatLeastOnce;
-	public static boolean AirHasBeenPlacedAtLeastOnce;
+	public static boolean airHasBeenPlacedAtLeastOnce;
 
 	public static void main(String[] args) {
 		fig = new Figure();
@@ -29,7 +29,7 @@ public class Controller {
 		ys = new ArrayList<Integer>();
 		window.repaint();
 		hasBeenPaintedatLeastOnce = false;
-		AirHasBeenPlacedAtLeastOnce = false;
+		airHasBeenPlacedAtLeastOnce = false;
 		
 		/*
 		while(true) {
