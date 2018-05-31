@@ -121,7 +121,7 @@ public class Draw extends JFrame {
 					public void mousePressed(MouseEvent evt) {
 						Point loc = new Point(evt.getX(), evt.getY());
 						Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-						Double ang = Helperjunk.getAngle(loc, center);
+						double ang = loc.getAngle(center);
 						Controller.setAirAng(ang);
 						Controller.changeStatus("airReady");
 						canvas.repaint();

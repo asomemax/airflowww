@@ -1,5 +1,7 @@
 package airflowww;
 
+import java.awt.Point;
+
 public class Point {
 	private double x;
 	private double y;
@@ -34,6 +36,10 @@ public class Point {
 		return Math.sqrt(dx * dx + dy * dy);
 	}
 	
+	public double getAngle(Point o) {
+		return Math.atan(Math.abs(x - o.getX()) / (y - o.getY()));
+	}
+	
 	public void translate(double dx, double dy) {
 		x += dx;
 		y += dy;
@@ -42,4 +48,6 @@ public class Point {
 	public String toString() {
 		return "(" + x + ", " + y + ")";
 	}
+	
+
 }
