@@ -29,16 +29,6 @@ public class Controller {
 		window.repaint();
 		hasBeenPaintedatLeastOnce = false;
 		airHasBeenPlacedAtLeastOnce = false;
-
-		/*
-		 * while(true) { Scanner sc = new Scanner(System.in); String command =
-		 * sc.nextLine(); if (command.substring(0,
-		 * command.indexOf(" ")).equalsIgnoreCase("load")) { String fileName =
-		 * command.substring(command.indexOf(" ")+ 1); try { loadFile(fileName);
-		 * System.out.println(fileName + " loaded"); } catch (FileNotFoundException e) {
-		 * // TODO Auto-generated catch block e.printStackTrace(); } } else {
-		 * System.out.println("Error"); } }
-		 */
 	}
 
 	private static void loadFile(String fileName) throws FileNotFoundException {
@@ -54,21 +44,8 @@ public class Controller {
 		sc.close();
 	}
 
-	private static void parseFiles(ArrayList<Integer> xs, ArrayList<Integer> ys) throws FileNotFoundException {
-		File f = new File("pointslist.txt");
-		Scanner sc = new Scanner(f);
-		String input = "";
-		while (sc.hasNext()) {
-			input = sc.nextLine();
-			String[] a = input.split(",");
-			xs.add(Integer.parseInt(a[0]));
-			ys.add(Integer.parseInt(a[1]));
-		}
-		sc.close();
-	}
-
 	public static void readFile() throws FileNotFoundException {
-		parseFiles(xs, ys);
+		loadFile("pointslist.txt");
 	}
 
 	// making dialogue boxes reference so user can change file name and maybe where
@@ -144,8 +121,7 @@ public class Controller {
 		ys.remove(i);
 	}
 
-	public static void setAirAng(double theta) {
-		wind = new Windtunnel(theta);
+	public static void setAng(double theta) {
 		wind.rotate(theta);
 	}
 }
