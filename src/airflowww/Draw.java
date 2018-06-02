@@ -3,7 +3,6 @@ package airflowww;
 import java.awt.*; // Using AWT's Graphics and Color
 import java.awt.event.*; // Using AWT event classes and listener interfaces
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 
 import javax.swing.*; // Using Swing's components and containers
 
@@ -15,7 +14,6 @@ public class Draw extends JFrame {
 	private boolean curdraw = false;
 	private DrawCanvas canvas;
 	private MouseAdapter adap;
-	private boolean curwind = false;
 
 	public Draw() {
 		
@@ -28,6 +26,7 @@ public class Draw extends JFrame {
 		JButton btnLoad = new JButton("Load File");
 		btnPanel.add(btnLoad); 
 		JSpinner spinTest= new JSpinner();
+		spinTest.setPreferredSize(new Dimension(35, 20));
 		btnPanel.add(spinTest);
 		// saving
 		btnSave.addActionListener(new ActionListener() {
