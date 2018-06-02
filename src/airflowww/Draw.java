@@ -18,10 +18,6 @@ public class Draw extends JFrame {
 	private boolean curwind = false;
 
 	public Draw() {
-		JFrame frame = new JFrame("Calculations:");
-		JLabel label = new JLabel("What");
-		label.setFont(new Font("Serif", Font.PLAIN, 36));
-		frame.add(label);
 		
 		// Set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
@@ -30,21 +26,9 @@ public class Draw extends JFrame {
 		JButton btnSave = new JButton("Save File");
 		btnPanel.add(btnSave);
 		JButton btnLoad = new JButton("Load File");
-		btnPanel.add(btnLoad);
-		JButton btnAirspawn = new JButton("Choose Airflow Direction");
-		btnPanel.add(btnAirspawn);
-		JButton btnRun = new JButton("Run");
-		btnPanel.add(btnRun);
-
-		// functionality to buttons
-		btnRun.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-			System.out.println("Ran? Runned?");
-				
-			}
-		});
+		btnPanel.add(btnLoad); 
+		JSpinner spinTest= new JSpinner();
+		btnPanel.add(spinTest);
 		// saving
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -103,34 +87,6 @@ public class Draw extends JFrame {
 				canvas.addMouseListener(adap);
 				canvas.repaint();
 				requestFocus();
-			}
-		});
-		btnAirspawn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				if (!curwind) {
-					curwind = true;
-					btnAirspawn.setText("Place airflow");
-					canvas.repaint();
-				} else {
-					curwind = false;
-					btnAirspawn.setText("Choose Airflow Direction");
-				}
-				// rotating windtunnel based on angle between mouse and center
-				canvas.removeMouseListener(adap);
-				adap = new MouseAdapter() {
-					public void mousePressed(MouseEvent evt) {
-						Point loc = new Point(evt.getX(), evt.getY());
-						Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-						double theta = center.getAngle(loc);	// angle from center to loc 
-						System.out.println("Angle btw cursor and center: "+ Math.toDegrees(theta));
-						Controller.setAirAng(theta);
-						Controller.changeStatus("airReady");
-						canvas.repaint();
-					}
-				};
-				canvas.addMouseListener(adap);
-
 			}
 		});
 		canvas = new DrawCanvas();
