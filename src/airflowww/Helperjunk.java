@@ -14,4 +14,16 @@ public class Helperjunk {
 		return avg / a.length;
 	}
 
+	/**
+	 * returns listOfints between start, and top - 1
+	 */
+	public static int[] intsBetween(int l, int h) {
+
+		int[] ret = new int[Math.abs(l - h)];
+		for (int i = l; i < h; i++) {
+			ret[i - l] = i;
+		}
+		return ret;
+	}
+
 }

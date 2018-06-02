@@ -27,6 +27,7 @@ public class Draw extends JFrame {
 		btnPanel.add(btnLoad);
 		JButton btnRun = new JButton("Run");
 		btnPanel.add(btnRun);
+		int[] setOfDegrees = Helperjunk.intsBetween(-180,180);
 		JSpinner Anglespin = new JSpinner();
 		Anglespin.setPreferredSize(new Dimension(35, 20));
 		btnPanel.add(Anglespin);

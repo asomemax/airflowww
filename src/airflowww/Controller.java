@@ -24,38 +24,28 @@ public class Controller {
 		status = "none";
 		wind = new Windtunnel();
 		window = new Draw();
-		System.out.println("Enter a point in this form x , y");
 		xs = new ArrayList<Integer>();
 		ys = new ArrayList<Integer>();
 		window.repaint();
 		hasBeenPaintedatLeastOnce = false;
 		airHasBeenPlacedAtLeastOnce = false;
-		
+
 		/*
-		while(true) {
-			Scanner sc = new Scanner(System.in);
-			String command = sc.nextLine();
-			if (command.substring(0, command.indexOf(" ")).equalsIgnoreCase("load")) {
-				String fileName = command.substring(command.indexOf(" ")+ 1);
-				try {
-					loadFile(fileName);
-					System.out.println(fileName + " loaded");
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else {
-				System.out.println("Error");
-			}
-		}
-		*/
+		 * while(true) { Scanner sc = new Scanner(System.in); String command =
+		 * sc.nextLine(); if (command.substring(0,
+		 * command.indexOf(" ")).equalsIgnoreCase("load")) { String fileName =
+		 * command.substring(command.indexOf(" ")+ 1); try { loadFile(fileName);
+		 * System.out.println(fileName + " loaded"); } catch (FileNotFoundException e) {
+		 * // TODO Auto-generated catch block e.printStackTrace(); } } else {
+		 * System.out.println("Error"); } }
+		 */
 	}
-	
+
 	private static void loadFile(String fileName) throws FileNotFoundException {
 		File f = new File(fileName);
 		Scanner sc = new Scanner(f);
 		String input = "";
-		while(sc.hasNext()) {
+		while (sc.hasNext()) {
 			input = sc.nextLine();
 			String[] a = input.split(",");
 			xs.add(Integer.parseInt(a[0]));
