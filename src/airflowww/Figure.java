@@ -22,7 +22,7 @@ public class Figure {
 		ys = fy;
 	}
 
-	public void rotate(Double theta) {
+	public void rotate(double theta) {
 		System.out.println("Figure Rotating " + Math.toDegrees(theta) + " degrees");
 		double mx = Helperjunk.average(getXs());// mid x and mid y (center of mass)
 		double my = Helperjunk.average(getYs());
