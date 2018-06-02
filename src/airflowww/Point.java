@@ -34,17 +34,20 @@ public class Point {
 		return Math.sqrt(dx * dx + dy * dy);
 	}
 	
-	// returns the angle between two points in radians ( range: [0, 2pi) )
+	// returns the angle between two points in radians (range: [0, 2pi))
 	public double getAngle(Point o) {
 		// return Math.atan(Math.abs((x - o.getX()) / (y - o.getY())));
 		double angle = 0.0;
-		angle = Math.atan((y - o.getY()) / (x - o.getX()));	// tan = opposite / adjacent
-		if (x - o.getX() < 0 && y - o.getY() > 0) {	// 2nd quadrant
+		double oppSide = y - o.getY();	// opposite side
+		double adjSide = x - o.getX();	// adjacent side
+		angle = Math.abs(Math.atan(oppSide / adjSide));	
+		// adjusting angle to achieve range [0, 2pi) 
+		if (oppSide <= 0 && adjSide >= 0) {	// 2nd quadrant
 			angle = Math.PI - angle; // finding the supplementary obtuse angle
-		} else if (x - o.getX() < 0 && y - o.getY() < 0) {	//3rd quadrant
+		} else if (oppSide <= 0 && adjSide < 0) {	//3rd quadrant
 			angle = Math.PI + angle;
-		} else if (x - o.getX() > 0 && y - o.getY() < 0) {	// 4th quadrant
-			angle = 1.5 * Math.PI + angle; 
+		} else if (oppSide > 0 && adjSide < 0) {	// 4th quadrant
+			angle = 2 * Math.PI - angle; 
 		}
 		return angle;
 	}
