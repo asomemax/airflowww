@@ -16,7 +16,7 @@ public class Draw extends JFrame {
 	private MouseAdapter adap;
 
 	public Draw() {
-		
+
 		// Set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
 		JButton btnDraw = new JButton("Draw Shape");
@@ -24,10 +24,12 @@ public class Draw extends JFrame {
 		JButton btnSave = new JButton("Save File");
 		btnPanel.add(btnSave);
 		JButton btnLoad = new JButton("Load File");
-		btnPanel.add(btnLoad); 
-		JSpinner spinTest= new JSpinner();
-		spinTest.setPreferredSize(new Dimension(35, 20));
-		btnPanel.add(spinTest);
+		btnPanel.add(btnLoad);
+		JButton btnRun = new JButton("Run");
+		btnPanel.add(btnRun);
+		JSpinner Anglespin = new JSpinner();
+		Anglespin.setPreferredSize(new Dimension(35, 20));
+		btnPanel.add(Anglespin);
 		// saving
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
