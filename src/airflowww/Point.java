@@ -36,7 +36,7 @@ public class Point {
 	
 	// fix this 
 	public double getAngle(Point o) {
-		return Math.atan(Math.abs(x - o.getX()) / (y - o.getY()));
+		return -Math.atan(Math.abs(x - o.getX()) / (y - o.getY()));
 	}
 	
 	public void translate(double dx, double dy) {
