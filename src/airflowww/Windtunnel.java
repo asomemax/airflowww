@@ -3,7 +3,6 @@ package airflowww;
 public class Windtunnel extends Figure { 
 	public double angle;
 	public double power;
-	public Figure arrow;
 	private final static int[] ARROW_X_COORD = new int[]{ 0, 10, 10, 50, 50, 10, 10 };
 	private final static int[] ARROW_Y_COORD = new int[]{ 30, 0, 25, 25, 35, 35, 60 };
 

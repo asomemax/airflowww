@@ -34,6 +34,7 @@ public class Point {
 		return Math.sqrt(dx * dx + dy * dy);
 	}
 	
+	// fix this 
 	public double getAngle(Point o) {
 		return Math.atan(Math.abs(x - o.getX()) / (y - o.getY()));
 	}

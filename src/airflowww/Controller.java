@@ -156,6 +156,6 @@ public class Controller {
 
 	public static void setAirAng(Double ang) {
 		wind = new Windtunnel(ang);
-		wind.arrow.rotate(ang);
+		wind.rotate(ang);
 	}
 }
