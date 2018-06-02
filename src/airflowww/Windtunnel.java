@@ -6,7 +6,7 @@ public class Windtunnel extends Figure {
 	private final static int[] ARROW_X_COORD = new int[]{ 0, 10, 10, 50, 50, 10, 10 };
 	private final static int[] ARROW_Y_COORD = new int[]{ 30, 0, 25, 25, 35, 35, 60 };
 
-	public Windtunnel(Double angle) {
+	public Windtunnel(double angle) {
 		super(ARROW_X_COORD, ARROW_Y_COORD);
 		this.angle = angle;
 		power = 1;

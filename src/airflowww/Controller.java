@@ -154,8 +154,8 @@ public class Controller {
 		ys.remove(i);
 	}
 
-	public static void setAirAng(Double ang) {
-		wind = new Windtunnel(ang);
-		wind.rotate(ang);
+	public static void setAirAng(double theta) {
+		wind = new Windtunnel(theta);
+		wind.rotate(theta);
 	}
 }

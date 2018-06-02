@@ -116,13 +116,15 @@ public class Draw extends JFrame {
 					curwind = false;
 					btnAirspawn.setText("Choose Airflow Direction");
 				}
+				// rotating windtunnel based on angle between mouse and center
 				canvas.removeMouseListener(adap);
 				adap = new MouseAdapter() {
 					public void mousePressed(MouseEvent evt) {
 						Point loc = new Point(evt.getX(), evt.getY());
 						Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-						double ang = loc.getAngle(center);
-						Controller.setAirAng(ang);
+						double theta = center.getAngle(loc);	// angle from center to loc 
+						System.out.println("Angle btw cursor and center: "+ Math.toDegrees(theta));
+						Controller.setAirAng(theta);
 						Controller.changeStatus("airReady");
 						canvas.repaint();
 					}
