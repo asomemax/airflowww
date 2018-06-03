@@ -5,6 +5,8 @@ import java.awt.event.*; // Using AWT event classes and listener interfaces
 import java.io.FileNotFoundException;
 
 import javax.swing.*; // Using Swing's components and containers
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 // creates GUI window for drawing 
 public class Draw extends JFrame {
@@ -27,21 +29,11 @@ public class Draw extends JFrame {
 		btnPanel.add(btnLoad);
 		JButton btnRun = new JButton("Run");
 		btnPanel.add(btnRun);
-<<<<<<< HEAD
-		Integer[] setOfDegrees = Helperjunk.intsBetween(-180, 180);
-		SpinnerListModel lofDegrees = new SpinnerListModel(setOfDegrees);
-		JSpinner Anglespin = new JSpinner(lofDegrees);
-		Anglespin.setPreferredSize(new Dimension(40, 20));
-		Anglespin.setValue(0);
-		btnPanel.add(Anglespin);
-=======
-		JSpinner angleSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(-180,180)));
+		JSpinner angleSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(-180, 180)));
 		angleSpin.setPreferredSize(new Dimension(40, 20));
 		angleSpin.setValue(0);
 		btnPanel.add(angleSpin);
 		JSpinner flowSpeed = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
-		
->>>>>>> 6e1eb2cc81e4fc40428aee5c53736aa55b8971b3
 		// saving
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -103,18 +95,16 @@ public class Draw extends JFrame {
 				requestFocus();
 			}
 		});
-		Anglespin.addInputMethodListener(new InputMethodListener() {
+		angleSpin.addChangeListener(new ChangeListener() {
 
 			@Override
-			public void inputMethodTextChanged(InputMethodEvent evt) {
-				// TODO Auto-generated method stub
-				System.out.println("change angle");
-			}
-
-			@Override
-			public void caretPositionChanged(InputMethodEvent arg0) {
-				// TODO Auto-generated method stub
-
+			public void stateChanged(ChangeEvent evt) {
+				System.out.println("Change angle to : " + angleSpin.getValue());
+				try {
+					Controller.fig.rotate((double) angleSpin.getValue());
+				} catch (Exception e) {
+					System.out.println("This shouldnt happen");
+				}
 			}
 		});
 		canvas = new DrawCanvas();
@@ -141,6 +131,5 @@ public class Draw extends JFrame {
 		setVisible(true); // show it
 		requestFocus(); // set the focus to JFrame to receive KeyEvent
 	}
-
 
 }
