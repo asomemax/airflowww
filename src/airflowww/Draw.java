@@ -109,17 +109,18 @@ public class Draw extends JFrame {
 				// TODO Auto-generated method stub
 				System.out.println("Running simulator");
 			}
-			
+
 		});
 		angleSpin.addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent evt) {
 				System.out.println("Change angle to : " + Double.parseDouble(angleSpin.getValue().toString()));
-				Controller.fig.rotate(Math.toRadians(Double.parseDouble(angleSpin.getValue().toString())));
+				Controller.setAng(Math.toRadians(Double.parseDouble(angleSpin.getValue().toString())));
+				repaint();
 			}
 		});
-		
+
 		flowSpeed.addChangeListener(new ChangeListener() {
 
 			@Override
@@ -127,7 +128,7 @@ public class Draw extends JFrame {
 				// TODO Auto-generated method stub
 				System.out.println("Flow speed updated");
 			}
-			
+
 		});
 		canvas = new DrawCanvas();
 		canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));

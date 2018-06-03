@@ -37,6 +37,8 @@ public class DrawCanvas extends JPanel {
 		for (int i = 0; i < x.length; i++) {
 			g.drawOval(x[i] - 5, y[i] - 5, 10, 10);
 		}
+		g.setColor(Color.CYAN);
+		g.drawOval((int)Helperjunk.average(x), (int)Helperjunk.average(y), 7, 7);
 	}
 
 }
