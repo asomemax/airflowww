@@ -29,11 +29,18 @@ public class Draw extends JFrame {
 		btnPanel.add(btnLoad);
 		JButton btnRun = new JButton("Run");
 		btnPanel.add(btnRun);
+		
+		btnPanel.add(new JLabel("Angle"));
 		JSpinner angleSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(-180, 180)));
 		angleSpin.setPreferredSize(new Dimension(40, 20));
 		angleSpin.setValue(0);
 		btnPanel.add(angleSpin);
+		
+		btnPanel.add(new JLabel("Speed"));
 		JSpinner flowSpeed = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
+		flowSpeed.setPreferredSize(new Dimension(40, 20));
+		flowSpeed.setValue(0);
+		btnPanel.add(flowSpeed);
 		// saving
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
