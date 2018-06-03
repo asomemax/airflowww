@@ -31,7 +31,7 @@ public class Figure {
 			double dy = getYs()[i] - midy;
 			double pretheta = theta + Math.atan(dy / dx);
 			System.out.println(Math.toDegrees(pretheta));
-			double hypotenuse = Math.sqrt((dx * dx) + (dy * dy));
+			double hypotenuse = Math.hypot(dx, dy);
 			dx = Math.cos(pretheta) * hypotenuse;
 			dy = Math.sin(pretheta) * hypotenuse;
 			xs[i] += dx;
