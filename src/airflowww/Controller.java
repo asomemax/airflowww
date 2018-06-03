@@ -122,6 +122,6 @@ public class Controller {
 	}
 
 	public static void setAng(double theta) {
-		wind.rotate(theta);
+		fig.rotate(theta);
 	}
 }

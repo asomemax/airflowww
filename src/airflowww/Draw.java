@@ -27,7 +27,7 @@ public class Draw extends JFrame {
 		btnPanel.add(btnLoad);
 		JButton btnRun = new JButton("Run");
 		btnPanel.add(btnRun);
-		Integer[] setOfDegrees = Helperjunk.intsBetween(-180,180);
+		Integer[] setOfDegrees = Helperjunk.intsBetween(-180, 180);
 		SpinnerListModel lofDegrees = new SpinnerListModel(setOfDegrees);
 		JSpinner Anglespin = new JSpinner(lofDegrees);
 		Anglespin.setPreferredSize(new Dimension(40, 20));
@@ -61,6 +61,7 @@ public class Draw extends JFrame {
 			}
 
 		});
+		// drawing shape
 		btnDraw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if (!curdraw) {
@@ -93,6 +94,20 @@ public class Draw extends JFrame {
 				requestFocus();
 			}
 		});
+		Anglespin.addInputMethodListener(new InputMethodListener() {
+
+			@Override
+			public void inputMethodTextChanged(InputMethodEvent evt) {
+				// TODO Auto-generated method stub
+				System.out.println("change angle");
+			}
+
+			@Override
+			public void caretPositionChanged(InputMethodEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		canvas = new DrawCanvas();
 		canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 		Container cp = getContentPane();
@@ -118,17 +133,5 @@ public class Draw extends JFrame {
 		requestFocus(); // set the focus to JFrame to receive KeyEvent
 	}
 
-	/**
-	 * Define inner class DrawCanvas, which is a JPanel used for custom drawing.
-	 */
 
-	// The entry main method
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new Draw(); // Let the constructor do the job
-			}
-		});
-	}
 }
