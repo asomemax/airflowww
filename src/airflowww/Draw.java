@@ -29,13 +29,13 @@ public class Draw extends JFrame {
 		btnPanel.add(btnLoad);
 		JButton btnRun = new JButton("Run");
 		btnPanel.add(btnRun);
-		
+
 		btnPanel.add(new JLabel("Angle"));
 		JSpinner angleSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(-180, 180)));
 		angleSpin.setPreferredSize(new Dimension(40, 20));
 		angleSpin.setValue(0);
 		btnPanel.add(angleSpin);
-		
+
 		btnPanel.add(new JLabel("Speed"));
 		JSpinner flowSpeed = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
 		flowSpeed.setPreferredSize(new Dimension(40, 20));
@@ -106,12 +106,8 @@ public class Draw extends JFrame {
 
 			@Override
 			public void stateChanged(ChangeEvent evt) {
-				System.out.println("Change angle to : " + angleSpin.getValue());
-				try {
-					Controller.fig.rotate((double) angleSpin.getValue());
-				} catch (Exception e) {
-					System.out.println("This shouldnt happen");
-				}
+				System.out.println("Change angle to : " + Double.parseDouble(angleSpin.getValue().toString()));
+				Controller.fig.rotate(Math.toRadians(Double.parseDouble(angleSpin.getValue().toString())));
 			}
 		});
 		canvas = new DrawCanvas();
@@ -120,18 +116,6 @@ public class Draw extends JFrame {
 		cp.setLayout(new BorderLayout());
 		cp.add(canvas, BorderLayout.CENTER);
 		cp.add(btnPanel, BorderLayout.SOUTH);
-
-		// "super" JFrame fires KeyEvent
-		addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent evt) {
-				switch (evt.getKeyCode()) {
-				case KeyEvent.VK_LEFT:
-					break;
-				}
-			}
-		});
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Handle the CLOSE //
 		setTitle("Airflow Simulator 2018");
 		pack();
