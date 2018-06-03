@@ -24,29 +24,13 @@ public class Figure {
 
 	public void rotate(double theta) {
 		System.out.println("Figure Rotating " + Math.toDegrees(theta) + " degrees");
-		double mx = Helperjunk.average(getXs());// mid x and mid y (center of mass)
-		double my = Helperjunk.average(getYs());
-
-		for (int i = 0; i < getXs().length; i++) {
-			double actualtheta = theta + Math.atan(getYs()[i] - my / getXs()[i] - mx);
-			double dy = getYs()[i] - my;
-			double dx = getXs()[i] - mx;
-			double dhyp = Math.sqrt(Math.pow(dy, 2) + Math.pow(dx, 2));
-			dx = Math.sin(actualtheta) * dhyp;
-			dy = Math.cos(actualtheta) * dhyp;
-			xs[i] = (int) (dx + mx);
-			ys[i] = (int) (dy + my);
+		double midx = Helperjunk.average(getXs());
+		double midy = Helperjunk.average(getYs());
+		for(int i = 0; i < getXs().length;i++) {
+			int dx = (int) (getXs()[i] - midx);
+			int dy = (int) (getYs()[i] - midy);
+			double pretheta = 
 		}
-
-		/*
-		 * for (int i = 0; i < getXs().length; i++) { xs[i] = (int) (mx +
-		 * Math.cos(theta) * (getXs()[i] - mx) - (Math.sin(theta) * getYs()[i] - my));
-		 * ys[i] = (int) (my + Math.sin(theta) * (getXs()[i] - mx) + (Math.cos(theta) *
-		 * getYs()[i] - my)); }
-		 */
-		double newMx = Helperjunk.average(getXs());
-		double newMy = Helperjunk.average(getYs());
-		assert (mx == newMx && my == newMy); // checking to see if the center of mass stays the same
 	}
 
 	public int[] getXs() {
