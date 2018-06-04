@@ -53,8 +53,6 @@ public class Draw extends JFrame {
 		});
 		// loading
 		btnLoad.addActionListener(new ActionListener() {
-
-			// TODO Auto-generated method stub
 			public void actionPerformed(ActionEvent evt) {
 				Controller.clearlist();
 				try {
@@ -63,9 +61,11 @@ public class Draw extends JFrame {
 					e.printStackTrace();
 				}
 				Controller.packShape();
-				canvas.repaint();
 				Controller.hasBeenPaintedatLeastOnce = true;
+				angleSpin.setValue(0);
+				Controller.setAng(0);
 				requestFocus();
+				canvas.repaint();
 			}
 
 		});
@@ -76,8 +76,6 @@ public class Draw extends JFrame {
 					Controller.clearlist();
 					curdraw = true;
 					btnDraw.setText("Finish");
-					btnDraw.repaint();
-					canvas.repaint();
 				} else {
 					curdraw = false;
 					btnDraw.setText("Draw Shape");
@@ -87,14 +85,14 @@ public class Draw extends JFrame {
 					@Override
 					public void mousePressed(MouseEvent evt) {
 						if (Controller.hasClosePoint(evt.getX(), evt.getY())[0] == 1) {
-							System.out.println("Close point");
 							Controller.removePoint(Controller.hasClosePoint(evt.getX(), evt.getY())[1]);
+							canvas.repaint();
 						} else {
 							Controller.addPoint(evt.getX(), evt.getY());
+							canvas.repaint();
 						}
 						Controller.packShape();
 						Controller.hasBeenPaintedatLeastOnce = true;
-						canvas.repaint();
 					}
 				};
 				canvas.addMouseListener(adap);

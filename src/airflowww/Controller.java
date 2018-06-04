@@ -13,22 +13,20 @@ public class Controller {
 	static Figure fig;
 	static String input;
 	static Draw window;
-	static ArrayList<Integer> xs;
-	static ArrayList<Integer> ys;
-	static Windtunnel wind;
+	static ArrayList<Double> xs;
+	static ArrayList<Double> ys;
 	public static boolean hasBeenPaintedatLeastOnce;
 	public static boolean airHasBeenPlacedAtLeastOnce;
 
 	public static void main(String[] args) {
 		fig = new Figure();
 		status = "none";
-		wind = new Windtunnel();
 		window = new Draw();
-		xs = new ArrayList<Integer>();
-		ys = new ArrayList<Integer>();
-		window.repaint();
+		xs = new ArrayList<Double>();
+		ys = new ArrayList<Double>();
 		hasBeenPaintedatLeastOnce = false;
 		airHasBeenPlacedAtLeastOnce = false;
+		window.repaint();
 	}
 
 	private static void loadFile(String fileName) throws FileNotFoundException {
@@ -38,16 +36,16 @@ public class Controller {
 		while (sc.hasNext()) {
 			input = sc.nextLine();
 			String[] a = input.split(",");
-			xs.add(Integer.parseInt(a[0]));
-			ys.add(Integer.parseInt(a[1]));
+			xs.add(Double.parseDouble(a[0]));
+			ys.add(Double.parseDouble(a[1]));
 		}
 		sc.close();
+		
 	}
 
 	public static void readFile() throws FileNotFoundException {
 		loadFile("pointslist.txt");
 	}
-
 	// making dialogue boxes reference so user can change file name and maybe where
 	// it will be saved to:
 	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
@@ -60,8 +58,8 @@ public class Controller {
 		output.close();
 	}
 
-	public static int[] arrayListToArray(ArrayList<Integer> a) {
-		int[] b = new int[a.size()];
+	public static double[] arrayListToArray(ArrayList<Double> a) {
+		double[] b = new double[a.size()];
 		for (int i = 0; i < a.size(); i++) {
 			b[i] = a.get(i);
 		}
@@ -69,10 +67,9 @@ public class Controller {
 	}
 
 	public static void packShape() {
-		int[] x = arrayListToArray(xs);
-		int[] y = arrayListToArray(ys);
+		double[] x = arrayListToArray(xs);
+		double[] y = arrayListToArray(ys);
 		fig = new Figure(x, y);
-		System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
 		status = "shapeReady";
 	}
 
@@ -80,18 +77,10 @@ public class Controller {
 		status = stat;
 	}
 
-	public static int[] getXs() {
-		return fig.getXs();
-	}
-
-	public static int[] getYs() {
-		return fig.getYs();
-	}
-
 	public static void addPoint(int x, int y) {
 		System.out.println("AddedPoint");
-		xs.add((int) x);
-		ys.add((int) y);
+		xs.add((double) x);
+		ys.add((double) y);
 
 	}
 
@@ -101,7 +90,6 @@ public class Controller {
 			xs.remove(0);
 			ys.remove(0);
 		}
-
 	}
 
 	public static int[] hasClosePoint(int x, int y) {
@@ -122,6 +110,6 @@ public class Controller {
 	}
 
 	public static void setAng(double theta) {
-		fig.rotate(theta);
+		fig.rotate(-theta);
 	}
 }

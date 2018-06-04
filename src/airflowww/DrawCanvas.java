@@ -2,32 +2,17 @@ package airflowww;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
-
 import javax.swing.JPanel;
 
 public class DrawCanvas extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		setBackground(Color.decode("#b3ffb3"));
-		int[] xs = Controller.getXs();
-		int[] ys = Controller.getYs();
 		if (Controller.status.equals("shapeReady") || Controller.hasBeenPaintedatLeastOnce) {
-			drawShape(g, xs, ys);
-		}
-		if (Controller.status.equals("airReady")) {
-			g.setColor(Color.ORANGE);
-			drawWindDir(g);
+			drawShape(g, Controller.fig.getDisplayXs(), Controller.fig.getDisplayYs());
 		}
 	}
-	
-	// draws the wind direction, represented by an arrow
-	public void drawWindDir(Graphics g) {
-		g.fillPolygon(Controller.wind.getXs(), Controller.wind.getYs(),
-				Controller.wind.getXs().length);
-	}
-	
+
 	// draws the shape of object to be tested on
 	public void drawShape(Graphics g, int[] x, int[] y) {
 		super.paintComponent(g);
@@ -38,7 +23,9 @@ public class DrawCanvas extends JPanel {
 			g.drawOval(x[i] - 5, y[i] - 5, 10, 10);
 		}
 		g.setColor(Color.CYAN);
-		g.drawOval((int)Helperjunk.average(x), (int)Helperjunk.average(y), 7, 7);
+		if (x.length >= 3) {
+			g.drawOval((int) Helperjunk.average(x), (int) Helperjunk.average(y), 7, 7);
+		}
 	}
 
 }

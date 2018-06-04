@@ -3,63 +3,85 @@ package airflowww;
 import java.util.Arrays;
 
 public class Figure {
-	int numPoints;
-	int[] xs;
-	int[] ys;
+	double[] xs;
+	double[] ys;
 	int px;
 	int py;
+	double curAngle;
 
-	public Figure(int[] xs, int[] ys) {
+	public Figure(double[] xs, double[] ys) {
 		this.xs = xs;
 		this.ys = ys;
-		numPoints = xs.length;
+		curAngle = 0;
 	}
 
 	public Figure() {
-		int[] fx = { 0 };
-		int[] fy = { 0 };
+		double[] fx = { 0 };
+		double[] fy = { 0 };
 		xs = fx;
 		ys = fy;
+		curAngle = 0;
 	}
 
+	/**
+	 * Rotates figure to degree amount
+	 */
 	public void rotate(double theta) {
-		//System.out.println("Figure Rotating " + Math.toDegrees(theta) + " degrees");
-		double midx = Helperjunk.average(getXs());
-		double midy = Helperjunk.average(getYs());
+		double temp = theta;
+		theta -= curAngle;
+		curAngle = temp;
+		double mx = Helperjunk.average(getXs());
+		double my = Helperjunk.average(getYs());
 		for (int i = 0; i < getXs().length; i++) {
-			double dx = getXs()[i] - midx;
-			double dy = getYs()[i] - midy;
-			double pretheta = theta + Math.atan(dy / dx);
-			System.out.println(Math.toDegrees(pretheta));
-			double hypotenuse = Math.hypot(dx, dy);
-			dx = Math.cos(pretheta) * hypotenuse;
-			dy = Math.sin(pretheta) * hypotenuse;
-			xs[i] += dx;
-			ys[i] += dy;
+			double distance = Math.hypot(mx - getXs()[i], my - getYs()[i]);
+			double newAnglePerPoint = Math.asin((getYs()[i] - my) / distance);
+			if (getXs()[i] - mx < 0) {
+				newAnglePerPoint = Math.PI - newAnglePerPoint;
+			}
+			xs[i] = Math.cos(newAnglePerPoint + theta) * distance + mx;
+			ys[i] = Math.sin(newAnglePerPoint + theta) * distance + my;
 		}
 	}
 
-	public int[] getXs() {
-		int[] ret = Arrays.copyOf(xs, xs.length);
+	public double[] getXs() {
+		double[] ret = Arrays.copyOf(xs, xs.length);
 		for (int i = 0; i < xs.length; i++) {
 			ret[i] += px;
 		}
 		return ret;
 	}
 
-	public int[] getYs() {
-		int[] ret = Arrays.copyOf(ys, xs.length);
+	public double[] getYs() {
+		double[] ret = Arrays.copyOf(ys, xs.length);
 		for (int i = 0; i < xs.length; i++) {
 			ret[i] += px;
 		}
-
 		return ret;
 	}
 
-	// finds area of irregular polygon
-	// reference: https://www.mathsisfun.com/geometry/area-irregular-polygons.html
+	public int[] getDisplayXs() {
+		int[] ret = new int[xs.length];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i] = (int) getXs()[i];
+		}
+		return ret;
+	}
+
+	public int[] getDisplayYs() {
+		int[] ret = new int[ys.length];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i] = (int) getYs()[i];
+		}
+		return ret;
+	}
+
+	/**
+	 * finds area of irregular polygon
+	 * reference:https://www.mathsisfun.com/geometry/area-irregular-polygons.
+	 * html
+	 */
 	public double getArea() {
-		assert (xs.length >= 3);
+		assert(xs.length >= 3);
 		double areaSum = 0.0;
 		for (int i = 1; i < xs.length; i++) {
 			double avgHeight = 0.5 * (ys[i - 1] + ys[i]);
