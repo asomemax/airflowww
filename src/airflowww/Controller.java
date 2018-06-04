@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Controller {
@@ -13,74 +12,39 @@ public class Controller {
 	static Figure fig;
 	static String input;
 	static Draw window;
-	static ArrayList<Integer> xs;
-	static ArrayList<Integer> ys;
-	static Windtunnel wind;
+	static ArrayList<Double> xs;
+	static ArrayList<Double> ys;
 	public static boolean hasBeenPaintedatLeastOnce;
 	public static boolean airHasBeenPlacedAtLeastOnce;
 
 	public static void main(String[] args) {
 		fig = new Figure();
 		status = "none";
-		wind = new Windtunnel();
 		window = new Draw();
-		System.out.println("Enter a point in this form x , y");
-		xs = new ArrayList<Integer>();
-		ys = new ArrayList<Integer>();
-		window.repaint();
+		xs = new ArrayList<Double>();
+		ys = new ArrayList<Double>();
 		hasBeenPaintedatLeastOnce = false;
 		airHasBeenPlacedAtLeastOnce = false;
-		
-		/*
-		while(true) {
-			Scanner sc = new Scanner(System.in);
-			String command = sc.nextLine();
-			if (command.substring(0, command.indexOf(" ")).equalsIgnoreCase("load")) {
-				String fileName = command.substring(command.indexOf(" ")+ 1);
-				try {
-					loadFile(fileName);
-					System.out.println(fileName + " loaded");
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else {
-				System.out.println("Error");
-			}
-		}
-		*/
-	}
-	
-	private static void loadFile(String fileName) throws FileNotFoundException {
-		File f = new File(fileName);
-		Scanner sc = new Scanner(f);
-		String input = "";
-		while(sc.hasNext()) {
-			input = sc.nextLine();
-			String[] a = input.split(",");
-			xs.add(Integer.parseInt(a[0]));
-			ys.add(Integer.parseInt(a[1]));
-		}
-		sc.close();
+		window.repaint();
 	}
 
-	private static void parseFiles(ArrayList<Integer> xs, ArrayList<Integer> ys) throws FileNotFoundException {
-		File f = new File("pointslist.txt");
+	private static void loadFile(String fileName) throws FileNotFoundException {
+		File f = new File(fileName);
 		Scanner sc = new Scanner(f);
 		String input = "";
 		while (sc.hasNext()) {
 			input = sc.nextLine();
 			String[] a = input.split(",");
-			xs.add(Integer.parseInt(a[0]));
-			ys.add(Integer.parseInt(a[1]));
+			xs.add(Double.parseDouble(a[0]));
+			ys.add(Double.parseDouble(a[1]));
 		}
 		sc.close();
+		
 	}
 
 	public static void readFile() throws FileNotFoundException {
-		parseFiles(xs, ys);
+		loadFile("pointslist.txt");
 	}
-
 	// making dialogue boxes reference so user can change file name and maybe where
 	// it will be saved to:
 	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
@@ -93,8 +57,8 @@ public class Controller {
 		output.close();
 	}
 
-	public static int[] arrayListToArray(ArrayList<Integer> a) {
-		int[] b = new int[a.size()];
+	public static double[] arrayListToArray(ArrayList<Double> a) {
+		double[] b = new double[a.size()];
 		for (int i = 0; i < a.size(); i++) {
 			b[i] = a.get(i);
 		}
@@ -102,10 +66,9 @@ public class Controller {
 	}
 
 	public static void packShape() {
-		int[] x = arrayListToArray(xs);
-		int[] y = arrayListToArray(ys);
+		double[] x = arrayListToArray(xs);
+		double[] y = arrayListToArray(ys);
 		fig = new Figure(x, y);
-		System.out.println("x's : " + Arrays.toString(fig.getXs()) + " y's : " + Arrays.toString(fig.getYs()));
 		status = "shapeReady";
 	}
 
@@ -113,18 +76,10 @@ public class Controller {
 		status = stat;
 	}
 
-	public static int[] getXs() {
-		return fig.getXs();
-	}
-
-	public static int[] getYs() {
-		return fig.getYs();
-	}
-
 	public static void addPoint(int x, int y) {
 		System.out.println("AddedPoint");
-		xs.add((int) x);
-		ys.add((int) y);
+		xs.add((double) x);
+		ys.add((double) y);
 
 	}
 
@@ -134,7 +89,6 @@ public class Controller {
 			xs.remove(0);
 			ys.remove(0);
 		}
-
 	}
 
 	public static int[] hasClosePoint(int x, int y) {
@@ -154,8 +108,7 @@ public class Controller {
 		ys.remove(i);
 	}
 
-	public static void setAirAng(double theta) {
-		wind = new Windtunnel(theta);
-		wind.rotate(theta);
+	public static void setAng(double theta) {
+		fig.rotate(-theta);
 	}
 }

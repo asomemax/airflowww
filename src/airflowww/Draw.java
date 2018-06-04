@@ -3,9 +3,10 @@ package airflowww;
 import java.awt.*; // Using AWT's Graphics and Color
 import java.awt.event.*; // Using AWT event classes and listener interfaces
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 
 import javax.swing.*; // Using Swing's components and containers
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 // creates GUI window for drawing 
 public class Draw extends JFrame {
@@ -15,14 +16,9 @@ public class Draw extends JFrame {
 	private boolean curdraw = false;
 	private DrawCanvas canvas;
 	private MouseAdapter adap;
-	private boolean curwind = false;
 
 	public Draw() {
-		JFrame frame = new JFrame("Calculations:");
-		JLabel label = new JLabel("What");
-		label.setFont(new Font("Serif", Font.PLAIN, 36));
-		frame.add(label);
-		
+
 		// Set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
 		JButton btnDraw = new JButton("Draw Shape");
@@ -31,20 +27,20 @@ public class Draw extends JFrame {
 		btnPanel.add(btnSave);
 		JButton btnLoad = new JButton("Load File");
 		btnPanel.add(btnLoad);
-		JButton btnAirspawn = new JButton("Choose Airflow Direction");
-		btnPanel.add(btnAirspawn);
 		JButton btnRun = new JButton("Run");
 		btnPanel.add(btnRun);
 
-		// functionality to buttons
-		btnRun.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-			System.out.println("Ran? Runned?");
-				
-			}
-		});
+		btnPanel.add(new JLabel("Angle"));
+		JSpinner angleSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(-180, 180)));
+		angleSpin.setPreferredSize(new Dimension(40, 20));
+		angleSpin.setValue(0);
+		btnPanel.add(angleSpin);
+
+		btnPanel.add(new JLabel("Speed"));
+		JSpinner flowSpeed = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
+		flowSpeed.setPreferredSize(new Dimension(40, 20));
+		flowSpeed.setValue(0);
+		btnPanel.add(flowSpeed);
 		// saving
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -57,8 +53,6 @@ public class Draw extends JFrame {
 		});
 		// loading
 		btnLoad.addActionListener(new ActionListener() {
-
-			// TODO Auto-generated method stub
 			public void actionPerformed(ActionEvent evt) {
 				Controller.clearlist();
 				try {
@@ -67,20 +61,21 @@ public class Draw extends JFrame {
 					e.printStackTrace();
 				}
 				Controller.packShape();
-				canvas.repaint();
 				Controller.hasBeenPaintedatLeastOnce = true;
+				angleSpin.setValue(0);
+				Controller.setAng(0);
 				requestFocus();
+				canvas.repaint();
 			}
 
 		});
+		// drawing shape
 		btnDraw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if (!curdraw) {
 					Controller.clearlist();
 					curdraw = true;
 					btnDraw.setText("Finish");
-					btnDraw.repaint();
-					canvas.repaint();
 				} else {
 					curdraw = false;
 					btnDraw.setText("Draw Shape");
@@ -90,14 +85,14 @@ public class Draw extends JFrame {
 					@Override
 					public void mousePressed(MouseEvent evt) {
 						if (Controller.hasClosePoint(evt.getX(), evt.getY())[0] == 1) {
-							System.out.println("Close point");
 							Controller.removePoint(Controller.hasClosePoint(evt.getX(), evt.getY())[1]);
+							canvas.repaint();
 						} else {
 							Controller.addPoint(evt.getX(), evt.getY());
+							canvas.repaint();
 						}
 						Controller.packShape();
 						Controller.hasBeenPaintedatLeastOnce = true;
-						canvas.repaint();
 					}
 				};
 				canvas.addMouseListener(adap);
@@ -105,33 +100,33 @@ public class Draw extends JFrame {
 				requestFocus();
 			}
 		});
-		btnAirspawn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				if (!curwind) {
-					curwind = true;
-					btnAirspawn.setText("Place airflow");
-					canvas.repaint();
-				} else {
-					curwind = false;
-					btnAirspawn.setText("Choose Airflow Direction");
-				}
-				// rotating windtunnel based on angle between mouse and center
-				canvas.removeMouseListener(adap);
-				adap = new MouseAdapter() {
-					public void mousePressed(MouseEvent evt) {
-						Point loc = new Point(evt.getX(), evt.getY());
-						Point center = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-						double theta = center.getAngle(loc);	// angle from center to loc 
-						System.out.println("Angle btw cursor and center: "+ Math.toDegrees(theta));
-						Controller.setAirAng(theta);
-						Controller.changeStatus("airReady");
-						canvas.repaint();
-					}
-				};
-				canvas.addMouseListener(adap);
+		btnRun.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Running simulator");
 			}
+
+		});
+		angleSpin.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent evt) {
+				System.out.println("Change angle to : " + Double.parseDouble(angleSpin.getValue().toString()));
+				Controller.setAng(Math.toRadians(Double.parseDouble(angleSpin.getValue().toString())));
+				repaint();
+			}
+		});
+
+		flowSpeed.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent evt) {
+				// TODO Auto-generated method stub
+				System.out.println("Flow speed updated");
+			}
+
 		});
 		canvas = new DrawCanvas();
 		canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
@@ -139,18 +134,6 @@ public class Draw extends JFrame {
 		cp.setLayout(new BorderLayout());
 		cp.add(canvas, BorderLayout.CENTER);
 		cp.add(btnPanel, BorderLayout.SOUTH);
-
-		// "super" JFrame fires KeyEvent
-		addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent evt) {
-				switch (evt.getKeyCode()) {
-				case KeyEvent.VK_LEFT:
-					break;
-				}
-			}
-		});
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Handle the CLOSE //
 		setTitle("Airflow Simulator 2018");
 		pack();
@@ -158,17 +141,4 @@ public class Draw extends JFrame {
 		requestFocus(); // set the focus to JFrame to receive KeyEvent
 	}
 
-	/**
-	 * Define inner class DrawCanvas, which is a JPanel used for custom drawing.
-	 */
-
-	// The entry main method
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new Draw(); // Let the constructor do the job
-			}
-		});
-	}
 }
