@@ -99,7 +99,7 @@ public class Figure {
 	}
 	
 	// helper method
-	private double average(int[] arr) {
+	private double average(double[] arr) {
 		double avg = 0;
 		for (int i = 0; i < arr.length; i++) {
 			avg += arr[i];

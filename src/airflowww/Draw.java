@@ -154,10 +154,13 @@ public class Draw extends JFrame {
 		// centers shape drawn
 		btnCenter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				int deltaX = Math.sqrt(a);
-				int deltaY = Math.sqrt(a);
-				Controller.fig.translate(deltaX, deltaY);
+				Point centerOfMass = Controller.fig.findCenterOfMass();
+				if ((int) centerOfMass.getX() != centerX && (int) centerOfMass.getY() != centerY) {
+					int deltaX = centerX - (int) centerOfMass.getX();
+					int deltaY = centerY - (int) centerOfMass.getY();
+					Controller.fig.translate(deltaX, deltaY);
+					repaint();
+				}
 			}
 			
 		});
