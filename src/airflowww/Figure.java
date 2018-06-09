@@ -10,13 +10,11 @@ public class Figure {
 	int px;
 	int py;
 	double curAngle;
-	Point centerOfMass;
 
 	public Figure(double[] xs, double[] ys) {
 		this.xs = xs;
 		this.ys = ys;
 		curAngle = 0;
-		centerOfMass = findCenterOfMass();
 	}
 
 	public Figure() {
@@ -95,7 +93,7 @@ public class Figure {
 		return 0;
 	}
 	
-	private Point findCenterOfMass() {
+	public Point findCenterOfMass() {
 		int x = (int) this.average(xs);
 		int y = (int) this.average(ys);
 		return new Point(x, y);

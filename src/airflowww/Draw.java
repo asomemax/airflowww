@@ -154,7 +154,7 @@ public class Draw extends JFrame {
 		// centers shape drawn
 		btnCenter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Point centerOfMass = Controller.fig.centerOfMass;
+				Point centerOfMass = Controller.fig.findCenterOfMass();
 				if ((int) centerOfMass.getX() != centerX && (int) centerOfMass.getY() != centerY) {
 					int deltaX = centerX - (int) centerOfMass.getX();
 					int deltaY = centerY - (int) centerOfMass.getY();
