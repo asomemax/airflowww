@@ -1,5 +1,6 @@
 package airflowww;
 
+import java.awt.Point;
 import java.util.Arrays;
 
 public class Figure {
@@ -16,11 +17,7 @@ public class Figure {
 	}
 
 	public Figure() {
-		double[] fx = { 0 };
-		double[] fy = { 0 };
-		xs = fx;
-		ys = fy;
-		curAngle = 0;
+		this(new double[] { 0.0 }, new double[]{ 0.0 });
 	}
 
 	/**
@@ -77,8 +74,7 @@ public class Figure {
 
 	/**
 	 * finds area of irregular polygon
-	 * reference:https://www.mathsisfun.com/geometry/area-irregular-polygons.
-	 * html
+	 * reference:https://www.mathsisfun.com/geometry/area-irregular-polygons.html
 	 */
 	public double getArea() {
 		assert(xs.length >= 3);
@@ -90,5 +86,33 @@ public class Figure {
 		}
 		areaSum += 0.5 * (ys[0] + ys[ys.length - 1]) * xs[0] * xs[xs.length - 1];
 		return areaSum;
+	}
+	
+	public double referenceArea() {
+		return 0;
+	}
+	
+	public Point findCenterOfMass() {
+		int x = (int) this.average(xs);
+		int y = (int) this.average(ys);
+		return new Point(x, y);
+	}
+	
+	// helper method
+	private double average(int[] arr) {
+		double avg = 0;
+		for (int i = 0; i < arr.length; i++) {
+			avg += arr[i];
+		}
+		avg /= arr.length;
+		return avg;
+	}
+	
+	// moves each coordinate of figure a set amount
+	public void translate(int deltaX, int deltaY) {
+		for (int i = 0; i < xs.length; i++) {
+			xs[i] += deltaX;
+			ys[i] += deltaY;
+		}
 	}
 }

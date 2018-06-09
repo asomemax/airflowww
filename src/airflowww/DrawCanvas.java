@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
+// creates Canvas
 public class DrawCanvas extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -27,5 +28,5 @@ public class DrawCanvas extends JPanel {
 			g.drawOval((int) Helperjunk.average(x), (int) Helperjunk.average(y), 7, 7);
 		}
 	}
-
+	
 }

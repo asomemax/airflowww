@@ -12,10 +12,12 @@ import javax.swing.event.ChangeListener;
 public class Draw extends JFrame {
 	public static final int CANVAS_WIDTH = 640;
 	public static final int CANVAS_HEIGHT = 480;
-	private int x1 = CANVAS_WIDTH / 2;
+	private int centerX = CANVAS_WIDTH / 2;
+	private int centerY = CANVAS_HEIGHT / 2;
 	private boolean curdraw = false;
 	private DrawCanvas canvas;
 	private MouseAdapter adap;
+	public boolean runSimulation = false;
 
 	public Draw() {
 
@@ -23,6 +25,8 @@ public class Draw extends JFrame {
 		JPanel btnPanel = new JPanel(new FlowLayout());
 		JButton btnDraw = new JButton("Draw Shape");
 		btnPanel.add(btnDraw);
+		JButton btnCenter = new JButton("Center");
+		btnPanel.add(btnCenter);
 		JButton btnSave = new JButton("Save File");
 		btnPanel.add(btnSave);
 		JButton btnLoad = new JButton("Load File");
@@ -36,12 +40,13 @@ public class Draw extends JFrame {
 		angleSpin.setValue(0);
 		btnPanel.add(angleSpin);
 
-		btnPanel.add(new JLabel("Speed"));
-		JSpinner flowSpeed = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
-		flowSpeed.setPreferredSize(new Dimension(40, 20));
-		flowSpeed.setValue(0);
-		btnPanel.add(flowSpeed);
-		// saving
+		btnPanel.add(new JLabel("Flow Speed"));
+		JSpinner flowSpeedSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
+		flowSpeedSpin.setPreferredSize(new Dimension(40, 20));
+		flowSpeedSpin.setValue(0);
+		btnPanel.add(flowSpeedSpin);
+		
+		// saving shape coordinates to file
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
@@ -51,7 +56,8 @@ public class Draw extends JFrame {
 				}
 			}
 		});
-		// loading
+		
+		// loading shape coordinates into program
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				Controller.clearlist();
@@ -69,6 +75,7 @@ public class Draw extends JFrame {
 			}
 
 		});
+		
 		// drawing shape
 		btnDraw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -100,15 +107,28 @@ public class Draw extends JFrame {
 				requestFocus();
 			}
 		});
+		
+		// running simulation
 		btnRun.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("Running simulator");
+
+				// when button is clicked the state of the program will switch to start calculating
+				if (runSimulation) {
+					System.out.println("Stopping simulator");
+					btnRun.setText("Run");
+					runSimulation = false;
+					//e.getActionCommand().equals(arg0)
+				} else {
+					System.out.println("Running simulator");
+					btnRun.setText("Stop");
+					runSimulation = true;
+				}
 			}
 
 		});
+		
 		angleSpin.addChangeListener(new ChangeListener() {
 
 			@Override
@@ -118,15 +138,28 @@ public class Draw extends JFrame {
 				repaint();
 			}
 		});
-
-		flowSpeed.addChangeListener(new ChangeListener() {
+		
+		flowSpeedSpin.addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent evt) {
 				// TODO Auto-generated method stub
+				int flowSpeed = (int) flowSpeedSpin.getValue();
+				System.out.println("Current flow speed: " + flowSpeed);
 				System.out.println("Flow speed updated");
 			}
 
+		});
+		
+		// centers shape drawn
+		btnCenter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int deltaX = Math.sqrt(a);
+				int deltaY = Math.sqrt(a);
+				Controller.fig.translate(deltaX, deltaY);
+			}
+			
 		});
 		canvas = new DrawCanvas();
 		canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
