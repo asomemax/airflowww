@@ -3,17 +3,20 @@ package airflowww;
 import java.awt.Point;
 import java.util.Arrays;
 
+// encapsulates the properties of the shape
 public class Figure {
-	double[] xs;
+	double[] xs;	// coordinates are in double arrays to not lose information when doing complicated calculations
 	double[] ys;
 	int px;
 	int py;
 	double curAngle;
+	Point centerOfMass;
 
 	public Figure(double[] xs, double[] ys) {
 		this.xs = xs;
 		this.ys = ys;
 		curAngle = 0;
+		centerOfMass = findCenterOfMass();
 	}
 
 	public Figure() {
@@ -92,7 +95,7 @@ public class Figure {
 		return 0;
 	}
 	
-	public Point findCenterOfMass() {
+	private Point findCenterOfMass() {
 		int x = (int) this.average(xs);
 		int y = (int) this.average(ys);
 		return new Point(x, y);
