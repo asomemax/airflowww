@@ -10,9 +10,6 @@ import javax.swing.JPanel;
 
 // creates Canvas
 public class DrawCanvas extends JPanel {
-	// have to have last vertex two times to properly close shape for color fill
-	//int[] xArrow = { 100, 150, 150, 250, 250, 150, 150, 100}; //{ 625, 500, 500, 375, 500, 500, 625 };
-	//int[] yArrow = { 100, 50, 80, 80, 120, 120, 150, 100 }; //{ 275, 275, 380, 275, 180, 230, 230 };
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);

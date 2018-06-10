@@ -25,31 +25,37 @@ public class Draw extends JFrame {
 		JPanel btnPanel = new JPanel(new FlowLayout());
 		JButton btnDraw = new JButton("Draw Shape");
 		btnPanel.add(btnDraw);
+		
 		JButton btnCenter = new JButton("Center");
 		btnPanel.add(btnCenter);
+		
 		JButton btnSave = new JButton("Save File");
 		btnPanel.add(btnSave);
+		
 		JButton btnLoad = new JButton("Load File");
 		btnPanel.add(btnLoad);
+		
 		String[] foilList = { "Symmetric", "High Camber", "Flat" };
 		JComboBox<String> foilOption = new JComboBox<>(foilList);
 		btnPanel.add(foilOption);
+		
 		JButton btnRun = new JButton("Run");
 		btnPanel.add(btnRun);
+		
 		btnPanel.add(new JLabel("Angle"));
 		JSpinner angleSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(-180, 180)));
 		angleSpin.setPreferredSize(new Dimension(40, 20));
 		angleSpin.setValue(0);
 		btnPanel.add(angleSpin);
-		btnPanel.add(new JLabel("Speed"));
-		JSpinner flowSpeed = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
-		flowSpeed.setPreferredSize(new Dimension(40, 20));
-		flowSpeed.setValue(0);
-		btnPanel.add(flowSpeed);
+		
+		btnPanel.add(new JLabel("Flow Speed"));
+		JSpinner flowSpeedSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
+		flowSpeedSpin.setPreferredSize(new Dimension(40, 20));
+		flowSpeedSpin.setValue(0);
+		btnPanel.add(flowSpeedSpin);
+		
 		//Foil options
 		foilOption.addActionListener(new ActionListener() {
-			
-			@Override
 			public void actionPerformed(ActionEvent evt) {
 				if(foilOption.getSelectedItem().equals("Symmetric")){
 					System.out.println("Loading Sysmetric foil");
@@ -61,13 +67,7 @@ public class Draw extends JFrame {
 				
 			}
 		});
-		// saving
-		btnPanel.add(new JLabel("Flow Speed"));
-		JSpinner flowSpeedSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
-		flowSpeedSpin.setPreferredSize(new Dimension(40, 20));
-		flowSpeedSpin.setValue(0);
-		btnPanel.add(flowSpeedSpin);
-		
+
 		// saving shape coordinates to file
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -111,7 +111,6 @@ public class Draw extends JFrame {
 				}
 				canvas.removeMouseListener(adap);
 				adap = new MouseAdapter() {
-					@Override
 					public void mousePressed(MouseEvent evt) {
 						if (Controller.hasClosePoint(evt.getX(), evt.getY())[0] == 1) {
 							Controller.removePoint(Controller.hasClosePoint(evt.getX(), evt.getY())[1]);
@@ -132,8 +131,6 @@ public class Draw extends JFrame {
 		
 		// running simulation
 		btnRun.addActionListener(new ActionListener() {
-
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Running simulator");
 				// when button is clicked the state of the program will switch to start calculating
@@ -153,17 +150,14 @@ public class Draw extends JFrame {
 		
 		// rotates shape drawn
 		angleSpin.addChangeListener(new ChangeListener() {
-
-			@Override
 			public void stateChanged(ChangeEvent evt) {
 				Controller.setAng(Math.toRadians(Double.parseDouble(angleSpin.getValue().toString())));
 				repaint();
 			}
 		});
 		
+		// changes air flow speed
 		flowSpeedSpin.addChangeListener(new ChangeListener() {
-
-			@Override
 			public void stateChanged(ChangeEvent evt) {
 				// TODO Auto-generated method stub
 				int flowSpeed = (int) flowSpeedSpin.getValue();

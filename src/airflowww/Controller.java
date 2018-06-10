@@ -46,6 +46,7 @@ public class Controller {
 	public static void readFile() throws FileNotFoundException {
 		loadFile("pointslist.txt");
 	}
+	
 	// making dialogue boxes reference so user can change file name and maybe where
 	// it will be saved to:
 	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
@@ -113,6 +114,7 @@ public class Controller {
 		fig.rotate(-theta);
 	}
 	
+	// creates air flow direction arrow
 	public static void createFlowArrow() {
 		// have to have last vertex two times to properly close shape for color fill
 		double[] xArrow = { 100, 150, 150, 250, 250, 150, 150, 100};
