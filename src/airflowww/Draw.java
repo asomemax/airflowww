@@ -12,8 +12,8 @@ import javax.swing.event.ChangeListener;
 public class Draw extends JFrame {
 	public static final int CANVAS_WIDTH = 1280; //640;
 	public static final int CANVAS_HEIGHT = 960; //480;
-	private int centerX = CANVAS_WIDTH / 2;
-	private int centerY = CANVAS_HEIGHT / 2;
+	public static final int CENTER_X= CANVAS_WIDTH / 2;
+	public static final int CENTER_Y = CANVAS_HEIGHT / 2;
 	private boolean curdraw = false;
 	private DrawCanvas canvas;
 	private MouseAdapter adap;
@@ -89,6 +89,7 @@ public class Draw extends JFrame {
 					e.printStackTrace();
 				}
 				Controller.packShape();
+				Controller.createFlowArrow();
 				Controller.hasBeenPaintedatLeastOnce = true;
 				angleSpin.setValue(0);
 				Controller.setAng(0);
@@ -151,6 +152,7 @@ public class Draw extends JFrame {
 
 		});
 		
+		// rotates shape drawn
 		angleSpin.addChangeListener(new ChangeListener() {
 
 			@Override
@@ -176,9 +178,9 @@ public class Draw extends JFrame {
 		btnCenter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Point centerOfMass = Controller.fig.findCenterOfMass();
-				if ((int) centerOfMass.getX() != centerX && (int) centerOfMass.getY() != centerY) {
-					int deltaX = centerX - (int) centerOfMass.getX();
-					int deltaY = centerY - (int) centerOfMass.getY();
+				if ((int) centerOfMass.getX() != CENTER_X && (int) centerOfMass.getY() != CENTER_Y) {
+					int deltaX = CENTER_X - (int) centerOfMass.getX();
+					int deltaY = CENTER_Y - (int) centerOfMass.getY();
 					Controller.fig.translate(deltaX, deltaY);
 					repaint();
 				}

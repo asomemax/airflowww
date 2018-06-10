@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Controller {
 	static String status;
 	static Figure fig;
+	static Figure flowArrow;
 	static String input;
 	static Draw window;
 	static ArrayList<Double> xs;
@@ -50,7 +51,6 @@ public class Controller {
 	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
 	// file will be saved as .txt
 	public static void saveFile() throws FileNotFoundException {
-		System.out.println("TETEETETETETETESTSSTSTSTSTSTSTTSTST");
 		PrintStream output = new PrintStream(new File("t.txt"));
 		for (int i = 0; i < xs.size(); i++) {
 			output.println(xs.get(i) + "," + ys.get(i)); // output will be "<x_coord>,<y_coord>"
@@ -70,6 +70,7 @@ public class Controller {
 		double[] x = arrayListToArray(xs);
 		double[] y = arrayListToArray(ys);
 		fig = new Figure(x, y);
+		createFlowArrow();
 		status = "shapeReady";
 	}
 
@@ -111,5 +112,19 @@ public class Controller {
 
 	public static void setAng(double theta) {
 		fig.rotate(-theta);
+	}
+	
+	public static void createFlowArrow() {
+		double[] xArrow = { 625, 500, 500, 375, 500, 500, 625 };
+		double[] yArrow = { 275, 275, 380, 275, 180, 230, 230 };
+		flowArrow = new Figure(xArrow, yArrow);
+		
+		// moving flow arrow to center-right of canvas
+		int centerRightX = (int) (Draw.CENTER_X * 0.75);
+		int centerRightY = Draw.CENTER_Y;
+		Point centerOfMass = Controller.flowArrow.findCenterOfMass();
+		int deltaX = centerRightX - (int) centerOfMass.getX();
+		int deltaY = centerRightY - (int) centerOfMass.getY();
+		flowArrow.translate(deltaX, deltaY);
 	}
 }

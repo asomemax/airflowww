@@ -4,7 +4,7 @@ package airflowww;
 public class Calculate {
 	
 	// reference: https://en.wikipedia.org/wiki/Drag_coefficient
-	// flowSpeed == power of wind?
+	// flowSpeed == power of wind
 	public static double dragCoeff(double dragForce, double massDensity, double flowSpeed, double area) {	// area is reference area
 		return (2 * dragForce) / (massDensity * Math.pow(flowSpeed, 2) * area);
 	}
@@ -15,4 +15,15 @@ public class Calculate {
 	}
 	
 	//Reynold's number
+	
+	// estimates integral using Riemann Sum
+	public static double integrate(double lowBound, double highBound) {
+		double sum = 0;
+		/*
+		for (int i = 0; i < some value; i++) {
+			
+		}
+		*/
+		return sum;
+	}
 }

@@ -129,4 +129,13 @@ public class Figure {
 			ys[i] += deltaY;
 		}
 	}
+	
+	// scales the shape by a scalar value
+	public void scale(double scalar) {
+		for (int i = 0; i < xs.length; i++) {
+			xs[i] *= scalar;
+			ys[i] *= scalar;
+		}
+		}
+	}
 }
