@@ -18,11 +18,12 @@ public class Draw extends JFrame {
 	private DrawCanvas canvas;
 	private MouseAdapter adap;
 	public boolean runSimulation = false;
-
+	
 	public Draw() {
 
 		// Set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
+		
 		JButton btnDraw = new JButton("Draw Shape");
 		btnPanel.add(btnDraw);
 		
@@ -54,15 +55,16 @@ public class Draw extends JFrame {
 		flowSpeedSpin.setValue(0);
 		btnPanel.add(flowSpeedSpin);
 		
-		//Foil options
+		// foil options
+		// NOTE: predefined shapes should be automatically centered
 		foilOption.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if(foilOption.getSelectedItem().equals("Symmetric")){
-					System.out.println("Loading Sysmetric foil");
+					System.out.println("Loading Symmetric foil");
 				}else if(foilOption.getSelectedItem().equals("High Camber")){
 					System.out.println("Loading High camber");
 				}else if(foilOption.getSelectedItem().equals("Flat")){
-					System.out.println("Loading Flat Plate");
+					System.out.println("Loading Flat plate");
 				}
 				
 			}
@@ -159,8 +161,9 @@ public class Draw extends JFrame {
 		// changes air flow speed
 		flowSpeedSpin.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
-				// TODO Auto-generated method stub
+				assert(flowSpeedSpin.getValue() != null);
 				int flowSpeed = (int) flowSpeedSpin.getValue();
+				Controller.flowSpeed = flowSpeed;
 				System.out.println("Current flow speed: " + flowSpeed);
 				System.out.println("Flow speed updated");
 			}
@@ -186,7 +189,7 @@ public class Draw extends JFrame {
 		cp.setLayout(new BorderLayout());
 		cp.add(canvas, BorderLayout.CENTER);
 		cp.add(btnPanel, BorderLayout.SOUTH);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Handle the CLOSE //
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Handle the CLOSE 
 		setTitle("Airflow Simulator 2018");
 		pack();
 		setVisible(true); // show it

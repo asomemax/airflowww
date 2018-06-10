@@ -29,7 +29,7 @@ public class DrawCanvas extends JPanel {
 		g.setColor(Color.GRAY);
 		g.fillPolygon(x, y, x.length);
 		
-		// for vertex points of shape drawn
+		// for vertices of shape drawn
 		g.setColor(Color.RED);
 		for (int i = 0; i < x.length; i++) {
 			g.drawOval(x[i] - 5, y[i] - 5, 10, 10);
@@ -41,7 +41,7 @@ public class DrawCanvas extends JPanel {
 			g.drawOval((int) Helperjunk.average(x), (int) Helperjunk.average(y), 7, 7);
 		}
 		
-		// for the line connecting the highest and lowest vertexes of shape drawn
+		// for the line connecting the highest and lowest vertices of shape drawn
 		g.setColor(Color.ORANGE);
 		Point[] Xsec = Controller.fig.getXsection();
 		g.drawLine(Xsec[0].x, Xsec[0].y, Xsec[1].x, Xsec[1].y);

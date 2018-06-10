@@ -17,6 +17,7 @@ public class Controller {
 	static ArrayList<Double> ys;
 	public static boolean hasBeenPaintedatLeastOnce;
 	public static boolean airHasBeenPlacedAtLeastOnce;
+	static int flowSpeed;
 
 	public static void main(String[] args) {
 		fig = new Figure();
@@ -58,7 +59,8 @@ public class Controller {
 		}
 		output.close();
 	}
-
+	
+	// helper method
 	public static double[] arrayListToArray(ArrayList<Double> a) {
 		double[] b = new double[a.size()];
 		for (int i = 0; i < a.size(); i++) {
@@ -116,7 +118,7 @@ public class Controller {
 	
 	// creates air flow direction arrow
 	public static void createFlowArrow() {
-		// have to have last vertex two times to properly close shape for color fill
+		// NOTE: have to have last vertex two times to properly close shape for color fill
 		double[] xArrow = { 100, 150, 150, 250, 250, 150, 150, 100};
 		double[] yArrow = { 100, 50, 80, 80, 120, 120, 150, 100 };
 		flowArrow = new Figure(xArrow, yArrow);
@@ -129,5 +131,50 @@ public class Controller {
 		int deltaX = centerRightX - (int) centerOfMass.getX();
 		int deltaY = centerRightY - (int) centerOfMass.getY();
 		flowArrow.translate(deltaX, deltaY);
+	}
+	
+	public static void createSymmetricFoil() {
+		// NOTE: need to use integrals (or Euler's method?) to estimate the next point in airfoil based on the following formula:
+		// y = 5t[0.2969*sqrt(x) - 0.1260x - 0.3516x^2 + 0.2843x^3 - 0.1015x^4]
+		// reference: https://en.wikipedia.org/wiki/NACA_airfoil
+		ArrayList<Double> xListSymFoil = new ArrayList<Double>();
+		ArrayList<Double> yListSymFoil = new ArrayList<Double>();
+		for (int i = 0; i < 20; i++) {	// 20 vertices 
+			double x = i;
+			double y = Calculate.integrate(x, x + 1);	// need help with this part
+			xListSymFoil.add(x);
+			yListSymFoil.add(y);
+		}
+		double[] xSymFoil = arrayListToArray(xListSymFoil);
+		double[] ySymFoil = arrayListToArray(yListSymFoil);
+		fig = new Figure(xSymFoil, ySymFoil);
+		
+		// redundant code since it is also in createHighCamber() and createFlatPlate()
+		Point centerOfMass = fig.findCenterOfMass();
+		int deltaX = Draw.CENTER_X - (int) centerOfMass.getX();
+		int deltaY = Draw.CENTER_Y - (int) centerOfMass.getY();
+		fig.translate(deltaX, deltaY);
+	}
+	
+	public static void createHighCamber() {
+		double[] xHiCamber = { };
+		double[] yHiCamber = { };
+		fig = new Figure(xHiCamber, yHiCamber);
+		
+		Point centerOfMass = fig.findCenterOfMass();
+		int deltaX = Draw.CENTER_X - (int) centerOfMass.getX();
+		int deltaY = Draw.CENTER_Y - (int) centerOfMass.getY();
+		fig.translate(deltaX, deltaY);
+	}
+	
+	public static void createFlatPlate() {
+		double[] xFlatPlate = { };
+		double[] yFlatPlate = { };
+		fig = new Figure(xFlatPlate, yFlatPlate);
+		
+		Point centerOfMass = fig.findCenterOfMass();
+		int deltaX = Draw.CENTER_X - (int) centerOfMass.getX();
+		int deltaY = Draw.CENTER_Y - (int) centerOfMass.getY();
+		fig.translate(deltaX, deltaY);
 	}
 }
