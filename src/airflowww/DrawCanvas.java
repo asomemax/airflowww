@@ -8,6 +8,7 @@ import java.awt.image.ImageObserver;
 
 import javax.swing.JPanel;
 
+// creates Canvas
 public class DrawCanvas extends JPanel {
 	int[] xarrow = { 625, 497, 490, 375, 492, 496, 626 };
 	int[] yarrow = { 293, 274, 380, 284, 173, 233, 244 };
@@ -39,5 +40,5 @@ public class DrawCanvas extends JPanel {
 		g.setColor(Color.decode("#fffa00"));
 		g.fillPolygon(xarrow, yarrow, xarrow.length - 1);
 	}
-
+	
 }
