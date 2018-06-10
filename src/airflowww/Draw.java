@@ -41,8 +41,6 @@ public class Draw extends JFrame {
 		angleSpin.setPreferredSize(new Dimension(40, 20));
 		angleSpin.setValue(0);
 		btnPanel.add(angleSpin);
-
-<<<<<<< HEAD
 		btnPanel.add(new JLabel("Speed"));
 		JSpinner flowSpeed = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
 		flowSpeed.setPreferredSize(new Dimension(40, 20));
@@ -64,7 +62,6 @@ public class Draw extends JFrame {
 			}
 		});
 		// saving
-=======
 		btnPanel.add(new JLabel("Flow Speed"));
 		JSpinner flowSpeedSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
 		flowSpeedSpin.setPreferredSize(new Dimension(40, 20));
@@ -72,7 +69,6 @@ public class Draw extends JFrame {
 		btnPanel.add(flowSpeedSpin);
 		
 		// saving shape coordinates to file
->>>>>>> 970020d3f6a58a05bb2073671e9401c202a598b5
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
@@ -139,10 +135,7 @@ public class Draw extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
 				System.out.println("Running simulator");
-=======
-
 				// when button is clicked the state of the program will switch to start calculating
 				if (runSimulation) {
 					System.out.println("Stopping simulator");
@@ -154,7 +147,6 @@ public class Draw extends JFrame {
 					btnRun.setText("Stop");
 					runSimulation = true;
 				}
->>>>>>> 970020d3f6a58a05bb2073671e9401c202a598b5
 			}
 
 		});

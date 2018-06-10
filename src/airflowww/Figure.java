@@ -5,7 +5,8 @@ import java.util.Arrays;
 
 // encapsulates the properties of the shape
 public class Figure {
-	double[] xs;	// coordinates are in double arrays to not lose information when doing complicated calculations
+	double[] xs; // coordinates are in double arrays to not lose information when doing
+					// complicated calculations
 	double[] ys;
 	int px;
 	int py;
@@ -18,7 +19,7 @@ public class Figure {
 	}
 
 	public Figure() {
-		this(new double[] { 0.0 }, new double[]{ 0.0 });
+		this(new double[] { 0.0 }, new double[] { 0.0 });
 	}
 
 	/**
@@ -78,7 +79,7 @@ public class Figure {
 	 * reference:https://www.mathsisfun.com/geometry/area-irregular-polygons.html
 	 */
 	public double getArea() {
-		assert(xs.length >= 3);
+		assert (xs.length >= 3);
 		double areaSum = 0.0;
 		for (int i = 1; i < xs.length; i++) {
 			double avgHeight = 0.5 * (ys[i - 1] + ys[i]);
@@ -88,7 +89,6 @@ public class Figure {
 		areaSum += 0.5 * (ys[0] + ys[ys.length - 1]) * xs[0] * xs[xs.length - 1];
 		return areaSum;
 	}
-<<<<<<< HEAD
 
 	public Point[] getXsection() {
 		Point[] abc = new Point[xs.length];
@@ -98,20 +98,20 @@ public class Figure {
 		Arrays.sort(abc, (Point a, Point b) -> {
 			return new Integer(a.y).compareTo(new Integer(b.y));
 		});
-		Point[] ret = {abc[0],abc[abc.length-1]};
+		Point[] ret = { abc[0], abc[abc.length - 1] };
 		return ret;
-=======
-	
+	}
+
 	public double referenceArea() {
 		return 0;
 	}
-	
+
 	public Point findCenterOfMass() {
 		int x = (int) this.average(xs);
 		int y = (int) this.average(ys);
 		return new Point(x, y);
 	}
-	
+
 	// helper method
 	private double average(double[] arr) {
 		double avg = 0;
@@ -121,13 +121,12 @@ public class Figure {
 		avg /= arr.length;
 		return avg;
 	}
-	
+
 	// moves each coordinate of figure a set amount
 	public void translate(int deltaX, int deltaY) {
 		for (int i = 0; i < xs.length; i++) {
 			xs[i] += deltaX;
 			ys[i] += deltaY;
 		}
->>>>>>> 970020d3f6a58a05bb2073671e9401c202a598b5
 	}
 }
