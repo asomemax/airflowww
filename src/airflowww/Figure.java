@@ -3,10 +3,9 @@ package airflowww;
 import java.awt.Point;
 import java.util.Arrays;
 
-// encapsulates the properties of the shape
+// encapsulates the properties of the shape that is being tested on (like airfoils)
 public class Figure {
-	double[] xs; // coordinates are in double arrays to not lose information when doing
-					// complicated calculations
+	double[] xs; // coordinates are in double arrays to not lose information when doing complicated calculations
 	double[] ys;
 	int px;
 	int py;
@@ -89,7 +88,8 @@ public class Figure {
 		areaSum += 0.5 * (ys[0] + ys[ys.length - 1]) * xs[0] * xs[xs.length - 1];
 		return areaSum;
 	}
-
+	
+	// finding the cross section
 	public Point[] getXsection() {
 		Point[] abc = new Point[xs.length];
 		for (int i = 0; i < xs.length; i++) {
