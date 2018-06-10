@@ -10,8 +10,8 @@ import javax.swing.event.ChangeListener;
 
 // creates GUI window for drawing 
 public class Draw extends JFrame {
-	public static final int CANVAS_WIDTH = 640;
-	public static final int CANVAS_HEIGHT = 480;
+	public static final int CANVAS_WIDTH = 1280; //640;
+	public static final int CANVAS_HEIGHT = 960; //480;
 	private int centerX = CANVAS_WIDTH / 2;
 	private int centerY = CANVAS_HEIGHT / 2;
 	private boolean curdraw = false;
