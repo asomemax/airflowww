@@ -50,6 +50,7 @@ public class Controller {
 	// https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
 	// file will be saved as .txt
 	public static void saveFile() throws FileNotFoundException {
+		System.out.println("TETEETETETETETESTSSTSTSTSTSTSTTSTST");
 		PrintStream output = new PrintStream(new File("t.txt"));
 		for (int i = 0; i < xs.size(); i++) {
 			output.println(xs.get(i) + "," + ys.get(i)); // output will be "<x_coord>,<y_coord>"

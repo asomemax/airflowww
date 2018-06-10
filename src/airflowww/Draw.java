@@ -27,9 +27,11 @@ public class Draw extends JFrame {
 		btnPanel.add(btnSave);
 		JButton btnLoad = new JButton("Load File");
 		btnPanel.add(btnLoad);
+		String[] foilList = { "Symmetric", "High Camber", "Flat" };
+		JComboBox<String> foilOption = new JComboBox<>(foilList);
+		btnPanel.add(foilOption);
 		JButton btnRun = new JButton("Run");
 		btnPanel.add(btnRun);
-
 		btnPanel.add(new JLabel("Angle"));
 		JSpinner angleSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(-180, 180)));
 		angleSpin.setPreferredSize(new Dimension(40, 20));
@@ -41,6 +43,21 @@ public class Draw extends JFrame {
 		flowSpeed.setPreferredSize(new Dimension(40, 20));
 		flowSpeed.setValue(0);
 		btnPanel.add(flowSpeed);
+		//Foil options
+		foilOption.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				if(foilOption.getSelectedItem().equals("Symmetric")){
+					System.out.println("Loading Sysmetric foil");
+				}else if(foilOption.getSelectedItem().equals("High Camber")){
+					System.out.println("Loading High camber");
+				}else if(foilOption.getSelectedItem().equals("Flat")){
+					System.out.println("Loading Flat Plate");
+				}
+				
+			}
+		});
 		// saving
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -104,7 +121,6 @@ public class Draw extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				System.out.println("Running simulator");
 			}
 
@@ -113,7 +129,6 @@ public class Draw extends JFrame {
 
 			@Override
 			public void stateChanged(ChangeEvent evt) {
-				System.out.println("Change angle to : " + Double.parseDouble(angleSpin.getValue().toString()));
 				Controller.setAng(Math.toRadians(Double.parseDouble(angleSpin.getValue().toString())));
 				repaint();
 			}

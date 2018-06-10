@@ -1,5 +1,6 @@
 package airflowww;
 
+import java.awt.Point;
 import java.util.Arrays;
 
 public class Figure {
@@ -90,5 +91,17 @@ public class Figure {
 		}
 		areaSum += 0.5 * (ys[0] + ys[ys.length - 1]) * xs[0] * xs[xs.length - 1];
 		return areaSum;
+	}
+
+	public Point[] getXsection() {
+		Point[] abc = new Point[xs.length];
+		for (int i = 0; i < xs.length; i++) {
+			abc[i] = new Point((int) xs[i], (int) ys[i]);
+		}
+		Arrays.sort(abc, (Point a, Point b) -> {
+			return new Integer(a.y).compareTo(new Integer(b.y));
+		});
+		Point[] ret = {abc[0],abc[abc.length-1]};
+		return ret;
 	}
 }
