@@ -124,13 +124,17 @@ public class Controller {
 		flowArrow = new Figure(xArrow, yArrow);
 		flowArrow.scale(1);
 		
+		Point target = new Point((int) (Draw.CANVAS_WIDTH * 0.85), Draw.CENTER.y);
+		translateToTarget(flowArrow, target);
+		/*
 		// moving flow arrow to center-right of canvas
 		int centerRightX = (int) (Draw.CANVAS_WIDTH * 0.85);
-		int centerRightY = Draw.CENTER_Y;
+		int centerRightY = Draw.CENTER.y;
 		Point centerOfMass = Controller.flowArrow.findCenterOfMass();
 		int deltaX = centerRightX - (int) centerOfMass.getX();
 		int deltaY = centerRightY - (int) centerOfMass.getY();
 		flowArrow.translate(deltaX, deltaY);
+		*/
 	}
 	
 	public static void createSymmetricFoil() {
@@ -149,22 +153,36 @@ public class Controller {
 		double[] ySymFoil = arrayListToArray(yListSymFoil);
 		fig = new Figure(xSymFoil, ySymFoil);
 		
+		translateToTarget(fig, Draw.CENTER);
+		/*
 		// redundant code since it is also in createHighCamber() and createFlatPlate()
 		Point centerOfMass = fig.findCenterOfMass();
-		int deltaX = Draw.CENTER_X - (int) centerOfMass.getX();
-		int deltaY = Draw.CENTER_Y - (int) centerOfMass.getY();
+		int deltaX = Draw.CENTER.x - (int) centerOfMass.getX();
+		int deltaY = Draw.CENTER.y - (int) centerOfMass.getY();
 		fig.translate(deltaX, deltaY);
+		*/
 	}
 	
-	public static void createHighCamber() {
-		double[] xHiCamber = { };
-		double[] yHiCamber = { };
+	public static void createHighCamberFoil() {
+		ArrayList<Double> xListHiCamber = new ArrayList<Double>();
+		ArrayList<Double> yListHiCamber = new ArrayList<Double>();
+		for (int i = 0; i < 20; i++) {	// 20 vertices 
+			double x = i;
+			double y = Calculate.integrate(x, x + 1);	// need help with this part
+			xListHiCamber.add(x);
+			yListHiCamber.add(y);
+		}
+		double[] xHiCamber = arrayListToArray(xListHiCamber);
+		double[] yHiCamber = arrayListToArray(yListHiCamber);
 		fig = new Figure(xHiCamber, yHiCamber);
 		
+		translateToTarget(fig, Draw.CENTER);
+		/*
 		Point centerOfMass = fig.findCenterOfMass();
-		int deltaX = Draw.CENTER_X - (int) centerOfMass.getX();
-		int deltaY = Draw.CENTER_Y - (int) centerOfMass.getY();
+		int deltaX = Draw.CENTER.x - (int) centerOfMass.getX();
+		int deltaY = Draw.CENTER.y - (int) centerOfMass.getY();
 		fig.translate(deltaX, deltaY);
+		*/
 	}
 	
 	public static void createFlatPlate() {
@@ -172,9 +190,20 @@ public class Controller {
 		double[] yFlatPlate = { };
 		fig = new Figure(xFlatPlate, yFlatPlate);
 		
+		translateToTarget(fig, Draw.CENTER);
+		/*
 		Point centerOfMass = fig.findCenterOfMass();
-		int deltaX = Draw.CENTER_X - (int) centerOfMass.getX();
-		int deltaY = Draw.CENTER_Y - (int) centerOfMass.getY();
+		int deltaX = Draw.CENTER.x - (int) centerOfMass.getX();
+		int deltaY = Draw.CENTER.y - (int) centerOfMass.getY();
 		fig.translate(deltaX, deltaY);
+		*/
+	}
+	
+	// helper method
+	private static void translateToTarget(Figure shape, Point target) {
+		Point centerOfMass = shape.findCenterOfMass();
+		int deltaX = target.x - (int) centerOfMass.getX();
+		int deltaY = target.y - (int) centerOfMass.getY();
+		shape.translate(deltaX, deltaY);
 	}
 }

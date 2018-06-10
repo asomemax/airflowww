@@ -12,8 +12,9 @@ import javax.swing.event.ChangeListener;
 public class Draw extends JFrame {
 	public static final int CANVAS_WIDTH = 1280; //640;
 	public static final int CANVAS_HEIGHT = 960; //480;
-	public static final int CENTER_X= CANVAS_WIDTH / 2;
-	public static final int CENTER_Y = CANVAS_HEIGHT / 2;
+	public static final Point CENTER = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+	//public static final int CENTER_X= CANVAS_WIDTH / 2;
+	//public static final int CENTER_Y = CANVAS_HEIGHT / 2;
 	private boolean curdraw = false;
 	private DrawCanvas canvas;
 	private MouseAdapter adap;
@@ -105,9 +106,9 @@ public class Draw extends JFrame {
 		btnCenter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Point centerOfMass = Controller.fig.findCenterOfMass();
-				if ((int) centerOfMass.getX() != CENTER_X && (int) centerOfMass.getY() != CENTER_Y) {
-					int deltaX = CENTER_X - (int) centerOfMass.getX();
-					int deltaY = CENTER_Y - (int) centerOfMass.getY();
+				if ((int) centerOfMass.getX() != CENTER.x && (int) centerOfMass.getY() != CENTER.y) {
+					int deltaX = CENTER.x - (int) centerOfMass.getX();
+					int deltaY = CENTER.y - (int) centerOfMass.getY();
 					Controller.fig.translate(deltaX, deltaY);
 					repaint();
 				}
@@ -185,6 +186,9 @@ public class Draw extends JFrame {
 
 		});
 		
+		/*
+		 * TO-DO: Need to make a calculation panel to display results
+		 */
 		canvas = new DrawCanvas();
 		canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 		Container cp = getContentPane();
