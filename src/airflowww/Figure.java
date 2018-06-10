@@ -136,6 +136,5 @@ public class Figure {
 			xs[i] *= scalar;
 			ys[i] *= scalar;
 		}
-		}
 	}
 }

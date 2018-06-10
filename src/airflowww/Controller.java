@@ -70,7 +70,6 @@ public class Controller {
 		double[] x = arrayListToArray(xs);
 		double[] y = arrayListToArray(ys);
 		fig = new Figure(x, y);
-		createFlowArrow();
 		status = "shapeReady";
 	}
 
@@ -115,12 +114,14 @@ public class Controller {
 	}
 	
 	public static void createFlowArrow() {
-		double[] xArrow = { 625, 500, 500, 375, 500, 500, 625 };
-		double[] yArrow = { 275, 275, 380, 275, 180, 230, 230 };
+		// have to have last vertex two times to properly close shape for color fill
+		double[] xArrow = { 100, 150, 150, 250, 250, 150, 150, 100};
+		double[] yArrow = { 100, 50, 80, 80, 120, 120, 150, 100 };
 		flowArrow = new Figure(xArrow, yArrow);
+		flowArrow.scale(1);
 		
 		// moving flow arrow to center-right of canvas
-		int centerRightX = (int) (Draw.CENTER_X * 0.75);
+		int centerRightX = (int) (Draw.CANVAS_WIDTH * 0.85);
 		int centerRightY = Draw.CENTER_Y;
 		Point centerOfMass = Controller.flowArrow.findCenterOfMass();
 		int deltaX = centerRightX - (int) centerOfMass.getX();

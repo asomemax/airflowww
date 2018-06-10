@@ -89,7 +89,6 @@ public class Draw extends JFrame {
 					e.printStackTrace();
 				}
 				Controller.packShape();
-				Controller.createFlowArrow();
 				Controller.hasBeenPaintedatLeastOnce = true;
 				angleSpin.setValue(0);
 				Controller.setAng(0);
