@@ -69,36 +69,6 @@ public class Draw extends JFrame {
 				
 			}
 		});
-
-		// saving shape coordinates to file
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				try {
-					Controller.saveFile();
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		// loading shape coordinates into program
-		btnLoad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				Controller.clearlist();
-				try {
-					Controller.readFile();
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-				Controller.packShape();
-				Controller.hasBeenPaintedatLeastOnce = true;
-				angleSpin.setValue(0);
-				Controller.setAng(0);
-				requestFocus();
-				canvas.repaint();
-			}
-
-		});
 		
 		// drawing shape
 		btnDraw.addActionListener(new ActionListener() {
@@ -131,7 +101,52 @@ public class Draw extends JFrame {
 			}
 		});
 		
+		// centers shape drawn
+		btnCenter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Point centerOfMass = Controller.fig.findCenterOfMass();
+				if ((int) centerOfMass.getX() != CENTER_X && (int) centerOfMass.getY() != CENTER_Y) {
+					int deltaX = CENTER_X - (int) centerOfMass.getX();
+					int deltaY = CENTER_Y - (int) centerOfMass.getY();
+					Controller.fig.translate(deltaX, deltaY);
+					repaint();
+				}
+			}
+			
+		});
+		
+		// saving shape coordinates to file
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					Controller.saveFile();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		// loading shape coordinates into program
+		btnLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				Controller.clearlist();
+				try {
+					Controller.readFile();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+				Controller.packShape();
+				Controller.hasBeenPaintedatLeastOnce = true;
+				angleSpin.setValue(0);
+				Controller.setAng(0);
+				requestFocus();
+				canvas.repaint();
+			}
+
+		});
+		
 		// running simulation
+		// starts calculations and displays force vectors
 		btnRun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Running simulator");
@@ -170,19 +185,6 @@ public class Draw extends JFrame {
 
 		});
 		
-		// centers shape drawn
-		btnCenter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Point centerOfMass = Controller.fig.findCenterOfMass();
-				if ((int) centerOfMass.getX() != CENTER_X && (int) centerOfMass.getY() != CENTER_Y) {
-					int deltaX = CENTER_X - (int) centerOfMass.getX();
-					int deltaY = CENTER_Y - (int) centerOfMass.getY();
-					Controller.fig.translate(deltaX, deltaY);
-					repaint();
-				}
-			}
-			
-		});
 		canvas = new DrawCanvas();
 		canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 		Container cp = getContentPane();
