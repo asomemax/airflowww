@@ -61,11 +61,16 @@ public class Draw extends JFrame {
 		foilOption.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if(foilOption.getSelectedItem().equals("Symmetric")){
+					Controller.clearlist();
 					System.out.println("Loading Symmetric foil");
-				}else if(foilOption.getSelectedItem().equals("High Camber")){
+					Controller.createSymmetricFoil();
+					canvas.repaint();
+				} else if(foilOption.getSelectedItem().equals("High Camber")){
 					System.out.println("Loading High camber");
-				}else if(foilOption.getSelectedItem().equals("Flat")){
+					Controller.createHighCamberFoil();
+				} else if(foilOption.getSelectedItem().equals("Flat")){
 					System.out.println("Loading Flat plate");
+					Controller.createFlatPlate();
 				}
 				
 			}
@@ -145,14 +150,6 @@ public class Draw extends JFrame {
 			}
 
 		});
-		
-		/*
-		foilOption.setActionCommand(new ACommand {
-			if (foilOption.getAutoscrolls().equals("symmetric")) {
-				Controller.createSymmetricFoil();
-			}
-		});
-		*/
 		
 		// running simulation
 		// starts calculations and displays force vectors

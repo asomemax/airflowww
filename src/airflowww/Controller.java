@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Controller {
@@ -128,28 +129,36 @@ public class Controller {
 		translateToTarget(flowArrow, target);
 	}
 	
+	// NOTE: make sure everything is in double data type to reduce loss of information during calculations
 	public static void createSymmetricFoil() {
 		// Equation of top half of airfoil:
 		// y = 5t[0.2969*sqrt(x) - 0.1260x - 0.3516x^2 + 0.2843x^3 - 0.1015x^4] bounds: [0, 1]
 		// t is the maximum thickness as a fraction of the chord
 		// reference: https://en.wikipedia.org/wiki/NACA_airfoil
-		final int NUM_POINTS = 20;
+		final int NUM_POINTS = 40;
 		ArrayList<Double> xListSymFoil = new ArrayList<Double>();
 		ArrayList<Double> yListSymFoil = new ArrayList<Double>();
-		double x = 1 / NUM_POINTS;
-		for (int i = 0; i < NUM_POINTS; i++) {	// 20 vertices 
+		double x = 0.0;
+		for (int i = 0; i < NUM_POINTS; i++) { 
 			double y = 0.2969 * Math.sqrt(x) - 0.1260 * x - 0.3516 * Math.pow(x, 2) + 0.2843 
 					* Math.pow(x, 3) - 0.1015 * Math.pow(x, 4);
-			if (i > NUM_POINTS / 2) {
+			if (i < NUM_POINTS / 2) {
+				xListSymFoil.add(x);
+				yListSymFoil.add(y);
+				x += 1.0 / (NUM_POINTS / 2);
+			} else {
 				y *= -1;
+				xListSymFoil.add(x);
+				yListSymFoil.add(y);
+				x -= 1.0 / (NUM_POINTS / 2);
 			}
-			xListSymFoil.add(x);
-			yListSymFoil.add(y);
-			x += 1 / NUM_POINTS;
 		}
+		xListSymFoil.add(0.0);
+		yListSymFoil.add(0.0);
 		double[] xSymFoil = arrayListToArray(xListSymFoil);
 		double[] ySymFoil = arrayListToArray(yListSymFoil);
 		fig = new Figure(xSymFoil, ySymFoil);
+		fig.scale(500);
 		translateToTarget(fig, Draw.CENTER);
 	}
 	
