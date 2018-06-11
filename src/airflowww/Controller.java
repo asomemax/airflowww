@@ -131,14 +131,15 @@ public class Controller {
 	public static void createSymmetricFoil() {
 		// Equation of top half of airfoil:
 		// y = 5t[0.2969*sqrt(x) - 0.1260x - 0.3516x^2 + 0.2843x^3 - 0.1015x^4] bounds: [0, 1]
+		// t is the maximum thickness as a fraction of the chord
 		// reference: https://en.wikipedia.org/wiki/NACA_airfoil
 		final int NUM_POINTS = 20;
 		ArrayList<Double> xListSymFoil = new ArrayList<Double>();
 		ArrayList<Double> yListSymFoil = new ArrayList<Double>();
 		double x = 1 / NUM_POINTS;
 		for (int i = 0; i < NUM_POINTS; i++) {	// 20 vertices 
-			
-			double y = 0.2969 * Math.sqrt(x) - 0.1260 * x - 0.3516 * Math.pow(x, 2) + 0.2843 * Math.pow(x, 3) - 0.1015 * Math.pow(x, 4);
+			double y = 0.2969 * Math.sqrt(x) - 0.1260 * x - 0.3516 * Math.pow(x, 2) + 0.2843 
+					* Math.pow(x, 3) - 0.1015 * Math.pow(x, 4);
 			if (i > NUM_POINTS / 2) {
 				y *= -1;
 			}
@@ -153,13 +154,22 @@ public class Controller {
 	}
 	
 	public static void createHighCamberFoil() {
+		// y = 5t[0.2969*sqrt(x) - 0.1260x - 0.3516x^2 + 0.2843x^3 - 0.1015x^4] bounds: [0, 1]
+		// t is the maximum thickness as a fraction of the chord
+		final int NUM_POINTS = 20;
+		final double MAX_THICKNESS = 0.5;
 		ArrayList<Double> xListHiCamber = new ArrayList<Double>();
 		ArrayList<Double> yListHiCamber = new ArrayList<Double>();
-		for (int i = 0; i < 20; i++) {	// 20 vertices 
-			double x = i;
-			double y = Calculate.integrate(x, x + 1);	// need help with this part
+		double x = 1 / NUM_POINTS;
+		for (int i = 0; i < NUM_POINTS; i++) {	// 20 vertices 
+			double y = 5 * MAX_THICKNESS * (0.2969 * Math.sqrt(x) - 0.1260 * x - 0.3516 * Math.pow(x, 2) + 0.2843 
+					* Math.pow(x, 3) - 0.1015 * Math.pow(x, 4));
+			if (i > NUM_POINTS / 2) {
+				y *= -1;
+			}
 			xListHiCamber.add(x);
 			yListHiCamber.add(y);
+			x += 1 / NUM_POINTS;
 		}
 		double[] xHiCamber = arrayListToArray(xListHiCamber);
 		double[] yHiCamber = arrayListToArray(yListHiCamber);
@@ -167,9 +177,10 @@ public class Controller {
 		translateToTarget(fig, Draw.CENTER);
 	}
 	
+	// creates a thin rectangle
 	public static void createFlatPlate() {
-		double[] xFlatPlate = { };
-		double[] yFlatPlate = { };
+		double[] xFlatPlate = {0, 50, 50, 0, 0 };
+		double[] yFlatPlate = {0, 0, 10, 10, 0 };
 		fig = new Figure(xFlatPlate, yFlatPlate);
 		translateToTarget(fig, Draw.CENTER);
 	}
