@@ -130,19 +130,21 @@ public class Controller {
 	
 	public static void createSymmetricFoil() {
 		// Equation of top half of airfoil:
-		// y = 5t[0.2969*sqrt(x) - 0.1260x - 0.3516x^2 + 0.2843x^3 - 0.1015x^4]
+		// y = 5t[0.2969*sqrt(x) - 0.1260x - 0.3516x^2 + 0.2843x^3 - 0.1015x^4] bounds: [0, 1]
 		// reference: https://en.wikipedia.org/wiki/NACA_airfoil
 		final int NUM_POINTS = 20;
 		ArrayList<Double> xListSymFoil = new ArrayList<Double>();
 		ArrayList<Double> yListSymFoil = new ArrayList<Double>();
+		double x = 1 / NUM_POINTS;
 		for (int i = 0; i < NUM_POINTS; i++) {	// 20 vertices 
-			double x = i;
+			
 			double y = 0.2969 * Math.sqrt(x) - 0.1260 * x - 0.3516 * Math.pow(x, 2) + 0.2843 * Math.pow(x, 3) - 0.1015 * Math.pow(x, 4);
 			if (i > NUM_POINTS / 2) {
 				y *= -1;
 			}
 			xListSymFoil.add(x);
 			yListSymFoil.add(y);
+			x += 1 / NUM_POINTS;
 		}
 		double[] xSymFoil = arrayListToArray(xListSymFoil);
 		double[] ySymFoil = arrayListToArray(yListSymFoil);

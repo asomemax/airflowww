@@ -146,11 +146,13 @@ public class Draw extends JFrame {
 
 		});
 		
+		/*
 		foilOption.setActionCommand(new ACommand {
 			if (foilOption.getAutoscrolls().equals("symmetric")) {
 				Controller.createSymmetricFoil();
 			}
 		});
+		*/
 		
 		// running simulation
 		// starts calculations and displays force vectors
