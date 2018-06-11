@@ -12,6 +12,10 @@ public class Controller {
 	static String status;
 	static Figure fig;
 	static Figure flowArrow;
+	static Figure thrustArrow;
+	static Figure dragArrow;
+	static Figure liftArrow;
+	static Figure gravityArrow;
 	static String input;
 	static Draw window;
 	static ArrayList<Double> xs;
@@ -129,66 +133,48 @@ public class Controller {
 		translateToTarget(flowArrow, target);
 	}
 	
-	// NOTE: make sure everything is in double data type to reduce loss of information during calculations
+	// upper camber and lower camber have the same value
 	public static void createSymmetricFoil() {
-		// Equation of top half of airfoil:
-		// y = 5t[0.2969*sqrt(x) - 0.1260x - 0.3516x^2 + 0.2843x^3 - 0.1015x^4] bounds: [0, 1]
-		// t is the maximum thickness as a fraction of the chord
-		// reference: https://en.wikipedia.org/wiki/NACA_airfoil
-		final int NUM_POINTS = 40;
-		ArrayList<Double> xListSymFoil = new ArrayList<Double>();
-		ArrayList<Double> yListSymFoil = new ArrayList<Double>();
-		double x = 0.0;
-		for (int i = 0; i < NUM_POINTS; i++) { 
-			double y = 0.2969 * Math.sqrt(x) - 0.1260 * x - 0.3516 * Math.pow(x, 2) + 0.2843 
-					* Math.pow(x, 3) - 0.1015 * Math.pow(x, 4);
-			if (i < NUM_POINTS / 2) {
-				xListSymFoil.add(x);
-				yListSymFoil.add(y);
-				x += 1.0 / (NUM_POINTS / 2);
-			} else {
-				y *= -1;
-				xListSymFoil.add(x);
-				yListSymFoil.add(y);
-				x -= 1.0 / (NUM_POINTS / 2);
-			}
-		}
-		xListSymFoil.add(0.0);
-		yListSymFoil.add(0.0);
-		double[] xSymFoil = arrayListToArray(xListSymFoil);
-		double[] ySymFoil = arrayListToArray(yListSymFoil);
-		fig = new Figure(xSymFoil, ySymFoil);
-		fig.scale(500);
-		translateToTarget(fig, Draw.CENTER);
+		createAirFoil(100, 0.2, 0.2);
 	}
 	
 	public static void createHighCamberFoil() {
-		// y = 5t[0.2969*sqrt(x) - 0.1260x - 0.3516x^2 + 0.2843x^3 - 0.1015x^4] bounds: [0, 1]
-		// t is the maximum thickness as a fraction of the chord
-		final int NUM_POINTS = 40;
-		final double MAX_THICKNESS = 0.5;
-		ArrayList<Double> xListHiCamber = new ArrayList<Double>();
-		ArrayList<Double> yListHiCamber = new ArrayList<Double>();
+		createAirFoil(200, 0.25, 0.5);
+	}
+	
+	/** Equation of top half of airfoil:
+	 * 	y = 5t[0.2969*sqrt(x) - 0.1260x - 0.3516x^2 + 0.2843x^3 - 0.1015x^4] bounds: [0, 1]
+	 *  (t is the maximum thickness as a fraction of the chord)
+	 *  Reference: https://en.wikipedia.org/wiki/NACA_airfoil
+	 *  NOTE: everything is in double to preserve information in calculations
+	 * @param numPoints 	- number of vertices
+	 * @param upperCamber	- width of upper camber of airfoil as fraction of the chord [0, 1]
+	 * @param lowerCamber	- width of lower camber of airfoil as fraction of the chord [0, 1]
+	 */
+	public static void createAirFoil(int numPoints, double upperCamber, double lowerCamber) {
+		ArrayList<Double> xListAirFoil = new ArrayList<Double>();
+		ArrayList<Double> yListAirFoil = new ArrayList<Double>();
 		double x = 0.0;
-		for (int i = 0; i < NUM_POINTS; i++) { 
-			double y = 5 * MAX_THICKNESS * (0.2969 * Math.sqrt(x) - 0.1260 * x - 0.3516 * Math.pow(x, 2) + 0.2843 
-					* Math.pow(x, 3) - 0.1015 * Math.pow(x, 4));
-			if (i < NUM_POINTS / 2) {
-				xListHiCamber.add(x);
-				yListHiCamber.add(y);
-				x += 1.0 / (NUM_POINTS / 2);
+		for (int i = 0; i < numPoints; i++) { 
+			if (i < numPoints / 2) {
+				double y = 5 * upperCamber * (0.2969 * Math.sqrt(x) - 0.1260 * x - 0.3516 * Math.pow(x, 2) + 0.2843 
+						* Math.pow(x, 3) - 0.1015 * Math.pow(x, 4));
+				xListAirFoil.add(x);
+				yListAirFoil.add(y);
+				x += 1.0 / (numPoints / 2);
 			} else {
-				y *= -1;
-				xListHiCamber.add(x);
-				yListHiCamber.add(y);
-				x -= 1.0 / (NUM_POINTS / 2);
+				double y = -(5 * lowerCamber * (0.2969 * Math.sqrt(x) - 0.1260 * x - 0.3516 * Math.pow(x, 2) + 0.2843 
+						* Math.pow(x, 3) - 0.1015 * Math.pow(x, 4)));
+				xListAirFoil.add(x);
+				yListAirFoil.add(y);
+				x -= 1.0 / (numPoints / 2);
 			}
 		}
-		xListHiCamber.add(0.0);
-		yListHiCamber.add(0.0);
-		double[] xHiCamber = arrayListToArray(xListHiCamber);
-		double[] yHiCamber = arrayListToArray(yListHiCamber);
-		fig = new Figure(xHiCamber, yHiCamber);
+		xListAirFoil.add(0.0);
+		yListAirFoil.add(0.0);
+		double[] xAirFoil = arrayListToArray(xListAirFoil);
+		double[] yAirFoil = arrayListToArray(yListAirFoil);
+		fig = new Figure(xAirFoil, yAirFoil);
 		fig.scale(500);
 		translateToTarget(fig, Draw.CENTER);
 	}
@@ -207,5 +193,10 @@ public class Controller {
 		int deltaX = target.x - (int) centerOfMass.getX();
 		int deltaY = target.y - (int) centerOfMass.getY();
 		shape.translate(deltaX, deltaY);
+	}
+	
+	public static void createForceArrow() {
+		double[] xArrow = { 100, 150, 150, 250, 250, 150, 150, 100};
+		double[] yArrow = { 100, 50, 80, 80, 120, 120, 150, 100 };
 	}
 }
