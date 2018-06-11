@@ -165,7 +165,7 @@ public class Controller {
 	public static void createHighCamberFoil() {
 		// y = 5t[0.2969*sqrt(x) - 0.1260x - 0.3516x^2 + 0.2843x^3 - 0.1015x^4] bounds: [0, 1]
 		// t is the maximum thickness as a fraction of the chord
-		final int NUM_POINTS = 30;
+		final int NUM_POINTS = 40;
 		final double MAX_THICKNESS = 0.5;
 		ArrayList<Double> xListHiCamber = new ArrayList<Double>();
 		ArrayList<Double> yListHiCamber = new ArrayList<Double>();
@@ -195,7 +195,7 @@ public class Controller {
 	
 	// creates a thin rectangle
 	public static void createFlatPlate() {
-		double[] xFlatPlate = {0, 50, 50, 0, 0 };
+		double[] xFlatPlate = {0, 300, 300, 0, 0 };
 		double[] yFlatPlate = {0, 0, 10, 10, 0 };
 		fig = new Figure(xFlatPlate, yFlatPlate);
 		translateToTarget(fig, Draw.CENTER);

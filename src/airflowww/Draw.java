@@ -57,24 +57,21 @@ public class Draw extends JFrame {
 		btnPanel.add(flowSpeedSpin);
 		
 		// foil options
-		// NOTE: predefined shapes should be automatically centered
+		// NOTE: predefined shapes should be automatically centered and a shape must be drawn first in order to use this
 		foilOption.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
+				Controller.clearlist();
 				if(foilOption.getSelectedItem().equals("Symmetric")){
-					Controller.clearlist();
 					System.out.println("Loading Symmetric foil");
 					Controller.createSymmetricFoil();
-					canvas.repaint();
 				} else if(foilOption.getSelectedItem().equals("High Camber")){
-					Controller.clearlist();
 					System.out.println("Loading High camber");
 					Controller.createHighCamberFoil();
 				} else if(foilOption.getSelectedItem().equals("Flat")){
-					Controller.clearlist();
 					System.out.println("Loading Flat plate");
 					Controller.createFlatPlate();
 				}
-				
+				canvas.repaint();
 			}
 		});
 		
