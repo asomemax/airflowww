@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 // encapsulates the properties of the shape that is being tested on (like airfoils)
 public class Figure {
-	double[] xs; // coordinates are in double arrays to not lose information when doing complicated calculations
-	double[] ys;
+	double[] xs;	 // coordinates are in double arrays to not lose information when doing complicated calculations
+	double[] ys;	 // also assume that xs.length and ys.length are equal
 	int px;
 	int py;
 	double curAngle;
@@ -130,10 +130,22 @@ public class Figure {
 		}
 	}
 	
-	// scales the shape by a scalar value
+	// scales both width and height of shape by a scalar value
 	public void scale(double scalar) {
 		for (int i = 0; i < xs.length; i++) {
 			xs[i] *= scalar;
+			ys[i] *= scalar;
+		}
+	}
+	
+	public void scaleX(double scalar) {
+		for (int i = 0; i < xs.length; i++) {
+			xs[i] *= scalar;
+		}
+	}
+	
+	public void scaleY(double scalar) {
+		for (int i = 0; i < ys.length; i++) {
 			ys[i] *= scalar;
 		}
 	}

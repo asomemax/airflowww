@@ -155,6 +155,7 @@ public class Draw extends JFrame {
 		btnRun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(runSimulation);
+				Controller.createForceVector();
 				// when button is clicked the state of the program will switch to start calculating
 				if (runSimulation) {
 					System.out.println("Stopping simulator");
@@ -193,7 +194,7 @@ public class Draw extends JFrame {
 		/*
 		 * TO-DO: Need to make a calculation panel to display results
 		 */
-		canvas = new DrawCanvas();
+		canvas = new DrawCanvas();	// canvas is instantiated, the methods in DrawCanvas will run
 		canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 		Container cp = getContentPane();
 		cp.setLayout(new BorderLayout());

@@ -129,7 +129,7 @@ public class Controller {
 		flowArrow = new Figure(xArrow, yArrow);
 		flowArrow.rotate(Math.PI);
 		
-		Point target = new Point((int) (Draw.CANVAS_WIDTH * 0.15), Draw.CENTER.y);
+		Point target = new Point((int) (Draw.CANVAS_WIDTH * 0.1), Draw.CENTER.y);
 		translateToTarget(flowArrow, target);
 	}
 	
@@ -198,20 +198,14 @@ public class Controller {
 	// creating force vectors
 	public static void createForceVector() {
 		double[] xArrow = { 100, 150, 150, 250, 250, 150, 150, 100};
-		double[] yArrow = { 100, 50, 90, 90, 110, 110, 150, 100 };
+		double[] yArrow = { 100, 85, 95, 95, 105, 105, 115, 100 };
 		thrustArrow = new Figure(xArrow, yArrow);	// red
-		translateToTarget(thrustArrow, new Point(Draw.CENTER.x - 50, Draw.CENTER.y));
+		translateToTarget(thrustArrow, new Point(Draw.CENTER.x - 100, Draw.CENTER.y));
 		liftArrow = new Figure(xArrow, yArrow);		// green
-		translateToTarget(liftArrow, new Point(Draw.CENTER.x, Draw.CENTER.y - 50));
+		translateToTarget(liftArrow, new Point(Draw.CENTER.x, Draw.CENTER.y - 100));
 		dragArrow = new Figure(xArrow, yArrow);		// blue
-		translateToTarget(dragArrow, new Point(Draw.CENTER.x + 50, Draw.CENTER.y));
+		translateToTarget(dragArrow, new Point(Draw.CENTER.x + 100, Draw.CENTER.y));
 		weightArrow = new Figure(xArrow, yArrow);	// pink
-		translateToTarget(weightArrow, new Point(Draw.CENTER.x, Draw.CENTER.y + 50));
+		translateToTarget(weightArrow, new Point(Draw.CENTER.x, Draw.CENTER.y + 100));
 	}
-	
-	/*
-	public static void scalingForceVector(Figure vector, double scalar) {
-		vector.scale(scalar);
-	}
-	*/
 }

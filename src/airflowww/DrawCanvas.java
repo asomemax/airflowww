@@ -19,7 +19,7 @@ public class DrawCanvas extends JPanel {
 		if (Controller.status.equals("shapeReady") || Controller.hasBeenPaintedatLeastOnce) {
 			this.drawShape(g, Controller.fig.getDisplayXs(), Controller.fig.getDisplayYs());
 		}
-		// if "Run" button has been pressed
+		// will work if "Run" button has been pressed and then load is pressed but it clears everything off canvas and only pink arrow spawns
 		if (Draw.runSimulation) {
 			System.out.println("test");
 			this.drawForceVector(g, Controller.thrustArrow, Color.RED);
