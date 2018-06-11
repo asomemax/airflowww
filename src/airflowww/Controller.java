@@ -123,9 +123,9 @@ public class Controller {
 		double[] xArrow = { 100, 150, 150, 250, 250, 150, 150, 100};
 		double[] yArrow = { 100, 50, 80, 80, 120, 120, 150, 100 };
 		flowArrow = new Figure(xArrow, yArrow);
-		flowArrow.scale(1);
+		flowArrow.rotate(Math.PI);
 		
-		Point target = new Point((int) (Draw.CANVAS_WIDTH * 0.85), Draw.CENTER.y);
+		Point target = new Point((int) (Draw.CANVAS_WIDTH * 0.15), Draw.CENTER.y);
 		translateToTarget(flowArrow, target);
 	}
 	
@@ -165,24 +165,31 @@ public class Controller {
 	public static void createHighCamberFoil() {
 		// y = 5t[0.2969*sqrt(x) - 0.1260x - 0.3516x^2 + 0.2843x^3 - 0.1015x^4] bounds: [0, 1]
 		// t is the maximum thickness as a fraction of the chord
-		final int NUM_POINTS = 20;
+		final int NUM_POINTS = 30;
 		final double MAX_THICKNESS = 0.5;
 		ArrayList<Double> xListHiCamber = new ArrayList<Double>();
 		ArrayList<Double> yListHiCamber = new ArrayList<Double>();
-		double x = 1 / NUM_POINTS;
-		for (int i = 0; i < NUM_POINTS; i++) {	// 20 vertices 
+		double x = 0.0;
+		for (int i = 0; i < NUM_POINTS; i++) { 
 			double y = 5 * MAX_THICKNESS * (0.2969 * Math.sqrt(x) - 0.1260 * x - 0.3516 * Math.pow(x, 2) + 0.2843 
 					* Math.pow(x, 3) - 0.1015 * Math.pow(x, 4));
-			if (i > NUM_POINTS / 2) {
+			if (i < NUM_POINTS / 2) {
+				xListHiCamber.add(x);
+				yListHiCamber.add(y);
+				x += 1.0 / (NUM_POINTS / 2);
+			} else {
 				y *= -1;
+				xListHiCamber.add(x);
+				yListHiCamber.add(y);
+				x -= 1.0 / (NUM_POINTS / 2);
 			}
-			xListHiCamber.add(x);
-			yListHiCamber.add(y);
-			x += 1 / NUM_POINTS;
 		}
+		xListHiCamber.add(0.0);
+		yListHiCamber.add(0.0);
 		double[] xHiCamber = arrayListToArray(xListHiCamber);
 		double[] yHiCamber = arrayListToArray(yListHiCamber);
 		fig = new Figure(xHiCamber, yHiCamber);
+		fig.scale(500);
 		translateToTarget(fig, Draw.CENTER);
 	}
 	

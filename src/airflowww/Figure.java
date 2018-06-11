@@ -22,7 +22,7 @@ public class Figure {
 	}
 
 	/**
-	 * Rotates figure to degree amount
+	 * Rotates figure to radian amount
 	 */
 	public void rotate(double theta) {
 		double temp = theta;

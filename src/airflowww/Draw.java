@@ -66,9 +66,11 @@ public class Draw extends JFrame {
 					Controller.createSymmetricFoil();
 					canvas.repaint();
 				} else if(foilOption.getSelectedItem().equals("High Camber")){
+					Controller.clearlist();
 					System.out.println("Loading High camber");
 					Controller.createHighCamberFoil();
 				} else if(foilOption.getSelectedItem().equals("Flat")){
+					Controller.clearlist();
 					System.out.println("Loading Flat plate");
 					Controller.createFlatPlate();
 				}
