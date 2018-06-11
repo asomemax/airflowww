@@ -15,7 +15,7 @@ public class Controller {
 	static Figure thrustArrow;
 	static Figure dragArrow;
 	static Figure liftArrow;
-	static Figure gravityArrow;
+	static Figure weightArrow;
 	static String input;
 	static Draw window;
 	static ArrayList<Double> xs;
@@ -195,8 +195,23 @@ public class Controller {
 		shape.translate(deltaX, deltaY);
 	}
 	
-	public static void createForceArrow() {
+	// creating force vectors
+	public static void createForceVector() {
 		double[] xArrow = { 100, 150, 150, 250, 250, 150, 150, 100};
-		double[] yArrow = { 100, 50, 80, 80, 120, 120, 150, 100 };
+		double[] yArrow = { 100, 50, 90, 90, 110, 110, 150, 100 };
+		thrustArrow = new Figure(xArrow, yArrow);	// red
+		translateToTarget(thrustArrow, new Point(Draw.CENTER.x - 50, Draw.CENTER.y));
+		liftArrow = new Figure(xArrow, yArrow);		// green
+		translateToTarget(liftArrow, new Point(Draw.CENTER.x, Draw.CENTER.y - 50));
+		dragArrow = new Figure(xArrow, yArrow);		// blue
+		translateToTarget(dragArrow, new Point(Draw.CENTER.x + 50, Draw.CENTER.y));
+		weightArrow = new Figure(xArrow, yArrow);	// pink
+		translateToTarget(weightArrow, new Point(Draw.CENTER.x, Draw.CENTER.y + 50));
 	}
+	
+	/*
+	public static void scalingForceVector(Figure vector, double scalar) {
+		vector.scale(scalar);
+	}
+	*/
 }

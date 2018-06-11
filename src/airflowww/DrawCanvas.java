@@ -19,6 +19,14 @@ public class DrawCanvas extends JPanel {
 		if (Controller.status.equals("shapeReady") || Controller.hasBeenPaintedatLeastOnce) {
 			this.drawShape(g, Controller.fig.getDisplayXs(), Controller.fig.getDisplayYs());
 		}
+		// if "Run" button has been pressed
+		if (Draw.runSimulation) {
+			System.out.println("test");
+			this.drawForceVector(g, Controller.thrustArrow, Color.RED);
+			this.drawForceVector(g, Controller.liftArrow, Color.GREEN);
+			this.drawForceVector(g, Controller.dragArrow, Color.BLUE);
+			this.drawForceVector(g, Controller.weightArrow, Color.PINK);
+		}
 	}
 
 	// draws shapes
@@ -55,4 +63,9 @@ public class DrawCanvas extends JPanel {
 		g.fillPolygon(xArrow, yArrow, numPtsArrow);
 	}
 	
+	public void drawForceVector(Graphics g, Figure vector, Color c) {
+		super.paintComponent(g);
+		g.setColor(c);
+		g.fillPolygon(vector.getDisplayXs(), vector.getDisplayYs(), vector.getDisplayXs().length);
+	}
 }

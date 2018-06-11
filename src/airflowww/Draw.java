@@ -18,7 +18,7 @@ public class Draw extends JFrame {
 	private boolean curdraw = false;
 	private DrawCanvas canvas;
 	private MouseAdapter adap;
-	public boolean runSimulation = false;
+	public static boolean runSimulation = false;
 	
 	public Draw() {
 
@@ -154,7 +154,7 @@ public class Draw extends JFrame {
 		// starts calculations and displays force vectors
 		btnRun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Running simulator");
+				System.out.println(runSimulation);
 				// when button is clicked the state of the program will switch to start calculating
 				if (runSimulation) {
 					System.out.println("Stopping simulator");
