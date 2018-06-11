@@ -126,41 +126,28 @@ public class Controller {
 		
 		Point target = new Point((int) (Draw.CANVAS_WIDTH * 0.85), Draw.CENTER.y);
 		translateToTarget(flowArrow, target);
-		/*
-		// moving flow arrow to center-right of canvas
-		int centerRightX = (int) (Draw.CANVAS_WIDTH * 0.85);
-		int centerRightY = Draw.CENTER.y;
-		Point centerOfMass = Controller.flowArrow.findCenterOfMass();
-		int deltaX = centerRightX - (int) centerOfMass.getX();
-		int deltaY = centerRightY - (int) centerOfMass.getY();
-		flowArrow.translate(deltaX, deltaY);
-		*/
 	}
 	
 	public static void createSymmetricFoil() {
-		// NOTE: need to use integrals (or Euler's method?) to estimate the next point in airfoil based on the following formula:
+		// Equation of top half of airfoil:
 		// y = 5t[0.2969*sqrt(x) - 0.1260x - 0.3516x^2 + 0.2843x^3 - 0.1015x^4]
 		// reference: https://en.wikipedia.org/wiki/NACA_airfoil
+		final int NUM_POINTS = 20;
 		ArrayList<Double> xListSymFoil = new ArrayList<Double>();
 		ArrayList<Double> yListSymFoil = new ArrayList<Double>();
-		for (int i = 0; i < 20; i++) {	// 20 vertices 
+		for (int i = 0; i < NUM_POINTS; i++) {	// 20 vertices 
 			double x = i;
-			double y = Calculate.integrate(x, x + 1);	// need help with this part
+			double y = 0.2969 * Math.sqrt(x) - 0.1260 * x - 0.3516 * Math.pow(x, 2) + 0.2843 * Math.pow(x, 3) - 0.1015 * Math.pow(x, 4);
+			if (i > NUM_POINTS / 2) {
+				y *= -1;
+			}
 			xListSymFoil.add(x);
 			yListSymFoil.add(y);
 		}
 		double[] xSymFoil = arrayListToArray(xListSymFoil);
 		double[] ySymFoil = arrayListToArray(yListSymFoil);
 		fig = new Figure(xSymFoil, ySymFoil);
-		
 		translateToTarget(fig, Draw.CENTER);
-		/*
-		// redundant code since it is also in createHighCamber() and createFlatPlate()
-		Point centerOfMass = fig.findCenterOfMass();
-		int deltaX = Draw.CENTER.x - (int) centerOfMass.getX();
-		int deltaY = Draw.CENTER.y - (int) centerOfMass.getY();
-		fig.translate(deltaX, deltaY);
-		*/
 	}
 	
 	public static void createHighCamberFoil() {
@@ -175,28 +162,14 @@ public class Controller {
 		double[] xHiCamber = arrayListToArray(xListHiCamber);
 		double[] yHiCamber = arrayListToArray(yListHiCamber);
 		fig = new Figure(xHiCamber, yHiCamber);
-		
 		translateToTarget(fig, Draw.CENTER);
-		/*
-		Point centerOfMass = fig.findCenterOfMass();
-		int deltaX = Draw.CENTER.x - (int) centerOfMass.getX();
-		int deltaY = Draw.CENTER.y - (int) centerOfMass.getY();
-		fig.translate(deltaX, deltaY);
-		*/
 	}
 	
 	public static void createFlatPlate() {
 		double[] xFlatPlate = { };
 		double[] yFlatPlate = { };
 		fig = new Figure(xFlatPlate, yFlatPlate);
-		
 		translateToTarget(fig, Draw.CENTER);
-		/*
-		Point centerOfMass = fig.findCenterOfMass();
-		int deltaX = Draw.CENTER.x - (int) centerOfMass.getX();
-		int deltaY = Draw.CENTER.y - (int) centerOfMass.getY();
-		fig.translate(deltaX, deltaY);
-		*/
 	}
 	
 	// helper method
