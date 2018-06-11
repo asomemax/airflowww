@@ -3,7 +3,6 @@ package airflowww;
 import java.awt.Point;
 import java.util.Arrays;
 
-// encapsulates the properties of the shape that is being tested on (like airfoils)
 public class Figure {
 	double[] xs;	 // coordinates are in double arrays to not lose information when doing complicated calculations
 	double[] ys;	 // also assume that xs.length and ys.length are equal

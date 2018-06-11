@@ -139,7 +139,7 @@ public class Controller {
 	}
 	
 	public static void createHighCamberFoil() {
-		createAirFoil(200, 0.25, 0.5);
+		createAirFoil(300, 0.25, 0.5);
 	}
 	
 	/** Equation of top half of airfoil:

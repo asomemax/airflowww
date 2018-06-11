@@ -54,6 +54,20 @@ public class DrawCanvas extends JPanel {
 		Point[] Xsec = Controller.fig.getXsection();
 		g.drawLine(Xsec[0].x, Xsec[0].y, Xsec[1].x, Xsec[1].y);
 		
+		// for leading edge point
+		g.setColor(Color.GREEN);
+		Point leadingPt = AirFoil.getLeadingEdge();
+		g.drawOval(leadingPt.x, leadingPt.y, 7, 7);
+		
+		// for trailing edge point
+		g.setColor(Color.GREEN);
+		Point trailingPt = AirFoil.getTrailingEdge();
+		g.drawOval(trailingPt.x, trailingPt.y, 7, 7);
+		
+		// for chord
+		g.setColor(Color.BLUE);
+		g.drawLine(leadingPt.x, leadingPt.y, trailingPt.x, trailingPt.y);
+		
 		// for flow direction arrow
 		Controller.createFlowArrow();
 		int[] xArrow = Controller.flowArrow.getDisplayXs();
