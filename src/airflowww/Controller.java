@@ -182,7 +182,7 @@ public class Controller {
 	// creates a thin rectangle
 	public static void createFlatPlate() {
 		double[] xFlatPlate = {0, 300, 300, 300, 0, 0, 0 };
-		double[] yFlatPlate = {0, 0, 10, 5, 10, 5, 0 };
+		double[] yFlatPlate = {0, 0, 5, 10, 10, 5, 0 };
 		fig = new AirFoil(xFlatPlate, yFlatPlate);
 		translateToTarget(fig, Draw.CENTER);
 	}

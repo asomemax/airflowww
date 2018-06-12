@@ -42,4 +42,10 @@ public class AirFoil extends Figure {
 		}
 		return farthestPt;
 	}
+	
+	// airfoils use the square of the chord length as the reference area 
+	// since airfoil chords are usually defined with a length of 1,
+	public double findReferenceArea() {
+		return Math.pow(findChordLength(), 2) ;
+	}
 }

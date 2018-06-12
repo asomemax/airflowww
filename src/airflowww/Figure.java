@@ -101,10 +101,6 @@ public class Figure {
 		return ret;
 	}
 
-	public double referenceArea() {
-		return 0;
-	}
-
 	public Point findCenterOfMass() {
 		int x = (int) this.average(xs);
 		int y = (int) this.average(ys);
