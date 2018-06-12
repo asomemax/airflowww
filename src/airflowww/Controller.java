@@ -199,13 +199,9 @@ public class Controller {
 	public static void createForceVector() {
 		double[] xArrow = { 100, 150, 150, 250, 250, 150, 150, 100};
 		double[] yArrow = { 100, 85, 95, 95, 105, 105, 115, 100 };
-		thrustArrow = new Figure(xArrow, yArrow);	// red
-		translateToTarget(thrustArrow, new Point(Draw.CENTER.x - 100, Draw.CENTER.y));
 		liftArrow = new Figure(xArrow, yArrow);		// green
 		translateToTarget(liftArrow, new Point(Draw.CENTER.x, Draw.CENTER.y - 100));
 		dragArrow = new Figure(xArrow, yArrow);		// blue
 		translateToTarget(dragArrow, new Point(Draw.CENTER.x + 100, Draw.CENTER.y));
-		weightArrow = new Figure(xArrow, yArrow);	// pink
-		translateToTarget(weightArrow, new Point(Draw.CENTER.x, Draw.CENTER.y + 100));
 	}
 }

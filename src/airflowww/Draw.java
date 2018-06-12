@@ -22,10 +22,11 @@ public class Draw extends JFrame {
 	
 	public Draw() {
 
-		// Set up a panel for the buttons
+		// set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
 		
-		JPanel spinnerPanel = new JPanel(new FlowLayout());
+		// set up a panel for variables you can modify
+		JPanel varPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
 		
 		JButton btnDraw = new JButton("Draw Shape");
 		btnPanel.add(btnDraw);
@@ -58,9 +59,10 @@ public class Draw extends JFrame {
 		flowSpeedSpin.setValue(0);
 		btnPanel.add(flowSpeedSpin);
 		
-		btnPanel.add(new JLabel("Angle"));
+		// angle slider
+		varPanel.add(new JLabel("Angle (degrees)"));
 		JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -180, 180, 0);
-		btnPanel.add(angleSlider);
+		varPanel.add(angleSlider);
 		
 		angleSlider.setMajorTickSpacing(90);
 		angleSlider.setMinorTickSpacing(30);
@@ -68,11 +70,13 @@ public class Draw extends JFrame {
 		angleSlider.setPaintLabels(true);
 		
 		angleSlider.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
+			public void stateChanged(ChangeEvent evt) {
 				Controller.setAng(Math.toRadians(angleSlider.getValue()));
 				repaint();
 			}
 		});
+
+		////////////////////////////////////////////////////////////////////////////////////////////
 		
 		// foil options
 		// NOTE: predefined shapes should be automatically centered and a shape must be drawn first in order to use this
@@ -218,6 +222,7 @@ public class Draw extends JFrame {
 		cp.setLayout(new BorderLayout());
 		cp.add(canvas, BorderLayout.CENTER);
 		cp.add(btnPanel, BorderLayout.SOUTH);
+		cp.add(varPanel, BorderLayout.EAST);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Handle the CLOSE 
 		setTitle("Airflow Simulator 2018");
 		pack();
