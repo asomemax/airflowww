@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Controller {
 	static String status;
-	static Figure fig;
+	static AirFoil fig;
 	static Figure flowArrow;
 	static Figure thrustArrow;
 	static Figure dragArrow;
@@ -25,7 +25,7 @@ public class Controller {
 	static int flowSpeed;
 
 	public static void main(String[] args) {
-		fig = new Figure();
+		fig = new AirFoil();
 		status = "none";
 		window = new Draw();
 		xs = new ArrayList<Double>();
@@ -77,7 +77,7 @@ public class Controller {
 	public static void packShape() {
 		double[] x = arrayListToArray(xs);
 		double[] y = arrayListToArray(ys);
-		fig = new Figure(x, y);
+		fig = new AirFoil(x, y);
 		status = "shapeReady";
 	}
 
@@ -174,16 +174,16 @@ public class Controller {
 		yListAirFoil.add(0.0);
 		double[] xAirFoil = arrayListToArray(xListAirFoil);
 		double[] yAirFoil = arrayListToArray(yListAirFoil);
-		fig = new Figure(xAirFoil, yAirFoil);
+		fig = new AirFoil(xAirFoil, yAirFoil);
 		fig.scale(500);
 		translateToTarget(fig, Draw.CENTER);
 	}
 	
 	// creates a thin rectangle
 	public static void createFlatPlate() {
-		double[] xFlatPlate = {0, 300, 300, 0, 0 };
-		double[] yFlatPlate = {0, 0, 10, 10, 0 };
-		fig = new Figure(xFlatPlate, yFlatPlate);
+		double[] xFlatPlate = {0, 300, 300, 300, 0, 0, 0 };
+		double[] yFlatPlate = {0, 0, 10, 5, 10, 5, 0 };
+		fig = new AirFoil(xFlatPlate, yFlatPlate);
 		translateToTarget(fig, Draw.CENTER);
 	}
 	

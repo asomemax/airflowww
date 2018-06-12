@@ -19,6 +19,7 @@ public class DrawCanvas extends JPanel {
 		if (Controller.status.equals("shapeReady") || Controller.hasBeenPaintedatLeastOnce) {
 			this.drawShape(g, Controller.fig.getDisplayXs(), Controller.fig.getDisplayYs());
 		}
+		/*
 		// will work if "Run" button has been pressed and then load is pressed but it clears everything off canvas and only pink arrow spawns
 		if (Draw.runSimulation) {
 			System.out.println("test");
@@ -27,6 +28,7 @@ public class DrawCanvas extends JPanel {
 			this.drawForceVector(g, Controller.dragArrow, Color.BLUE);
 			this.drawForceVector(g, Controller.weightArrow, Color.PINK);
 		}
+		*/
 	}
 
 	// draws shapes
@@ -51,22 +53,27 @@ public class DrawCanvas extends JPanel {
 		
 		// for the line connecting the highest and lowest vertices of shape drawn
 		g.setColor(Color.ORANGE);
-		Point[] Xsec = Controller.fig.getXsection();
-		g.drawLine(Xsec[0].x, Xsec[0].y, Xsec[1].x, Xsec[1].y);
+		if (x.length >= 3) {
+			Point[] Xsec = Controller.fig.getXsection();
+			g.drawLine(Xsec[0].x, Xsec[0].y, Xsec[1].x, Xsec[1].y);
+		}
 		
-		// for leading edge point
+		/*
+		// for leading edge point and trailing edge point
 		g.setColor(Color.GREEN);
-		Point leadingPt = AirFoil.getLeadingEdge();
-		g.drawOval(leadingPt.x, leadingPt.y, 7, 7);
-		
-		// for trailing edge point
-		g.setColor(Color.GREEN);
-		Point trailingPt = AirFoil.getTrailingEdge();
-		g.drawOval(trailingPt.x, trailingPt.y, 7, 7);
-		
-		// for chord
-		g.setColor(Color.BLUE);
-		g.drawLine(leadingPt.x, leadingPt.y, trailingPt.x, trailingPt.y);
+		if (x.length >= 3) {
+			Point leadingPt = Controller.fig.getLeadingPt();
+			g.drawOval(leadingPt.x, leadingPt.y, 7, 7);
+			
+			Point trailingPt = Controller.fig.getTrailingPt();
+			g.drawOval(trailingPt.x, trailingPt.y, 7, 7);
+			
+			// for chord
+			g.setColor(Color.BLUE);
+			g.drawLine(leadingPt.x, leadingPt.y, trailingPt.x, trailingPt.y);
+		}
+	
+		*/
 		
 		// for flow direction arrow
 		Controller.createFlowArrow();
@@ -75,6 +82,13 @@ public class DrawCanvas extends JPanel {
 		int numPtsArrow = Controller.flowArrow.getDisplayXs().length - 1;
 		g.setColor(Color.YELLOW);
 		g.fillPolygon(xArrow, yArrow, numPtsArrow);
+		
+		/*
+		this.drawForceVector(g, Controller.thrustArrow, Color.RED);
+		this.drawForceVector(g, Controller.liftArrow, Color.GREEN);
+		this.drawForceVector(g, Controller.dragArrow, Color.BLUE);
+		this.drawForceVector(g, Controller.weightArrow, Color.PINK);
+	*/
 	}
 	
 	public void drawForceVector(Graphics g, Figure vector, Color c) {
