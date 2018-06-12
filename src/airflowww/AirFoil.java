@@ -2,7 +2,6 @@ package airflowww;
 
 import java.awt.Point;
 
-//encapsulates the properties of the shape that is being tested on (like airfoils)
 public class AirFoil extends Figure {
 	
 	public AirFoil(double[] xs, double[] ys) {

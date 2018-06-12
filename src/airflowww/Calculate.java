@@ -2,6 +2,7 @@ package airflowww;
 
 // this class will be responsible for all the calculations
 public class Calculate {
+	final static double ACCEL_GRAVITY = 9.80665;	// acceleration of gravity in meters per second
 	
 	// reference: https://en.wikipedia.org/wiki/Drag_coefficient
 	// flowSpeed == power of wind
@@ -30,5 +31,34 @@ public class Calculate {
 		}
 		*/
 		return sum;
+	}
+	
+	public static double thrustForce() {
+		return 0;
+	}
+	
+	public static double dragForce() {
+		return 0
+	}
+	
+	public static double liftForce(double mass) {	// this one requires integrals
+		return 0;
+	}
+	
+	/**
+	 * calculating gravitational force through F = ma
+	 * @param mass - in kg
+	 * @return force of gravity in Newtons
+	 */
+	public static double gravityForce(double mass) {
+		return mass * ACCEL_GRAVITY;
+	}
+	
+	public static double netForceX() {
+		return thrustForce() - dragForce();
+	}
+	
+	public static double netForceY() {
+		return liftForce() - gravityForce();
 	}
 }
