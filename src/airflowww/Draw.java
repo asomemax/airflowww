@@ -234,12 +234,21 @@ public class Draw extends JFrame {
 		cp.add(canvas, BorderLayout.CENTER);
 		cp.add(btnPanel, BorderLayout.SOUTH);
 		cp.add(varPanel, BorderLayout.EAST);
-		cp.add(displayPanel, BorderLayout.WEST);
+		cp.add(displayPanel, BorderLayout.NORTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Handle the CLOSE 
 		setTitle("Airflow Simulator 2018");
 		pack();
 		setVisible(true); // show it
 		requestFocus(); // set the focus to JFrame to receive KeyEvent
 	}
-
+	
+	/*
+	// updates calculations
+	public void update() {
+		while(true) {
+			Calculate.liftForce(mass);
+			Calculate.dragForce(massDensity, flowSpeed, dragCoeff, refArea);
+		}
+	}
+	*/
 }

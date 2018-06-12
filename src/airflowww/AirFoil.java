@@ -3,6 +3,7 @@ package airflowww;
 import java.awt.Point;
 
 public class AirFoil extends Figure {
+	double dragCoeff;
 	
 	public AirFoil(double[] xs, double[] ys) {
 		super(xs, ys);

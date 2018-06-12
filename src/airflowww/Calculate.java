@@ -1,6 +1,7 @@
 package airflowww;
 
 // this class will be responsible for all the calculations
+// ASSUME THAT REYNOLD's NUMBER IS CONSTANT
 public abstract class Calculate {
 	
 	// reference: https://en.wikipedia.org/wiki/Drag_coefficient
@@ -8,8 +9,6 @@ public abstract class Calculate {
 	public static double dragCoeff(double dragForce, double massDensity, double flowSpeed, double refArea) {
 		return (2 * dragForce) / (massDensity * Math.pow(flowSpeed, 2) * refArea);
 	}
-	
-	//Reynold's number
 	
 	// estimates the derivative of a point using Euler's method
 	public static double derive(double x) {
@@ -42,7 +41,11 @@ public abstract class Calculate {
 	}
 	
 	public static double liftForce(double mass) {	// this one requires integrals
-		return 0;
+		return 0.0;
 	}
-
+	
+	// finding the angle between the chord line and the x-axis
+	public static double findAngleOfAttack() {
+		return 0.0;
+	}
 }

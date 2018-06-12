@@ -84,7 +84,7 @@ public class DrawCanvas extends JPanel {
 		/*
 		this.drawForceVector(g, Controller.liftArrow, Color.GREEN);
 		this.drawForceVector(g, Controller.dragArrow, Color.BLUE);
-	*/
+		*/
 	}
 	
 	public void drawForceVector(Graphics g, Figure vector, Color c) {
