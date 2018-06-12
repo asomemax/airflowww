@@ -25,6 +25,8 @@ public class Draw extends JFrame {
 		// Set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
 		
+		JPanel spinnerPanel = new JPanel(new FlowLayout());
+		
 		JButton btnDraw = new JButton("Draw Shape");
 		btnPanel.add(btnDraw);
 		
@@ -55,6 +57,22 @@ public class Draw extends JFrame {
 		flowSpeedSpin.setPreferredSize(new Dimension(40, 20));
 		flowSpeedSpin.setValue(0);
 		btnPanel.add(flowSpeedSpin);
+		
+		btnPanel.add(new JLabel("Angle"));
+		JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -180, 180, 0);
+		btnPanel.add(angleSlider);
+		
+		angleSlider.setMajorTickSpacing(90);
+		angleSlider.setMinorTickSpacing(30);
+		angleSlider.setPaintTicks(true);
+		angleSlider.setPaintLabels(true);
+		
+		angleSlider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				Controller.setAng(Math.toRadians(angleSlider.getValue()));
+				repaint();
+			}
+		});
 		
 		// foil options
 		// NOTE: predefined shapes should be automatically centered and a shape must be drawn first in order to use this
