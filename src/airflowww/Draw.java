@@ -84,8 +84,21 @@ public class Draw extends JFrame {
 		////////////////////////////FOR DISPLAYPANEL////////////////////////////////////////////////////////////////
 		
 		displayPanel.add(new JLabel("Calculations:"));
-		displayPanel.add(new JLabel("Lift force (N)"));
-		displayPanel.add(new JLabel("Drag force (N)"));
+		
+		JPanel liftForcePanel = new JPanel(new FlowLayout());
+		liftForcePanel.add(new JLabel("Lift force (N): "));
+		liftForcePanel.add(new JTextField("generic value"));
+		displayPanel.add(liftForcePanel);
+		
+		JPanel dragForcePanel = new JPanel(new FlowLayout());
+		dragForcePanel.add(new JLabel("Drag force (N): "));
+		dragForcePanel.add(new JTextField("generic value"));
+		displayPanel.add(dragForcePanel);
+		
+		JPanel angleAtkPanel = new JPanel(new FlowLayout());
+		angleAtkPanel.add(new JLabel("Angle of Attack"));
+		angleAtkPanel.add(new JTextField("generic value"));
+		displayPanel.add(angleAtkPanel);
 		
 		////////////////////////////////////////////////////////////////////////////////////////////
 		

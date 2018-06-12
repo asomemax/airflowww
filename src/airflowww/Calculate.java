@@ -25,27 +25,4 @@ public abstract class Calculate {
 		*/
 		return sum;
 	}
-
-	/** 
-	 * calculating drag force using F = 0.5 * p * u^2 * C_d * A
-	 * reference: https://en.wikipedia.org/wiki/Drag_equation
-	 * @param massDensity	- mass density of fluid (air in this case), can be predefined
-	 * @param flowSpeed		- velocity of air flow relative to object
-	 * @param dragCoeff		- drag coefficient based on airfoil's shape, can use predefined values
-	 * @param refArea		- reference area, airfoils use the square of the chord length as the reference area
-	 * 						  since airfoil chords are usually defined with a length of 1,
-	 * @return
-	 */
-	public static double dragForce(double massDensity, double flowSpeed, double dragCoeff, double refArea) {
-		return 0.5 * massDensity * Math.pow(flowSpeed,  2) * dragCoeff * refArea;
-	}
-	
-	public static double liftForce(double mass) {	// this one requires integrals
-		return 0.0;
-	}
-	
-	// finding the angle between the chord line and the x-axis
-	public static double findAngleOfAttack() {
-		return 0.0;
-	}
 }
