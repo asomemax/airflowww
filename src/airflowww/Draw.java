@@ -26,7 +26,10 @@ public class Draw extends JFrame {
 		JPanel btnPanel = new JPanel(new FlowLayout());
 		
 		// set up a panel for variables you can modify
-		JPanel varPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+		JPanel varPanel = new JPanel(new FlowLayout());
+		
+		// set up display panel for real-time calculations
+		JPanel displayPanel = new JPanel(new FlowLayout());
 		
 		JButton btnDraw = new JButton("Draw Shape");
 		btnPanel.add(btnDraw);
@@ -59,6 +62,8 @@ public class Draw extends JFrame {
 		flowSpeedSpin.setValue(0);
 		btnPanel.add(flowSpeedSpin);
 		
+		///////////////////////////FOR VARPANEL////////////////////////////////////////////////////////////////
+		
 		// angle slider
 		varPanel.add(new JLabel("Angle (degrees)"));
 		JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -180, 180, 0);
@@ -75,7 +80,13 @@ public class Draw extends JFrame {
 				repaint();
 			}
 		});
-
+		
+		////////////////////////////FOR DISPLAYPANEL////////////////////////////////////////////////////////////////
+		
+		displayPanel.add(new JLabel("Calculations:"));
+		displayPanel.add(new JLabel("Lift force (N)"));
+		displayPanel.add(new JLabel("Drag force (N)"));
+		
 		////////////////////////////////////////////////////////////////////////////////////////////
 		
 		// foil options
@@ -223,6 +234,7 @@ public class Draw extends JFrame {
 		cp.add(canvas, BorderLayout.CENTER);
 		cp.add(btnPanel, BorderLayout.SOUTH);
 		cp.add(varPanel, BorderLayout.EAST);
+		cp.add(displayPanel, BorderLayout.WEST);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Handle the CLOSE 
 		setTitle("Airflow Simulator 2018");
 		pack();
