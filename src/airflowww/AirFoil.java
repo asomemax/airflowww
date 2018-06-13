@@ -1,39 +1,98 @@
 package airflowww;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 
 public class AirFoil extends Figure {
-	double dragCoeff;
-	double liftCoeff;
+	//private String typeOfAirFoil;
+	private double dragCoeff;
+	private double liftCoeff;
+	private double chordLength;
+	private Point leadingPt;	// leading edge
+	private Point trailingPt;	// trailing edge
 	
+	// type of airfoils: "symmetrical", "high camber", "flat"
 	public AirFoil(double[] xs, double[] ys) {
 		super(xs, ys);
+		leadingPt = this.findLeadingPt();
+		trailingPt = this.findTrailingPt();
+		chordLength = this.findChordLength();
+		dragCoeff = this.findDragCoeff();
 	}
 	
 	public AirFoil() {
 		this(new double[] { 0.0 }, new double[] { 0.0 });
 	}
 	
-	public double findChordLength() {
-		Point leadPt = getLeadingPt();
-		Point trailPt = getTrailingPt();
-		return leadPt.distance(trailPt);
+	// getter methods
+	public double getDragCoeff() {
+		return this.dragCoeff;
 	}
 	
-	// leading edge would be the point closest to the y-coordinate of flow arrow
-	public Point getLeadingPt() {
-		Point leadingPt = null;
+	public double getLiftCoeff() {
+		return this.liftCoeff;
+	}
+	
+	public double getChordLength() {
+		return this.chordLength;
+	}
+	
+
+	public Point getLeadingEdge() {
+		return this.leadingPt;
+	}
+	
+	public Point getTrailingEdge() {
+		return this.trailingPt;
+	}
+	
+	// leading edge would be the point in the front of airfoil with the maximum curvature (smallest radius) 
+	private Point findLeadingPt() {
+		Point2D.Double pt1 = new Point2D.Double(xs[0], ys[0]);
+		Point2D.Double pt2 = new Point2D.Double(xs[1], ys[1]);
+		Point2D.Double pt3 = new Point2D.Double(xs[2], ys[2]);
+		
+		Point leadingPt = new Point((int) pt2.getX(), (int) pt2.getY());
+		double smallestRadius = this.findRadiusFromChordAndPt(pt1, pt3, pt2);
+		
+		for (int i = 2; i < xs.length - 1; i++) {
+			Point2D.Double ptA = new Point2D.Double(xs[i - 1], ys[i - 1]);
+			Point2D.Double ptC = new Point2D.Double(xs[i], ys[i]);
+			Point2D.Double ptB = new Point2D.Double(xs[i + 1], ys[i + 1]);
+			if (smallestRadius > this.findRadiusFromChordAndPt(ptA, ptB, ptC)) {
+				smallestRadius = this.findRadiusFromChordAndPt(ptA, ptB, ptC);
+				leadingPt = new Point((int) ptC.getX(), (int) ptC.getY());
+			}
+		}
+		/*
 		double yArrow = Controller.flowArrow.findCenterOfMass().getY();
 		for (int i = 0; i < xs.length; i++) {
 			if (ys[i] == yArrow) {
 				leadingPt = new Point((int) xs[i], (int) ys[i]);
 			}	
 		}
+		*/
 		return leadingPt;
 	}
 	
+	// chord will be connected from ptA to ptB, ptC will be the point that forms a right angle with midpoint and either ptA or ptB
+	private double findRadiusFromChordAndPt(Point2D.Double ptA, Point2D.Double ptB, Point2D.Double ptC) {
+		double chordLength = ptA.distance(ptB);
+		double avgX = (ptB.getX() - ptA.getX()) / 2;
+		double avgY = (ptB.getY() - ptA.getY()) / 2;
+		Point2D.Double midPt = new Point2D.Double(avgX, avgY);
+		
+		// finding radius using a manipulated form of pythagorean theorem 
+		// r^2 = base^2 + (r - distance between ptC and midPt)^2 ==> r = (base^2 + (distance between ptC and midPt)^2) / 2(distance between ptC and midPt)
+		double base = chordLength / 2;			// base of triangle with vertices: ptA, midPt, center of circle
+		double height = ptC.distance(midPt);	// height of triangle with vertices: ptA, ptC, midPt
+		double radius = (Math.pow(base, 2) + Math.pow(height, 2)) / (2 * height);
+		return radius;
+	}
+	
+	// trailing edge would be the point in the front of airfoil with the maximum curvature (smallest radius) 
 	// trailing edge would be the point farthest away from flow direction
-	public Point getTrailingPt() {
+	private Point findTrailingPt() {
 		Point farthestPt = new Point(getDisplayXs()[0], getDisplayYs()[0]);
 		for (int i = 0; i < getDisplayXs().length; i++) {
 			Point nextPt = new Point(getDisplayXs()[i], getDisplayYs()[i]);
@@ -43,6 +102,10 @@ public class AirFoil extends Figure {
 			}
 		}
 		return farthestPt;
+	}
+	
+	private double findChordLength() {
+		return leadingPt.distance(trailingPt);
 	}
 	
 	// airfoils use the square of the chord length as the reference area 
@@ -84,12 +147,21 @@ public class AirFoil extends Figure {
 	
 	// finding the angle between the chord line and the flight path (x-axis by default)
 	public double findAngleOfAttack() {
-		double dy = this.getTrailingPt().y - this.getLeadingPt().y;	// trailingPt goes first since positive numbers are down y-axis in Canvas
-		double dx = this.getLeadingPt().x - this.getTrailingPt().x;
+		double dy = this.trailingPt.y - this.leadingPt.y;	// trailingPt goes first since positive numbers are down y-axis in Canvas
+		double dx = this.leadingPt.x - this.trailingPt.x;
 		return Math.atan2(dy, dx);
 	}
 	
-	public double getDragCoeff() {
-		return dragCoeff;
+	private double findDragCoeff() {
+		if (this.typeOfAirFoil.equals("symmetrical")) {
+			return 0.0;
+		} else if (this.typeOfAirFoil.equals("high camber")) {
+			return 0.0;
+		} else if (this.typeOfAirFoil.equals("flat")) {
+			return 0.0;
+		} else {
+			return 0.0;
+		}
 	}
+
 }
