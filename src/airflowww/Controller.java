@@ -141,26 +141,23 @@ public class Controller {
 		createCamberedAirFoil(300, 0.25, 0.5);
 	}
 
-	private static void createCamberedAirFoil(int i, double d, double e) {
-		// TODO Auto-generated method stub
+	private static void createCamberedAirFoil(int numPoints, double bend, double thickness) {
+	
 
 	}
 
 	/**
-	 * Equation of top half of airfoil: y = 5t[0.2969*sqrt(x) - 0.1260x -
-	 * 0.3516x^2 + 0.2843x^3 - 0.1015x^4] bounds: [0, 1] (t is the maximum
-	 * thickness as a fraction of the chord) Reference:
-	 * https://en.wikipedia.org/wiki/NACA_airfoil NOTE: everything is in double
-	 * to preserve information in calculations
+	 * Equation of top half of airfoil: y = 5t[0.2969*sqrt(x) - 0.1260x - 0.3516x^2
+	 * + 0.2843x^3 - 0.1015x^4] bounds: [0, 1] (t is the maximum thickness as a
+	 * fraction of the chord) Reference: https://en.wikipedia.org/wiki/NACA_airfoil
+	 * NOTE: everything is in double to preserve information in calculations
 	 * 
 	 * @param numPoints
 	 *            - number of vertices
 	 * @param upperCamber
-	 *            - width of upper camber of airfoil as fraction of the chord
-	 *            [0, 1]
+	 *            - width of upper camber of airfoil as fraction of the chord [0, 1]
 	 * @param lowerCamber
-	 *            - width of lower camber of airfoil as fraction of the chord
-	 *            [0, 1]
+	 *            - width of lower camber of airfoil as fraction of the chord [0, 1]
 	 */
 	public static void createAirFoil(int numPoints, double upperCamber, double lowerCamber) {
 		double x = 0.0;

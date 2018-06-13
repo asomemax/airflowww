@@ -46,7 +46,7 @@ public class DrawCanvas extends JPanel {
 		// for center of mass point of shape drawn
 		g.setColor(Color.CYAN);
 		if (x.length >= 3) {
-			g.drawOval((int) Helperjunk.average(x), (int) Helperjunk.average(y), 7, 7);
+			g.drawOval((int) Helperjunk.average(x) - 3, (int) Helperjunk.average(y) - 3, 6, 6);
 		}
 		
 		// for the line connecting the highest and lowest vertices of shape drawn
