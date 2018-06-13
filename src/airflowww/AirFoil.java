@@ -8,16 +8,20 @@ public class AirFoil extends Figure {
 	private double dragCoeff;
 	private double liftCoeff;
 	private double chordLength;
+	private double refArea;
+	private double surfaceArea;
 	private Point leadingPt;	// leading edge
 	private Point trailingPt;	// trailing edge
 	
 	// type of airfoils: "symmetrical", "high camber", "flat"
+	// treat each pixel as 1 by 1 meter squares
 	public AirFoil(double[] xs, double[] ys) {
 		super(xs, ys);
 		leadingPt = this.findLeadingPt();
 		trailingPt = this.findTrailingPt();
 		chordLength = this.findChordLength();
-		dragCoeff = this.findDragCoeff();
+		refArea = this.findReferenceArea();
+		//dragCoeff = this.findDragCoeff();
 	}
 	
 	public AirFoil() {
@@ -124,12 +128,12 @@ public class AirFoil extends Figure {
 	 * 						  since airfoil chords are usually defined with a length of 1,
 	 * @return
 	 */
-	public double dragForce(double dragCoeff, double fluidDensity, double flowSpeed, double refArea) {
-		return 0.5 * dragCoeff * fluidDensity * Math.pow(flowSpeed,  2)  * refArea;
+	public double dragForce(double dragCoeff, double fluidDensity, double flowSpeed) {
+		return 0.5 * dragCoeff * fluidDensity * Math.pow(flowSpeed,  2)  * this.refArea;
 	}
 	
 	/**
-	 * calculating lift force using F = 0.5 * C_l * p * V^2 * A
+	 * calculating lift force using lift coefficient: F = 0.5 * C_l * p * V^2 * A
 	 * reference: https://www.grc.nasa.gov/WWW/K-12/airplane/lifteq.html
 	 * @param liftCoeff
 	 * @param fluidDensity
@@ -137,13 +141,51 @@ public class AirFoil extends Figure {
 	 * @param refArea
 	 * @return
 	 */
-	public double liftForce(double liftCoeff, double fluidDensity, double flowSpeed, double refArea) {	
-		return 0.5 * liftCoeff * fluidDensity * Math.pow(flowSpeed, 2) * refArea;
+	public double liftForce(double liftCoeff, double fluidDensity, double flowSpeed) {	
+		return 0.5 * liftCoeff * fluidDensity * Math.pow(flowSpeed, 2) * this.refArea;
 	}
 	
-	public double liftForce() { // this one requires integrals with dynamic pressure
-		return 0.0;
+	// calculating lift force from pressure on surface of airfoil (Pressure = F / surface area) 
+	public double liftForce() {
+		return this.netPressure() * surfaceArea;
 	}
+	
+	// finding the change in pressure over radius of curvature
+	public double findChangeInPressure(double fluidDensity, double flowSpeed, double radiusOfCurvature) {
+		return fluidDensity * Math.pow(flowSpeed, 2) * radiusOfCurvature;
+	}
+	
+	// finding pressure on top of airfoil in terms of radius of curvature
+	public double findTopPressure() {
+		double pressure = 0.0;
+		for (int i = 1; i < xs.length / 2; i++) {
+			Point2D.Double ptA = new Point2D.Double(xs[i - 1], ys[i - 1]);
+			Point2D.Double ptC = new Point2D.Double(xs[i], ys[i]);
+			Point2D.Double ptB = new Point2D.Double(xs[i + 1], ys[i + 1]);
+			double radius = this.findRadiusFromChordAndPt(ptA, ptB, ptC);
+			double pressureChange = this.findChangeInPressure(fluidDensity, flowSpeed, radius);
+		}
+		return pressure;
+	}
+	
+	// finding pressure on bottom of airfoil in terms of radius of curvature
+	public double findBotPressure() {
+		double pressure = 0.0;
+		for (int i = xs.length / 2 + 1; i < xs.length - 1; i++) {
+			Point2D.Double ptA = new Point2D.Double(xs[i - 1], ys[i - 1]);
+			Point2D.Double ptC = new Point2D.Double(xs[i], ys[i]);
+			Point2D.Double ptB = new Point2D.Double(xs[i + 1], ys[i + 1]);
+			double radius = this.findRadiusFromChordAndPt(ptA, ptB, ptC);
+			double pressureChange = this.findChangeInPressure(fluidDensity, flowSpeed, radius);
+		}
+		return pressure;
+	}
+	
+	// when there is more pressure on bottom of airfoil then the top, a net lift force will be generated
+	public double netPressure() {
+		return this.findBotPressure() - this.findTopPressure();
+	}
+	
 	
 	// finding the angle between the chord line and the flight path (x-axis by default)
 	public double findAngleOfAttack() {
@@ -152,6 +194,7 @@ public class AirFoil extends Figure {
 		return Math.atan2(dy, dx);
 	}
 	
+	/*
 	private double findDragCoeff() {
 		if (this.typeOfAirFoil.equals("symmetrical")) {
 			return 0.0;
@@ -163,5 +206,5 @@ public class AirFoil extends Figure {
 			return 0.0;
 		}
 	}
-
+	*/
 }
