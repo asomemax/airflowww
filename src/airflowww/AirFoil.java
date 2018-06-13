@@ -21,7 +21,7 @@ public class AirFoil extends Figure {
 	}
 	
 	public AirFoil() {
-		this(new double[] { 0.0 }, new double[] { 0.0 });
+		super(new double[] { 0.0 }, new double[] { 0.0 });
 	}
 	
 	// getter methods
