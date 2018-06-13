@@ -10,8 +10,8 @@ import javax.swing.event.ChangeListener;
 
 // creates GUI window for drawing 
 public class Draw extends JFrame {
-	public static final int CANVAS_WIDTH = 640; //1280;
-	public static final int CANVAS_HEIGHT = 480; //960;
+	public static final int CANVAS_WIDTH = 960; //640; //1280;
+	public static final int CANVAS_HEIGHT = 720; //480; //960;
 	public static final Point CENTER = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
 	//public static final int CENTER_X= CANVAS_WIDTH / 2;
 	//public static final int CENTER_Y = CANVAS_HEIGHT / 2;
@@ -21,15 +21,10 @@ public class Draw extends JFrame {
 	public static boolean runSimulation = false;
 	
 	public Draw() {
-
+		
+		///////////////////////////FOR BTNPANEL////////////////////////////////////////////////////////////////
 		// set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
-		
-		// set up a panel for variables you can modify
-		JPanel varPanel = new JPanel(new FlowLayout());
-		
-		// set up display panel for real-time calculations
-		JPanel displayPanel = new JPanel(new FlowLayout());
 		
 		JButton btnDraw = new JButton("Draw Shape");
 		btnPanel.add(btnDraw);
@@ -56,18 +51,27 @@ public class Draw extends JFrame {
 		angleSpin.setValue(0);
 		btnPanel.add(angleSpin);
 		
+		/*
 		btnPanel.add(new JLabel("Flow Speed"));
 		JSpinner flowSpeedSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
 		flowSpeedSpin.setPreferredSize(new Dimension(40, 20));
 		flowSpeedSpin.setValue(0);
 		btnPanel.add(flowSpeedSpin);
+		*/
 		
 		///////////////////////////FOR VARPANEL////////////////////////////////////////////////////////////////
 		
+		// set up a panel for variables you can modify
+		JPanel varPanel = new JPanel(new FlowLayout());
+		varPanel.setLayout(new BoxLayout(varPanel, BoxLayout.Y_AXIS));	// makes JPanel elements align vertically 
+		varPanel.add(new JLabel("Parameters: "));
+		
 		// angle slider
-		varPanel.add(new JLabel("Angle (degrees)"));
+		varPanel.add(new JLabel("Angle (degrees): "));
+		JPanel anglePanel = new JPanel(new FlowLayout());
 		JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -180, 180, 0);
-		varPanel.add(angleSlider);
+		anglePanel.add(angleSlider);
+		varPanel.add(anglePanel);
 		
 		angleSlider.setMajorTickSpacing(90);
 		angleSlider.setMinorTickSpacing(30);
@@ -81,24 +85,67 @@ public class Draw extends JFrame {
 			}
 		});
 		
+		// lift coefficient (will use predefined experimental values)
+		JPanel liftCoPanel = new JPanel(new FlowLayout());
+		liftCoPanel.add(new JLabel("Lift coefficient: "));
+		liftCoPanel.add(new JTextField("placeholder"));
+		varPanel.add(liftCoPanel);
+		
+		// drag coefficient (will use predefined experimental values)
+		JPanel dragCoPanel = new JPanel(new FlowLayout());
+		dragCoPanel.add(new JLabel("Drag coefficient: "));
+		dragCoPanel.add(new JTextField("placeholder"));	
+		varPanel.add(dragCoPanel);
+		
+		// density of fluid (changes based on altitude, temperature, and humidity but this program won't account for that) 
+		JPanel densityPanel = new JPanel(new FlowLayout());
+		densityPanel.add(new JLabel("Fluid density (kg/m^3): "));
+		densityPanel.add(new JTextField("1.225"));		// density of air at 15 degrees C and sea level will be default value
+		varPanel.add(densityPanel);
+		
+		// flow velocity
+		JPanel flowSpeedPanel = new JPanel(new FlowLayout());
+		flowSpeedPanel.add(new JLabel("Flow velocity (m/s): "));
+		JSpinner flowSpeedSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
+		flowSpeedSpin.setPreferredSize(new Dimension(40, 20));
+		flowSpeedSpin.setValue(0);
+		flowSpeedPanel.add(flowSpeedSpin);
+		varPanel.add(flowSpeedPanel);
+		
 		////////////////////////////FOR DISPLAYPANEL////////////////////////////////////////////////////////////////
 		
+		// set up display panel for real-time calculations
+		JPanel displayPanel = new JPanel(new FlowLayout());
 		displayPanel.add(new JLabel("Calculations:"));
 		
+		// lift force
 		JPanel liftForcePanel = new JPanel(new FlowLayout());
 		liftForcePanel.add(new JLabel("Lift force (N): "));
-		liftForcePanel.add(new JTextField("generic value"));
+		liftForcePanel.add(new JTextField("placeholder"));
 		displayPanel.add(liftForcePanel);
 		
+		// drag force
 		JPanel dragForcePanel = new JPanel(new FlowLayout());
 		dragForcePanel.add(new JLabel("Drag force (N): "));
-		dragForcePanel.add(new JTextField("generic value"));
+		dragForcePanel.add(new JTextField("placeholder"));
 		displayPanel.add(dragForcePanel);
 		
+		// aerodynamic force
+		JPanel aeroForcePanel = new JPanel(new FlowLayout());
+		aeroForcePanel.add(new JLabel("Aerodynamic force (N): "));
+		aeroForcePanel.add(new JTextField("placeholder"));
+		displayPanel.add(aeroForcePanel);
+		
+		// angle of attack
 		JPanel angleAtkPanel = new JPanel(new FlowLayout());
-		angleAtkPanel.add(new JLabel("Angle of Attack"));
-		angleAtkPanel.add(new JTextField("generic value"));
+		angleAtkPanel.add(new JLabel("Angle of Attack: "));
+		angleAtkPanel.add(new JTextField("placeholder"));
 		displayPanel.add(angleAtkPanel);
+		
+		JPanel refAreaPanel = new JPanel(new FlowLayout());
+		refAreaPanel.add(new JLabel("Reference area (km^2): "));
+		refAreaPanel.add(new JTextField("placeholder"));
+		displayPanel.add(refAreaPanel);
 		
 		////////////////////////////////////////////////////////////////////////////////////////////
 		

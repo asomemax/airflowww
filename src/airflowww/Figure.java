@@ -21,7 +21,7 @@ public class Figure {
 	}
 
 	/**
-	 * Rotates figure to radian amount
+	 *  Rotates figure to radian amount
 	 */
 	public void rotate(double theta) {
 		double temp = theta;
@@ -73,7 +73,7 @@ public class Figure {
 	}
 
 	/**
-	 * finds area of irregular polygon
+	 * finds area of irregular polygon (cross section of airfoil)
 	 * reference:https://www.mathsisfun.com/geometry/area-irregular-polygons.html
 	 */
 	public double getArea() {
@@ -88,7 +88,7 @@ public class Figure {
 		return areaSum;
 	}
 	
-	// finding the cross section
+	// finding the highest and lowest points of airfoil
 	public Point[] getXsection() {
 		Point[] abc = new Point[xs.length];
 		for (int i = 0; i < xs.length; i++) {

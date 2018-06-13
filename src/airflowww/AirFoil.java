@@ -68,7 +68,7 @@ public class AirFoil extends Figure {
 		return 0.0;
 	}
 	
-	// finding the angle between the chord line and the flow direction (x-axis by default)
+	// finding the angle between the chord line and the flight path (x-axis by default)
 	public double findAngleOfAttack() {
 		double dy = this.getTrailingPt().y - this.getLeadingPt().y;	// trailingPt goes first since positive numbers are down y-axis in Canvas
 		double dx = this.getLeadingPt().x - this.getTrailingPt().x;
