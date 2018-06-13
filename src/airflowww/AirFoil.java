@@ -51,7 +51,7 @@ public class AirFoil extends Figure {
 	}
 	
 	/** 
-	 * calculating drag force using F = 0.5 * p * u^2 * C_d * A
+	 * calculating drag force using F = 0.5 * C_d * p * V^2 * A
 	 * reference: https://en.wikipedia.org/wiki/Drag_equation
 	 * @param massDensity	- mass density of fluid (air in this case), can be predefined
 	 * @param flowSpeed		- velocity of air flow relative to object
@@ -60,12 +60,21 @@ public class AirFoil extends Figure {
 	 * 						  since airfoil chords are usually defined with a length of 1,
 	 * @return
 	 */
-	public double dragForce(double massDensity, double flowSpeed, double dragCoeff, double refArea) {
-		return 0.5 * massDensity * Math.pow(flowSpeed,  2) * dragCoeff * refArea;
+	public double dragForce(double dragCoeff, double fluidDensity, double relVelocity, double refArea) {
+		return 0.5 * dragCoeff * fluidDensity * Math.pow(relVelocity,  2)  * refArea;
 	}
 	
-	public double liftForce(double mass) {	// this one requires integrals
-		return 0.0;
+	/**
+	 * calculating lift force using F = 0.5 * C_l * p * V^2 * A
+	 * reference: https://www.grc.nasa.gov/WWW/K-12/airplane/lifteq.html
+	 * @param liftCoeff
+	 * @param fluidDensity
+	 * @param relVelocity
+	 * @param wingArea
+	 * @return
+	 */
+	public double liftForce(double liftCoeff, double fluidDensity, double relVelocity, double wingArea) {	// this one requires integrals
+		return 0.5 * liftCoeff * fluidDensity * Math.pow(relVelocity, 2) * wingArea;
 	}
 	
 	// finding the angle between the chord line and the flight path (x-axis by default)

@@ -143,7 +143,7 @@ public class Draw extends JFrame {
 		displayPanel.add(angleAtkPanel);
 		
 		JPanel refAreaPanel = new JPanel(new FlowLayout());
-		refAreaPanel.add(new JLabel("Reference area (km^2): "));
+		refAreaPanel.add(new JLabel("Reference area (m^2): "));
 		refAreaPanel.add(new JTextField("placeholder"));
 		displayPanel.add(refAreaPanel);
 		
@@ -283,10 +283,6 @@ public class Draw extends JFrame {
 			}
 
 		});
-		
-		/*
-		 * TO-DO: Need to make a calculation panel to display results
-		 */
 		canvas = new DrawCanvas();	// canvas is instantiated, the methods in DrawCanvas will run
 		canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 		Container cp = getContentPane();
