@@ -45,12 +45,6 @@ public class Draw extends JFrame {
 		JButton btnRun = new JButton("Run");
 		btnPanel.add(btnRun);
 		
-		btnPanel.add(new JLabel("Angle"));
-		JSpinner angleSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(-180, 180)));
-		angleSpin.setPreferredSize(new Dimension(40, 20));
-		angleSpin.setValue(0);
-		btnPanel.add(angleSpin);
-		
 		/*
 		btnPanel.add(new JLabel("Flow Speed"));
 		JSpinner flowSpeedSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
@@ -66,9 +60,13 @@ public class Draw extends JFrame {
 		varPanel.setLayout(new BoxLayout(varPanel, BoxLayout.Y_AXIS));	// makes JPanel elements align vertically 
 		varPanel.add(new JLabel("Parameters: "));
 		
-		// angle slider
+		// angle 
 		varPanel.add(new JLabel("Angle (degrees): "));
 		JPanel anglePanel = new JPanel(new FlowLayout());
+		JSpinner angleSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(-180, 180)));
+		angleSpin.setPreferredSize(new Dimension(40, 20));
+		angleSpin.setValue(0);
+		btnPanel.add(angleSpin);
 		JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -180, 180, 0);
 		anglePanel.add(angleSlider);
 		varPanel.add(anglePanel);

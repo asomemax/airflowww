@@ -4,6 +4,7 @@ import java.awt.Point;
 
 public class AirFoil extends Figure {
 	double dragCoeff;
+	double liftCoeff;
 	
 	public AirFoil(double[] xs, double[] ys) {
 		super(xs, ys);
@@ -60,8 +61,8 @@ public class AirFoil extends Figure {
 	 * 						  since airfoil chords are usually defined with a length of 1,
 	 * @return
 	 */
-	public double dragForce(double dragCoeff, double fluidDensity, double relVelocity, double refArea) {
-		return 0.5 * dragCoeff * fluidDensity * Math.pow(relVelocity,  2)  * refArea;
+	public double dragForce(double dragCoeff, double fluidDensity, double flowSpeed, double refArea) {
+		return 0.5 * dragCoeff * fluidDensity * Math.pow(flowSpeed,  2)  * refArea;
 	}
 	
 	/**
@@ -69,12 +70,16 @@ public class AirFoil extends Figure {
 	 * reference: https://www.grc.nasa.gov/WWW/K-12/airplane/lifteq.html
 	 * @param liftCoeff
 	 * @param fluidDensity
-	 * @param relVelocity
-	 * @param wingArea
+	 * @param flowSpeed
+	 * @param refArea
 	 * @return
 	 */
-	public double liftForce(double liftCoeff, double fluidDensity, double relVelocity, double wingArea) {	// this one requires integrals
-		return 0.5 * liftCoeff * fluidDensity * Math.pow(relVelocity, 2) * wingArea;
+	public double liftForce(double liftCoeff, double fluidDensity, double flowSpeed, double refArea) {	
+		return 0.5 * liftCoeff * fluidDensity * Math.pow(flowSpeed, 2) * refArea;
+	}
+	
+	public double liftForce() { // this one requires integrals with dynamic pressure
+		return 0.0;
 	}
 	
 	// finding the angle between the chord line and the flight path (x-axis by default)
@@ -82,5 +87,9 @@ public class AirFoil extends Figure {
 		double dy = this.getTrailingPt().y - this.getLeadingPt().y;	// trailingPt goes first since positive numbers are down y-axis in Canvas
 		double dx = this.getLeadingPt().x - this.getTrailingPt().x;
 		return Math.atan2(dy, dx);
+	}
+	
+	public double getDragCoeff() {
+		return dragCoeff;
 	}
 }
