@@ -10,57 +10,62 @@ import javax.swing.event.ChangeListener;
 
 // creates GUI window for drawing 
 public class Draw extends JFrame {
-	public static final int CANVAS_WIDTH = 960; //640; //1280;
-	public static final int CANVAS_HEIGHT = 720; //480; //960;
+	public static final int CANVAS_WIDTH = 960; // 640; //1280;
+	public static final int CANVAS_HEIGHT = 720; // 480; //960;
 	public static final Point CENTER = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-	//public static final int CENTER_X= CANVAS_WIDTH / 2;
-	//public static final int CENTER_Y = CANVAS_HEIGHT / 2;
+	// public static final int CENTER_X= CANVAS_WIDTH / 2;
+	// public static final int CENTER_Y = CANVAS_HEIGHT / 2;
 	private boolean curdraw = false;
 	private DrawCanvas canvas;
 	private MouseAdapter adap;
 	public static boolean runSimulation = false;
-	
+
 	public Draw() {
-		
-		///////////////////////////FOR BTNPANEL////////////////////////////////////////////////////////////////
+
+		/////////////////////////// FOR
+		/////////////////////////// BTNPANEL////////////////////////////////////////////////////////////////
 		// set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
-		
+
 		JButton btnDraw = new JButton("Draw Shape");
 		btnPanel.add(btnDraw);
-		
+
 		JButton btnCenter = new JButton("Center");
 		btnPanel.add(btnCenter);
-		
+
 		JButton btnSave = new JButton("Save File");
 		btnPanel.add(btnSave);
-		
+
 		JButton btnLoad = new JButton("Load File");
 		btnPanel.add(btnLoad);
-		
+
 		String[] foilList = { "Symmetric", "High Camber", "Flat" };
 		JComboBox<String> foilOption = new JComboBox<>(foilList);
 		btnPanel.add(foilOption);
-		
+
 		JButton btnRun = new JButton("Run");
 		btnPanel.add(btnRun);
-		
+
 		/*
-		btnPanel.add(new JLabel("Flow Speed"));
-		JSpinner flowSpeedSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
-		flowSpeedSpin.setPreferredSize(new Dimension(40, 20));
-		flowSpeedSpin.setValue(0);
-		btnPanel.add(flowSpeedSpin);
-		*/
-		
-		///////////////////////////FOR VARPANEL////////////////////////////////////////////////////////////////
-		
+		 * btnPanel.add(new JLabel("Flow Speed")); JSpinner flowSpeedSpin = new
+		 * JSpinner(new SpinnerListModel(Helperjunk.intsBetween(0, 100)));
+		 * flowSpeedSpin.setPreferredSize(new Dimension(40, 20));
+		 * flowSpeedSpin.setValue(0); btnPanel.add(flowSpeedSpin);
+		 */
+
+		/////////////////////////// FOR
+		/////////////////////////// VARPANEL////////////////////////////////////////////////////////////////
+
 		// set up a panel for variables you can modify
 		JPanel varPanel = new JPanel(new FlowLayout());
-		varPanel.setLayout(new BoxLayout(varPanel, BoxLayout.Y_AXIS));	// makes JPanel elements align vertically 
+		varPanel.setLayout(new BoxLayout(varPanel, BoxLayout.Y_AXIS)); // makes
+																		// JPanel
+																		// elements
+																		// align
+																		// vertically
 		varPanel.add(new JLabel("Parameters: "));
-		
-		// angle 
+
+		// angle
 		varPanel.add(new JLabel("Angle (degrees): "));
 		JPanel anglePanel = new JPanel(new FlowLayout());
 		JSpinner angleSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(-180, 180)));
@@ -70,37 +75,40 @@ public class Draw extends JFrame {
 		JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -180, 180, 0);
 		anglePanel.add(angleSlider);
 		varPanel.add(anglePanel);
-		
+
 		angleSlider.setMajorTickSpacing(90);
 		angleSlider.setMinorTickSpacing(30);
 		angleSlider.setPaintTicks(true);
 		angleSlider.setPaintLabels(true);
-		
+
 		angleSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
 				Controller.setAng(Math.toRadians(angleSlider.getValue()));
 				repaint();
 			}
 		});
-		
+
 		// lift coefficient (will use predefined experimental values)
 		JPanel liftCoPanel = new JPanel(new FlowLayout());
 		liftCoPanel.add(new JLabel("Lift coefficient: "));
 		liftCoPanel.add(new JTextField("placeholder"));
 		varPanel.add(liftCoPanel);
-		
+
 		// drag coefficient (will use predefined experimental values)
 		JPanel dragCoPanel = new JPanel(new FlowLayout());
 		dragCoPanel.add(new JLabel("Drag coefficient: "));
-		dragCoPanel.add(new JTextField("placeholder"));	
+		dragCoPanel.add(new JTextField("placeholder"));
 		varPanel.add(dragCoPanel);
-		
-		// density of fluid (changes based on altitude, temperature, and humidity but this program won't account for that) 
+
+		// density of fluid (changes based on altitude, temperature, and
+		// humidity but this program won't account for that)
 		JPanel densityPanel = new JPanel(new FlowLayout());
 		densityPanel.add(new JLabel("Fluid density (kg/m^3): "));
-		densityPanel.add(new JTextField("1.225"));		// density of air at 15 degrees C and sea level will be default value
+		densityPanel.add(new JTextField("1.225")); // density of air at 15
+													// degrees C and sea level
+													// will be default value
 		varPanel.add(densityPanel);
-		
+
 		// flow velocity
 		JPanel flowSpeedPanel = new JPanel(new FlowLayout());
 		flowSpeedPanel.add(new JLabel("Flow velocity (m/s): "));
@@ -109,63 +117,66 @@ public class Draw extends JFrame {
 		flowSpeedSpin.setValue(0);
 		flowSpeedPanel.add(flowSpeedSpin);
 		varPanel.add(flowSpeedPanel);
-		
-		////////////////////////////FOR DISPLAYPANEL////////////////////////////////////////////////////////////////
-		
+
+		//////////////////////////// FOR
+		//////////////////////////// DISPLAYPANEL////////////////////////////////////////////////////////////////
+
 		// set up display panel for real-time calculations
 		JPanel displayPanel = new JPanel(new FlowLayout());
 		displayPanel.add(new JLabel("Calculations:"));
-		
+
 		// lift force
 		JPanel liftForcePanel = new JPanel(new FlowLayout());
 		liftForcePanel.add(new JLabel("Lift force (N): "));
 		liftForcePanel.add(new JTextField("placeholder"));
 		displayPanel.add(liftForcePanel);
-		
+
 		// drag force
 		JPanel dragForcePanel = new JPanel(new FlowLayout());
 		dragForcePanel.add(new JLabel("Drag force (N): "));
 		dragForcePanel.add(new JTextField("placeholder"));
 		displayPanel.add(dragForcePanel);
-		
+
 		// aerodynamic force
 		JPanel aeroForcePanel = new JPanel(new FlowLayout());
 		aeroForcePanel.add(new JLabel("Aerodynamic force (N): "));
 		aeroForcePanel.add(new JTextField("placeholder"));
 		displayPanel.add(aeroForcePanel);
-		
+
 		// angle of attack
 		JPanel angleAtkPanel = new JPanel(new FlowLayout());
 		angleAtkPanel.add(new JLabel("Angle of Attack: "));
-		angleAtkPanel.add(new JTextField("placeholder"));
+		JTextField atkTextField = new JTextField("placeholder");
 		displayPanel.add(angleAtkPanel);
-		
+
 		JPanel refAreaPanel = new JPanel(new FlowLayout());
 		refAreaPanel.add(new JLabel("Reference area (m^2): "));
 		refAreaPanel.add(new JTextField("placeholder"));
 		displayPanel.add(refAreaPanel);
-		
-		////////////////////////////////////////////////////////////////////////////////////////////
-		
+
+		////////////////////////////////////////BUTTON FUNCTIONALITY////////////////////////////////////////////////////
+
 		// foil options
-		// NOTE: predefined shapes should be automatically centered and a shape must be drawn first in order to use this
+		// NOTE: predefined shapes should be automatically centered and a shape
+		// must be drawn first in order to use this
 		foilOption.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				Controller.clearlist();
-				if(foilOption.getSelectedItem().equals("Symmetric")){
+				if (foilOption.getSelectedItem().equals("Symmetric")) {
 					System.out.println("Loading Symmetric foil");
 					Controller.createSymmetricFoil();
-				} else if(foilOption.getSelectedItem().equals("High Camber")){
+				} else if (foilOption.getSelectedItem().equals("High Camber")) {
 					System.out.println("Loading High camber");
 					Controller.createHighCamberFoil();
-				} else if(foilOption.getSelectedItem().equals("Flat")){
+				} else if (foilOption.getSelectedItem().equals("Flat")) {
 					System.out.println("Loading Flat plate");
 					Controller.createFlatPlate();
 				}
+				Controller.hasBeenPaintedatLeastOnce = true;
 				canvas.repaint();
 			}
 		});
-		
+
 		// drawing shape
 		btnDraw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -196,7 +207,7 @@ public class Draw extends JFrame {
 				requestFocus();
 			}
 		});
-		
+
 		// centers shape drawn
 		btnCenter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -208,9 +219,9 @@ public class Draw extends JFrame {
 					repaint();
 				}
 			}
-			
+
 		});
-		
+
 		// saving shape coordinates to file
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -221,7 +232,7 @@ public class Draw extends JFrame {
 				}
 			}
 		});
-		
+
 		// loading shape coordinates into program
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -240,19 +251,20 @@ public class Draw extends JFrame {
 			}
 
 		});
-		
+
 		// running simulation
 		// starts calculations and displays force vectors
 		btnRun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(runSimulation);
 				Controller.createForceVector();
-				// when button is clicked the state of the program will switch to start calculating
+				// when button is clicked the state of the program will switch
+				// to start calculating
 				if (runSimulation) {
 					System.out.println("Stopping simulator");
 					btnRun.setText("Run");
 					runSimulation = false;
-					//e.getActionCommand().equals(arg0)
+					// e.getActionCommand().equals(arg0)
 				} else {
 					System.out.println("Running simulator");
 					btnRun.setText("Stop");
@@ -261,7 +273,7 @@ public class Draw extends JFrame {
 			}
 
 		});
-		
+
 		// rotates shape drawn
 		angleSpin.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
@@ -269,7 +281,7 @@ public class Draw extends JFrame {
 				repaint();
 			}
 		});
-		
+
 		// changes air flow speed
 		flowSpeedSpin.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
@@ -281,7 +293,8 @@ public class Draw extends JFrame {
 			}
 
 		});
-		canvas = new DrawCanvas();	// canvas is instantiated, the methods in DrawCanvas will run
+		canvas = new DrawCanvas(); // canvas is instantiated, the methods in
+									// DrawCanvas will run
 		canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 		Container cp = getContentPane();
 		cp.setLayout(new BorderLayout());
@@ -289,20 +302,16 @@ public class Draw extends JFrame {
 		cp.add(btnPanel, BorderLayout.SOUTH);
 		cp.add(varPanel, BorderLayout.EAST);
 		cp.add(displayPanel, BorderLayout.NORTH);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Handle the CLOSE 
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Handle the CLOSE
 		setTitle("Airflow Simulator 2018");
 		pack();
 		setVisible(true); // show it
 		requestFocus(); // set the focus to JFrame to receive KeyEvent
 	}
-	
+
 	/*
-	// updates calculations
-	public void update() {
-		while(true) {
-			Calculate.liftForce(mass);
-			Calculate.dragForce(massDensity, flowSpeed, dragCoeff, refArea);
-		}
-	}
-	*/
+	 * // updates calculations public void update() { while(true) {
+	 * Calculate.liftForce(mass); Calculate.dragForce(massDensity, flowSpeed,
+	 * dragCoeff, refArea); } }
+	 */
 }
