@@ -12,10 +12,10 @@ public class Controller {
 	static String status;
 	static AirFoil fig;
 	static Figure flowArrow;
-	static Figure thrustArrow;
+	//static Figure thrustArrow;
 	static Figure dragArrow;
 	static Figure liftArrow;
-	static Figure weightArrow;
+	//static Figure weightArrow;
 	static String input;
 	static Draw window;
 	static ArrayList<Double> xs;
