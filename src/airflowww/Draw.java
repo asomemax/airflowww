@@ -20,12 +20,12 @@ public class Draw extends JFrame {
 	private MouseAdapter adap;
 	public static boolean runSimulation = false;
 	
-	private int angle;	// angle of rotation
-	private int width;	// airfoil width
-	private double liftCoeff;
-	private double dragCoeff;
-	private double flowVelocity;
-	private double atmoPressure; // atmospheric pressure
+	public int angle;	// angle of rotation
+	public int width;	// airfoil width
+	public double liftCoeff;
+	public double dragCoeff;
+	public double flowVelocity;
+	public double atmoPressure; // atmospheric pressure
 	
 	public JPanel btnPanel;
 	public JPanel varPanel;
