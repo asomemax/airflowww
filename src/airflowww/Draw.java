@@ -16,17 +16,16 @@ public class Draw extends JFrame {
 	public static final Point CENTER = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
 	// public static final int CENTER_X= CANVAS_WIDTH / 2;
 	// public static final int CENTER_Y = CANVAS_HEIGHT / 2;
-	private boolean curdraw = false;
-	private DrawCanvas canvas;
-	private MouseAdapter adap;
+	public boolean curdraw = false;
+	public DrawCanvas canvas;
+	public MouseAdapter adap;
 	public static boolean runSimulation = false;
-	
-	private static int angle;	// angle of rotation
-	private static int width;	// airfoil width
+	public static int angle;	// angle of rotation
+	public static int width;	// airfoil width
 	// private static double liftCoeff;
 	// private static double dragCoeff;
-	private static double flowVelocity;
-	private static double atmoPressure; // atmospheric pressure
+	public static double flowVelocity;
+	public static double atmoPressure; // atmospheric pressure
 	
 	public static JPanel btnPanel;
 	public static JPanel varPanel;

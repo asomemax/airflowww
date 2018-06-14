@@ -193,8 +193,9 @@ public class AirFoil extends Figure {
 
 	// when there is more pressure on bottom of airfoil then the top, a net lift
 	// force will be generated
-	public double netPressure() {
-		return this.findBotPressure() - this.findTopPressure();
+	public double netForce() {
+		return this.findBotPressure() * Controller.window.width * findSurfaceArea(xs.length / 2, xs.length - 1)
+				- this.findTopPressure() * Controller.window.width * findSurfaceArea(1, xs.length / 2);
 	}
 
 	// finding the angle between the chord line and the flight path (x-axis by
