@@ -77,7 +77,6 @@ public class Controller {
 	public static void packShape() {
 		double[] x = arrayListToArray(xs);
 		double[] y = arrayListToArray(ys);
-		System.out.println(Arrays.toString(x) + "<-- x  y-->" + Arrays.toString(y));
 		fig = new AirFoil(x, y);
 		status = "shapeReady";
 	}
@@ -87,7 +86,6 @@ public class Controller {
 	}
 
 	public static void addPoint(int x, int y) {
-		System.out.println("AddedPoint");
 		xs.add((double) x);
 		ys.add((double) y);
 
@@ -140,7 +138,7 @@ public class Controller {
 	}
 
 	public static void createHighCamberFoil() {
-		createNACA4AirFoil(.02, .2, .2);
+		createNACA4AirFoil(.095, .4, .12);
 	}
 
 	/**
@@ -153,10 +151,11 @@ public class Controller {
 	 *            - % / cord. 0 < thickness < 1
 	 */
 	public static void createNACA4AirFoil(double m, double p, double thickness) {
+		m = -m;
 		int numPoints = 100;
 		double x = 0.0;
 		for (int i = 0; i < numPoints; i++) {
-			double thicc = 1 / thickness * (.2969 * Math.pow(x, .5) + -.126 * x + -.3516 * Math.pow(x, 2)
+			double thicc = thickness / .2 * (.2969 * Math.pow(x, .5) + -.126 * x + -.3516 * Math.pow(x, 2)
 					+ .2843 * Math.pow(x, 3) + -.1036 * Math.pow(x, 2));
 			double cambery;
 			double grad;
