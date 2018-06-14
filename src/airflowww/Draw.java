@@ -3,6 +3,7 @@ package airflowww;
 import java.awt.*; // Using AWT's Graphics and Color
 import java.awt.event.*; // Using AWT event classes and listener interfaces
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 
 import javax.swing.*; // Using Swing's components and containers
 import javax.swing.event.ChangeEvent;
@@ -27,9 +28,9 @@ public class Draw extends JFrame {
 	public double flowVelocity;
 	public double atmoPressure; // atmospheric pressure
 	
-	public JPanel btnPanel;
-	public JPanel varPanel;
-	public JPanel displayPanel;
+	public static JPanel btnPanel;
+	public static JPanel varPanel;
+	public static JPanel displayPanel;
 	
 	public Draw() {
 
@@ -81,7 +82,7 @@ public class Draw extends JFrame {
 		JSpinner angleSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(-180, 180)));
 		angleSpin.setPreferredSize(new Dimension(40, 20));
 		angleSpin.setValue(0);
-		btnPanel.add(angleSpin);
+		varPanel.add(angleSpin);
 		
 		JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -180, 180, 0);
 		angleSlider.setMajorTickSpacing(90);
@@ -336,8 +337,31 @@ public class Draw extends JFrame {
 		setVisible(true); // show it
 		requestFocus(); // set the focus to JFrame to receive KeyEvent
 	}
-
-	public void updateValues() {
+	
+	public static void updateValues() {
+		Component[] varPanelArr = varPanel.getComponents();
+		System.out.println(Arrays.toString(varPanelArr));
+		angle = varPanelArr[0];
 		
+	}
+	
+	public double getAngle() {
+		return this.angle;
+	}
+	
+	public int getWidth() {
+		return this.width;
+	}
+	
+	public double getLiftCoeff() {
+		return this.liftCoeff;
+	}
+
+	public double getFlowVelocity() {
+		return this.flowVelocity;
+	}
+
+	public double getAtmoPressure() {
+		return this.atmoPressure; 
 	}
 }
