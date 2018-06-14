@@ -20,11 +20,16 @@ public class Draw extends JFrame {
 	private MouseAdapter adap;
 	public static boolean runSimulation = false;
 	
-	public int angle;	// angle of rotation
-	public int width;	// airfoil width
-	public double liftCoeff;
-	public double dragCoeff;
-	public double flowVelocity;
+	private int angle;	// angle of rotation
+	private int width;	// airfoil width
+	private double liftCoeff;
+	private double dragCoeff;
+	private double flowVelocity;
+	private double atmoPressure; // atmospheric pressure
+	
+	public JPanel btnPanel;
+	public JPanel varPanel;
+	public JPanel displayPanel;
 	
 	public Draw() {
 
@@ -32,7 +37,6 @@ public class Draw extends JFrame {
 		/////////////////////////// BTNPANEL////////////////////////////////////////////////////////////////
 		// set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
-
 		JButton btnDraw = new JButton("Draw Shape");
 		btnPanel.add(btnDraw);
 
@@ -136,7 +140,13 @@ public class Draw extends JFrame {
 		flowSpeedSpin.setValue(0);
 		flowSpeedPanel.add(flowSpeedSpin);
 		varPanel.add(flowSpeedPanel);
-
+		
+		// atmospheric pressure
+		JPanel atmoPressPanel = new JPanel(new FlowLayout());
+		atmoPressPanel.add(new JLabel("Atmospheric pressure (kPa): "));
+		atmoPressPanel.add(new JTextField("101.325"));
+		varPanel.add(atmoPressPanel);
+		
 		//////////////////////////// FOR
 		//////////////////////////// DISPLAYPANEL////////////////////////////////////////////////////////////////
 
