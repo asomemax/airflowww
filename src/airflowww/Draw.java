@@ -72,14 +72,14 @@ public class Draw extends JFrame {
 		angleSpin.setPreferredSize(new Dimension(40, 20));
 		angleSpin.setValue(0);
 		btnPanel.add(angleSpin);
+		
 		JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -180, 180, 0);
-		anglePanel.add(angleSlider);
-		varPanel.add(anglePanel);
-
 		angleSlider.setMajorTickSpacing(90);
 		angleSlider.setMinorTickSpacing(30);
 		angleSlider.setPaintTicks(true);
 		angleSlider.setPaintLabels(true);
+		anglePanel.add(angleSlider);
+		varPanel.add(anglePanel);
 
 		angleSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
@@ -87,7 +87,20 @@ public class Draw extends JFrame {
 				repaint();
 			}
 		});
+		
+		// width of airfoil 
+		varPanel.add(new JLabel("Airfoil width (m): "));
+		JPanel widthPanel = new JPanel(new FlowLayout());
 
+		JSlider widthSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, 10);		
+		widthSlider.setMajorTickSpacing(10);
+		widthSlider.setMinorTickSpacing(5);
+		widthSlider.setPaintTicks(true);
+		widthSlider.setPaintLabels(true);
+		
+		widthPanel.add(widthSlider);
+		varPanel.add(widthPanel);
+		
 		// lift coefficient (will use predefined experimental values)
 		JPanel liftCoPanel = new JPanel(new FlowLayout());
 		liftCoPanel.add(new JLabel("Lift coefficient: "));
