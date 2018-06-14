@@ -77,7 +77,7 @@ public class Controller {
 	public static void packShape() {
 		double[] x = arrayListToArray(xs);
 		double[] y = arrayListToArray(ys);
-		System.out.println(Arrays.toString(x)+"<-- x  y-->"+Arrays.toString(y));
+		System.out.println(Arrays.toString(x) + "<-- x  y-->" + Arrays.toString(y));
 		fig = new AirFoil(x, y);
 		status = "shapeReady";
 	}
@@ -140,7 +140,7 @@ public class Controller {
 	}
 
 	public static void createHighCamberFoil() {
-		createNACA4AirFoil(300, .2, .2);
+		createNACA4AirFoil(.02, .2, .2);
 	}
 
 	/**
@@ -155,10 +155,8 @@ public class Controller {
 	public static void createNACA4AirFoil(double m, double p, double thickness) {
 		int numPoints = 100;
 		double x = 0.0;
-		double beta = 0.0;
 		for (int i = 0; i < numPoints; i++) {
-			x = 1 - Math.cos(beta);
-			double thicc = (1 / thickness) * (.2969 * Math.pow(x, .5) + -.126 * x + -.3516 * Math.pow(x, 2)
+			double thicc = 1 / thickness * (.2969 * Math.pow(x, .5) + -.126 * x + -.3516 * Math.pow(x, 2)
 					+ .2843 * Math.pow(x, 3) + -.1036 * Math.pow(x, 2));
 			double cambery;
 			double grad;
@@ -173,13 +171,13 @@ public class Controller {
 				ang = Math.atan(grad);
 			}
 			if (i < numPoints / 2) {
-				beta += Math.PI / numPoints;
 				xs.add(x - thicc * Math.sin(ang));
 				ys.add(cambery + thicc * Math.cos(ang));
+				x += 1.0 / (numPoints / 2);
 			} else {
-				beta -= Math.PI / numPoints;
 				xs.add(x + thicc * Math.sin(ang));
 				ys.add(cambery - thicc * Math.cos(ang));
+				x -= 1.0 / (numPoints / 2);
 			}
 		}
 		packShape();
