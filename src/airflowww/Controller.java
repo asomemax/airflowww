@@ -24,7 +24,6 @@ public class Controller {
 	static int flowSpeed;
 
 	public static void main(String[] args) {
-		Draw.updateValues();
 		fig = new AirFoil();
 		status = "none";
 		window = new Draw();

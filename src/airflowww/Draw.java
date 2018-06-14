@@ -3,7 +3,6 @@ package airflowww;
 import java.awt.*; // Using AWT's Graphics and Color
 import java.awt.event.*; // Using AWT event classes and listener interfaces
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 
 import javax.swing.*; // Using Swing's components and containers
 import javax.swing.event.ChangeEvent;
@@ -26,14 +25,11 @@ public class Draw extends JFrame {
 	public double liftCoeff;
 	public double dragCoeff;
 	public double flowVelocity;
-<<<<<<< HEAD
 	public double atmoPressure; // atmospheric pressure
 	
-	public static JPanel btnPanel;
-	public static JPanel varPanel;
-	public static JPanel displayPanel;
-=======
->>>>>>> parent of f1ba977... Added JPanels as fields
+	public JPanel btnPanel;
+	public JPanel varPanel;
+	public JPanel displayPanel;
 	
 	public Draw() {
 
@@ -41,7 +37,6 @@ public class Draw extends JFrame {
 		/////////////////////////// BTNPANEL////////////////////////////////////////////////////////////////
 		// set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
-
 		JButton btnDraw = new JButton("Draw Shape");
 		btnPanel.add(btnDraw);
 
@@ -86,7 +81,7 @@ public class Draw extends JFrame {
 		JSpinner angleSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(-180, 180)));
 		angleSpin.setPreferredSize(new Dimension(40, 20));
 		angleSpin.setValue(0);
-		varPanel.add(angleSpin);
+		btnPanel.add(angleSpin);
 		
 		JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -180, 180, 0);
 		angleSlider.setMajorTickSpacing(90);
@@ -145,7 +140,13 @@ public class Draw extends JFrame {
 		flowSpeedSpin.setValue(0);
 		flowSpeedPanel.add(flowSpeedSpin);
 		varPanel.add(flowSpeedPanel);
-
+		
+		// atmospheric pressure
+		JPanel atmoPressPanel = new JPanel(new FlowLayout());
+		atmoPressPanel.add(new JLabel("Atmospheric pressure (kPa): "));
+		atmoPressPanel.add(new JTextField("101.325"));
+		varPanel.add(atmoPressPanel);
+		
 		//////////////////////////// FOR
 		//////////////////////////// DISPLAYPANEL////////////////////////////////////////////////////////////////
 
@@ -335,31 +336,8 @@ public class Draw extends JFrame {
 		setVisible(true); // show it
 		requestFocus(); // set the focus to JFrame to receive KeyEvent
 	}
-	
-	public static void updateValues() {
-		Component[] varPanelArr = varPanel.getComponents();
-		System.out.println(Arrays.toString(varPanelArr));
-		angle = varPanelArr[0];
+
+	public void updateValues() {
 		
-	}
-	
-	public double getAngle() {
-		return this.angle;
-	}
-	
-	public int getWidth() {
-		return this.width;
-	}
-	
-	public double getLiftCoeff() {
-		return this.liftCoeff;
-	}
-
-	public double getFlowVelocity() {
-		return this.flowVelocity;
-	}
-
-	public double getAtmoPressure() {
-		return this.atmoPressure; 
 	}
 }
