@@ -26,11 +26,14 @@ public class Draw extends JFrame {
 	public double liftCoeff;
 	public double dragCoeff;
 	public double flowVelocity;
+<<<<<<< HEAD
 	public double atmoPressure; // atmospheric pressure
 	
 	public static JPanel btnPanel;
 	public static JPanel varPanel;
 	public static JPanel displayPanel;
+=======
+>>>>>>> parent of f1ba977... Added JPanels as fields
 	
 	public Draw() {
 
@@ -38,6 +41,7 @@ public class Draw extends JFrame {
 		/////////////////////////// BTNPANEL////////////////////////////////////////////////////////////////
 		// set up a panel for the buttons
 		JPanel btnPanel = new JPanel(new FlowLayout());
+
 		JButton btnDraw = new JButton("Draw Shape");
 		btnPanel.add(btnDraw);
 
@@ -141,13 +145,7 @@ public class Draw extends JFrame {
 		flowSpeedSpin.setValue(0);
 		flowSpeedPanel.add(flowSpeedSpin);
 		varPanel.add(flowSpeedPanel);
-		
-		// atmospheric pressure
-		JPanel atmoPressPanel = new JPanel(new FlowLayout());
-		atmoPressPanel.add(new JLabel("Atmospheric pressure (kPa): "));
-		atmoPressPanel.add(new JTextField("101.325"));
-		varPanel.add(atmoPressPanel);
-		
+
 		//////////////////////////// FOR
 		//////////////////////////// DISPLAYPANEL////////////////////////////////////////////////////////////////
 
