@@ -27,10 +27,11 @@ public class DrawCanvas extends JPanel {
 		int numPtsArrow = Controller.flowArrow.getDisplayXs().length - 1;
 		g.setColor(Color.YELLOW);
 		g.fillPolygon(xArrow, yArrow, numPtsArrow);
-		
+	
 		// will work if "Run" button has been pressed and then load is pressed but it clears everything off canvas and only pink arrow spawns
 		if (Draw.runSimulation) {
 			System.out.println("running test");
+			Draw.updateValues();
 			this.drawForceVector(g, Controller.liftArrow, Color.GREEN);
 			this.drawForceVector(g, Controller.dragArrow, Color.BLUE);
 		}

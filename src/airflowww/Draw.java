@@ -3,6 +3,7 @@ package airflowww;
 import java.awt.*; // Using AWT's Graphics and Color
 import java.awt.event.*; // Using AWT event classes and listener interfaces
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 
 import javax.swing.*; // Using Swing's components and containers
 import javax.swing.event.ChangeEvent;
@@ -20,16 +21,16 @@ public class Draw extends JFrame {
 	private MouseAdapter adap;
 	public static boolean runSimulation = false;
 	
-	public int angle;	// angle of rotation
-	public int width;	// airfoil width
-	public double liftCoeff;
-	public double dragCoeff;
-	public double flowVelocity;
-	public double atmoPressure; // atmospheric pressure
+	private static int angle;	// angle of rotation
+	private static int width;	// airfoil width
+	// private static double liftCoeff;
+	// private static double dragCoeff;
+	private static double flowVelocity;
+	private static double atmoPressure; // atmospheric pressure
 	
-	public JPanel btnPanel;
-	public JPanel varPanel;
-	public JPanel displayPanel;
+	public static JPanel btnPanel;
+	public static JPanel varPanel;
+	public static JPanel displayPanel;
 	
 	public Draw() {
 
@@ -81,7 +82,7 @@ public class Draw extends JFrame {
 		JSpinner angleSpin = new JSpinner(new SpinnerListModel(Helperjunk.intsBetween(-180, 180)));
 		angleSpin.setPreferredSize(new Dimension(40, 20));
 		angleSpin.setValue(0);
-		btnPanel.add(angleSpin);
+		varPanel.add(angleSpin);
 		
 		JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -180, 180, 0);
 		angleSlider.setMajorTickSpacing(90);
@@ -94,6 +95,7 @@ public class Draw extends JFrame {
 		angleSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
 				Controller.setAng(Math.toRadians(angleSlider.getValue()));
+				//angleSpin.setValue((int) angle);
 				repaint();
 			}
 		});
@@ -305,7 +307,9 @@ public class Draw extends JFrame {
 		// rotates shape drawn
 		angleSpin.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
-				Controller.setAng(Math.toRadians(Double.parseDouble(angleSpin.getValue().toString())));
+				double angle = Math.toRadians(Double.parseDouble(angleSpin.getValue().toString()));
+				Controller.setAng(angle);
+				//angleSlider.setValue((int) angle);
 				repaint();
 			}
 		});
@@ -336,8 +340,30 @@ public class Draw extends JFrame {
 		setVisible(true); // show it
 		requestFocus(); // set the focus to JFrame to receive KeyEvent
 	}
+	
+	public static void updateValues() {
+		Component[] varPanelArr = varPanel.getComponents();
+		System.out.println(Arrays.toString(varPanelArr));
+		angle = ((JSlider) varPanelArr[3]).getValue();
+		width = ((JSlider) varPanelArr[5]).getValue();
+		flowVelocity = Double.parseDouble((((JSpinner) varPanelArr[9]).getValue()).toString());
+		atmoPressure = Double.parseDouble(((JTextField) varPanelArr[10]).getText());
+	}
 
-	public void updateValues() {
-		
+	/*
+	public double getLiftCoeff() {
+		return liftCoeff;
+	}
+	
+	public double getDragCoeff() {
+		return dragCoeff;
+	}
+	*/
+	public double getFlowVelocity() {
+		return flowVelocity;
+	}
+
+	public double getAtmoPressure() {
+		return atmoPressure; 
 	}
 }
