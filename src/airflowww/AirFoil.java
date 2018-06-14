@@ -172,7 +172,8 @@ public class AirFoil extends Figure {
 			Point2D.Double ptC = new Point2D.Double(xs[i], ys[i]);
 			Point2D.Double ptB = new Point2D.Double(xs[i + 1], ys[i + 1]);
 			double radius = this.findRadiusFromChordAndPt(ptA, ptB, ptC);
-			//double pressureChange = this.findChangeInPressure(fluidDensity, flowSpeed, radius);
+			double pressureChange = this.findChangeInPressure(1.225, flowSpeed, radius);
+			pressure +=
 		}
 		return pressure;
 	}
@@ -185,7 +186,8 @@ public class AirFoil extends Figure {
 			Point2D.Double ptC = new Point2D.Double(xs[i], ys[i]);
 			Point2D.Double ptB = new Point2D.Double(xs[i + 1], ys[i + 1]);
 			double radius = this.findRadiusFromChordAndPt(ptA, ptB, ptC);
-			//double pressureChange = this.findChangeInPressure(fluidDensity, flowSpeed, radius);
+			double pressureChange = this.findChangeInPressure(1.225, flowSpeed, radius);
+			pressure +=
 		}
 		return pressure;
 	}
