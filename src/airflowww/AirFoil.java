@@ -8,6 +8,7 @@ public class AirFoil extends Figure {
 	private double dragCoeff;
 	private double liftCoeff;
 	private double chordLength;
+	private double width;
 	private double refArea;
 	private double surfaceArea;
 	private Point leadingPt;	// leading edge
@@ -20,6 +21,7 @@ public class AirFoil extends Figure {
 		leadingPt = this.findLeadingPt();
 		trailingPt = this.findTrailingPt();
 		chordLength = this.findChordLength();
+		surfaceArea = this.findSurfaceArea();
 		refArea = this.findReferenceArea();
 		//dragCoeff = this.findDragCoeff();
 	}
@@ -41,7 +43,14 @@ public class AirFoil extends Figure {
 		return this.chordLength;
 	}
 	
+	public double getSurfaceArea() {
+		return this.surfaceArea;
+	}
 
+	public double getReferenceArea() {
+		return this.refArea;
+	}
+	
 	public Point getLeadingEdge() {
 		return this.leadingPt;
 	}
@@ -115,7 +124,7 @@ public class AirFoil extends Figure {
 	// airfoils use the square of the chord length as the reference area 
 	// since airfoil chords are usually defined with a length of 1,
 	public double findReferenceArea() {
-		return Math.pow(findChordLength(), 2) ;
+		return Math.pow(findChordLength(), 2);
 	}
 	
 	/** 
@@ -147,7 +156,7 @@ public class AirFoil extends Figure {
 	
 	// calculating lift force from pressure on surface of airfoil (Pressure = F / surface area) 
 	public double liftForce() {
-		return this.netPressure() * surfaceArea;
+		return this.netPressure() * this.surfaceArea;
 	}
 	
 	// finding the change in pressure over radius of curvature
@@ -194,6 +203,15 @@ public class AirFoil extends Figure {
 		return Math.atan2(dy, dx);
 	}
 	
+	private double findSurfaceArea() {
+		double surfaceArea = this.getArea() * 2;	// for sides of airfoil
+		for (int i = 1; i < xs.length; i++) {
+			Point2D.Double p1 = new Point2D.Double(xs[i - 1], ys[i - 1]);
+			Point2D.Double p2 = new Point2D.Double(xs[i], ys[i]);
+			surfaceArea += p1.distance(p2) * this.width;
+		}
+		return surfaceArea;
+	}
 	/*
 	private double findDragCoeff() {
 		if (this.typeOfAirFoil.equals("symmetrical")) {

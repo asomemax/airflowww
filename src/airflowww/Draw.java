@@ -19,7 +19,13 @@ public class Draw extends JFrame {
 	private DrawCanvas canvas;
 	private MouseAdapter adap;
 	public static boolean runSimulation = false;
-
+	
+	public int angle;	// angle of rotation
+	public int width;	// airfoil width
+	public double liftCoeff;
+	public double dragCoeff;
+	public double flowVelocity;
+	
 	public Draw() {
 
 		/////////////////////////// FOR
@@ -270,14 +276,13 @@ public class Draw extends JFrame {
 		btnRun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(runSimulation);
-				Controller.createForceVector();
+				//Controller.createForceVector();
 				// when button is clicked the state of the program will switch
 				// to start calculating
 				if (runSimulation) {
 					System.out.println("Stopping simulator");
 					btnRun.setText("Run");
 					runSimulation = false;
-					// e.getActionCommand().equals(arg0)
 				} else {
 					System.out.println("Running simulator");
 					btnRun.setText("Stop");
@@ -322,9 +327,7 @@ public class Draw extends JFrame {
 		requestFocus(); // set the focus to JFrame to receive KeyEvent
 	}
 
-	/*
-	 * // updates calculations public void update() { while(true) {
-	 * Calculate.liftForce(mass); Calculate.dragForce(massDensity, flowSpeed,
-	 * dragCoeff, refArea); } }
-	 */
+	public void updateValues() {
+		
+	}
 }
