@@ -173,7 +173,7 @@ public class AirFoil extends Figure {
 			Point2D.Double ptB = new Point2D.Double(xs[i + 1], ys[i + 1]);
 			double radius = this.findRadiusFromChordAndPt(ptA, ptB, ptC);
 			double pressureChange = this.findChangeInPressure(1.225, flowSpeed, radius);
-			pressure +=
+			//pressure +=
 		}
 		return pressure;
 	}
@@ -187,7 +187,7 @@ public class AirFoil extends Figure {
 			Point2D.Double ptB = new Point2D.Double(xs[i + 1], ys[i + 1]);
 			double radius = this.findRadiusFromChordAndPt(ptA, ptB, ptC);
 			double pressureChange = this.findChangeInPressure(1.225, flowSpeed, radius);
-			pressure +=
+			//pressure +=
 		}
 		return pressure;
 	}
@@ -196,7 +196,6 @@ public class AirFoil extends Figure {
 	public double netPressure() {
 		return this.findBotPressure() - this.findTopPressure();
 	}
-	
 	
 	// finding the angle between the chord line and the flight path (x-axis by default)
 	public double findAngleOfAttack() {

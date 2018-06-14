@@ -41,6 +41,8 @@ public class DrawCanvas extends JPanel {
 	public void drawShape(Graphics g, int[] x, int[] y) {
 		super.paintComponent(g);
 		
+		Draw.updateValues();
+		
 		// for shape drawn
 		g.setColor(Color.GRAY);
 		g.fillPolygon(x, y, x.length);
