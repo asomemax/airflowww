@@ -173,13 +173,15 @@ public class Draw extends JFrame {
 		aeroForcePanel.add(new JLabel("Aerodynamic force (N): "));
 		aeroForcePanel.add(new JTextField("placeholder"));
 		displayPanel.add(aeroForcePanel);
-
+		
+		/*
 		// angle of attack
 		JPanel angleAtkPanel = new JPanel(new FlowLayout());
 		angleAtkPanel.add(new JLabel("Angle of Attack: "));
 		JTextField atkTextField = new JTextField("placeholder");
 		displayPanel.add(angleAtkPanel);
 
+		*/
 		JPanel refAreaPanel = new JPanel(new FlowLayout());
 		refAreaPanel.add(new JLabel("Reference area (m^2): "));
 		refAreaPanel.add(new JTextField("placeholder"));
