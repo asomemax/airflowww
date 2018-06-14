@@ -128,7 +128,7 @@ public class Controller {
 		double[] yArrow = { 100, 50, 80, 80, 120, 120, 150, 100 };
 		flowArrow = new Figure(xArrow, yArrow);
 		flowArrow.rotate(Math.PI);
-		Point target = new Point((int) (Draw.CANVAS_WIDTH * 0.1), Draw.CENTER.y);
+		Point target = new Point((int) (window.CANVAS_WIDTH * 0.1), window.CENTER.y);
 		translateToTarget(flowArrow, target);
 	}
 
@@ -181,7 +181,7 @@ public class Controller {
 		}
 		packShape();
 		fig.scale(500);
-		translateToTarget(fig, Draw.CENTER);
+		translateToTarget(fig, window.CENTER);
 	}
 
 	/**
@@ -218,7 +218,7 @@ public class Controller {
 		ys.add(0.0);
 		packShape();
 		fig.scale(500);
-		translateToTarget(fig, Draw.CENTER);
+		translateToTarget(fig, window.CENTER);
 	}
 
 	// creates a thin rectangle
@@ -226,7 +226,7 @@ public class Controller {
 		double[] xFlatPlate = { 0, 300, 300, 0 };
 		double[] yFlatPlate = { 0, 0, 10, 10 };
 		fig = new AirFoil(xFlatPlate, yFlatPlate);
-		translateToTarget(fig, Draw.CENTER);
+		translateToTarget(fig, window.CENTER);
 	}
 
 	// helper method
@@ -242,8 +242,8 @@ public class Controller {
 		double[] xArrow = { 100, 150, 150, 250, 250, 150, 150, 100 };
 		double[] yArrow = { 100, 85, 95, 95, 105, 105, 115, 100 };
 		liftArrow = new Figure(xArrow, yArrow); // green
-		translateToTarget(liftArrow, new Point(Draw.CENTER.x, Draw.CENTER.y - 100));
+		translateToTarget(liftArrow, new Point(window.CENTER.x, window.CENTER.y - 100));
 		dragArrow = new Figure(xArrow, yArrow); // blue
-		translateToTarget(dragArrow, new Point(Draw.CENTER.x + 100, Draw.CENTER.y));
+		translateToTarget(dragArrow, new Point(window.CENTER.x + 100, window.CENTER.y));
 	}
 }

@@ -163,12 +163,6 @@ public class AirFoil extends Figure {
 		return 0.5 * liftCoeff * fluidDensity * Math.pow(flowSpeed, 2) * this.refArea;
 	}
 
-	// calculating lift force from pressure on surface of airfoil (Pressure = F /
-	// surface area)
-	public double liftForce() {
-		return this.netPressure() * this.surfaceArea;
-	}
-
 	// finding the change in pressure over radius of curvature
 	public double findChangeInPressure(double fluidDensity, double flowSpeed, double radiusOfCurvature) {
 		return fluidDensity * Math.pow(flowSpeed, 2) * radiusOfCurvature;
@@ -176,16 +170,16 @@ public class AirFoil extends Figure {
 
 	// finding pressure on top of airfoil in terms of radius of curvature
 	public double findTopPressure() {
-		double constant = .5 * Math.pow(Controller.window.flowVelocity, 2) + Controller.window.atmoPressure;
-		double neoConstantnotDone = .5 * Math.pow(Controller.window.flowVelocity, 2)
+		double constant = .5 *1.225* Math.pow(Controller.window.flowVelocity, 2) + Controller.window.atmoPressure;
+		double neoConstantnotDone = .5 *1.225* Math.pow(Controller.window.flowVelocity, 2)
 				* (findSurfaceArea(1, xs.length / 2) / getChordLength());
 		return constant - neoConstantnotDone;
 	}
 
 	public double findBotPressure() {
-		double constant = .5 * Math.pow(Controller.window.flowVelocity, 2) + Controller.window.atmoPressure;
-		double neoConstantnotDone = .5 * Math.pow(Controller.window.flowVelocity, 2)
-				* (findSurfaceArea(xs.length / 2, xs.length - 1) / getChordLength());
+		double constant = .5 * 1.225*Math.pow(Controller.window.flowVelocity, 2) + Controller.window.atmoPressure;
+		double neoConstantnotDone = .5 * 1.225*Math.pow(Controller.window.flowVelocity, 2)
+				* (findSurfaceArea(xs.length / 2 + 1, xs.length - 1) / getChordLength());
 		return constant - neoConstantnotDone;
 	}
 
@@ -226,10 +220,15 @@ public class AirFoil extends Figure {
 		}
 		return sum;
 	}
-	/*
-	 * private double findDragCoeff() { if
-	 * (this.typeOfAirFoil.equals("symmetrical")) { return 0.0; } else if
-	 * (this.typeOfAirFoil.equals("high camber")) { return 0.0; } else if
-	 * (this.typeOfAirFoil.equals("flat")) { return 0.0; } else { return 0.0; } }
-	 */
+
+	public double findDrag() {//will do latyer
+		double cpTop = 1 / 1.225 * Controller.window.flowVelocity * findSurfaceArea(0, xs.length / 2) / getChordLength()
+				* findSurfaceArea(0, xs.length / 2) * Controller.window.width;
+		cpTop *= findSurfaceArea(0, xs.length / 2) * (findTopPressure() - Controller.window.atmoPressure)
+				* getChordLength();
+		double cfTop = 1 / 1.225 * Controller.window.flowVelocity * findSurfaceArea(0, xs.length / 2) / getChordLength()
+				* findSurfaceArea(0, xs.length / 2) * Controller.window.width;
+		cfTop *= findSurfaceArea(xs.length / 2 + 1, xs.length - 1) * ;
+		return 0;
+	}
 }

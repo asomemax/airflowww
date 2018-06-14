@@ -11,21 +11,21 @@ import javax.swing.event.ChangeListener;
 
 // creates GUI window for drawing 
 public class Draw extends JFrame {
-	public static final int CANVAS_WIDTH = 960; // 640; //1280;
-	public static final int CANVAS_HEIGHT = 720; // 480; //960;
-	public static final Point CENTER = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+	public final int CANVAS_WIDTH = 960; // 640; //1280;
+	public final int CANVAS_HEIGHT = 720; // 480; //960;
+	public final Point CENTER = new Point(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
 	// public static final int CENTER_X= CANVAS_WIDTH / 2;
 	// public static final int CENTER_Y = CANVAS_HEIGHT / 2;
 	public boolean curdraw = false;
 	public DrawCanvas canvas;
 	public MouseAdapter adap;
-	public static boolean runSimulation = false;
-	public static int angle;	// angle of rotation
-	public static int width;	// airfoil width
+	public boolean runSimulation = false;
+	public int angle;	// angle of rotation
+	public int width;	// airfoil width
 	// private static double liftCoeff;
 	// private static double dragCoeff;
-	public static double flowVelocity;
-	public static double atmoPressure; // atmospheric pressure
+	public double flowVelocity;
+	public double atmoPressure; // atmospheric pressure
 	
 	public static JPanel btnPanel;
 	public static JPanel varPanel;
@@ -342,7 +342,7 @@ public class Draw extends JFrame {
 		requestFocus(); // set the focus to JFrame to receive KeyEvent
 	}
 	
-	public static void updateValues() {
+	public void updateValues() {
 		Component[] varPanelArr = varPanel.getComponents();
 		System.out.println(Arrays.toString(varPanelArr));
 		angle = ((JSlider) varPanelArr[3]).getValue();
@@ -350,16 +350,6 @@ public class Draw extends JFrame {
 		flowVelocity = Double.parseDouble((((JSpinner) varPanelArr[9]).getValue()).toString());
 		atmoPressure = Double.parseDouble(((JTextField) varPanelArr[10]).getText());
 	}
-
-	/*
-	public double getLiftCoeff() {
-		return liftCoeff;
-	}
-	
-	public double getDragCoeff() {
-		return dragCoeff;
-	}
-	*/
 	public double getFlowVelocity() {
 		return flowVelocity;
 	}
