@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Controller {
@@ -76,6 +77,7 @@ public class Controller {
 	public static void packShape() {
 		double[] x = arrayListToArray(xs);
 		double[] y = arrayListToArray(ys);
+		System.out.println(Arrays.toString(x)+"<-- x  y-->"+Arrays.toString(y));
 		fig = new AirFoil(x, y);
 		status = "shapeReady";
 	}
@@ -138,12 +140,51 @@ public class Controller {
 	}
 
 	public static void createHighCamberFoil() {
-		createCamberedAirFoil(300, 0.25, 0.5);
+		createNACA4AirFoil(300, .2, .2);
 	}
 
-	private static void createCamberedAirFoil(int numPoints, double bend, double thickness) {
-	
-
+	/**
+	 * 
+	 * @param m
+	 *            - Maximum Camber
+	 * @param p
+	 *            - position of maximum camber 0 < p < 1
+	 * @param thickness
+	 *            - % / cord. 0 < thickness < 1
+	 */
+	public static void createNACA4AirFoil(double m, double p, double thickness) {
+		int numPoints = 100;
+		double x = 0.0;
+		double beta = 0.0;
+		for (int i = 0; i < numPoints; i++) {
+			x = 1 - Math.cos(beta);
+			double thicc = (1 / thickness) * (.2969 * Math.pow(x, .5) + -.126 * x + -.3516 * Math.pow(x, 2)
+					+ .2843 * Math.pow(x, 3) + -.1036 * Math.pow(x, 2));
+			double cambery;
+			double grad;
+			double ang;
+			if (x < p) {
+				cambery = (m / Math.pow(p, 2)) * ((2 * p * x) - Math.pow(x, 2));
+				grad = ((2 * m) / Math.pow(p, 2)) * (p - x);
+				ang = Math.atan(grad);
+			} else {
+				cambery = (m / Math.pow(1 - p, 2)) * (1 - 2 * p + 2 * x * p - Math.pow(x, 2));
+				grad = ((2 * m) / Math.pow(1 - p, 2)) * (p - x);
+				ang = Math.atan(grad);
+			}
+			if (i < numPoints / 2) {
+				beta += Math.PI / numPoints;
+				xs.add(x - thicc * Math.sin(ang));
+				ys.add(cambery + thicc * Math.cos(ang));
+			} else {
+				beta -= Math.PI / numPoints;
+				xs.add(x + thicc * Math.sin(ang));
+				ys.add(cambery - thicc * Math.cos(ang));
+			}
+		}
+		packShape();
+		fig.scale(500);
+		translateToTarget(fig, Draw.CENTER);
 	}
 
 	/**
