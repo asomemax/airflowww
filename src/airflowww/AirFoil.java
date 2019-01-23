@@ -228,7 +228,7 @@ public class AirFoil extends Figure {
 				* getChordLength();
 		double cfTop = 1 / 1.225 * Controller.window.flowVelocity * findSurfaceArea(0, xs.length / 2) / getChordLength()
 				* findSurfaceArea(0, xs.length / 2) * Controller.window.width;
-		cfTop *= findSurfaceArea(xs.length / 2 + 1, xs.length - 1) * ;
+		cfTop *= findSurfaceArea(xs.length / 2 + 1, xs.length - 1);
 		return 0;
 	}
 }
