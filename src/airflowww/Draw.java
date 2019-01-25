@@ -20,17 +20,17 @@ public class Draw extends JFrame {
 	public DrawCanvas canvas;
 	public MouseAdapter adap;
 	public boolean runSimulation = false;
-	public int angle;	// angle of rotation
-	public int width;	// airfoil width
+	public int angle; // angle of rotation
+	public int width; // airfoil width
 	// private static double liftCoeff;
 	// private static double dragCoeff;
 	public double flowVelocity;
 	public double atmoPressure; // atmospheric pressure
-	
+
 	public static JPanel btnPanel;
 	public static JPanel varPanel;
 	public static JPanel displayPanel;
-	
+
 	public Draw() {
 
 		/////////////////////////// FOR
@@ -82,7 +82,7 @@ public class Draw extends JFrame {
 		angleSpin.setPreferredSize(new Dimension(40, 20));
 		angleSpin.setValue(0);
 		varPanel.add(angleSpin);
-		
+
 		JSlider angleSlider = new JSlider(JSlider.HORIZONTAL, -180, 180, 0);
 		angleSlider.setMajorTickSpacing(90);
 		angleSlider.setMinorTickSpacing(30);
@@ -94,24 +94,24 @@ public class Draw extends JFrame {
 		angleSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
 				Controller.setAng(Math.toRadians(angleSlider.getValue()));
-				//angleSpin.setValue((int) angle);
+				// angleSpin.setValue((int) angle);
 				repaint();
 			}
 		});
-		
-		// width of airfoil 
+
+		// width of airfoil
 		varPanel.add(new JLabel("Airfoil width (m): "));
 		JPanel widthPanel = new JPanel(new FlowLayout());
 
-		JSlider widthSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, 10);		
+		JSlider widthSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, 10);
 		widthSlider.setMajorTickSpacing(10);
 		widthSlider.setMinorTickSpacing(5);
 		widthSlider.setPaintTicks(true);
 		widthSlider.setPaintLabels(true);
-		
+
 		widthPanel.add(widthSlider);
 		varPanel.add(widthPanel);
-		
+
 		// lift coefficient (will use predefined experimental values)
 		JPanel liftCoPanel = new JPanel(new FlowLayout());
 		liftCoPanel.add(new JLabel("Lift coefficient: "));
@@ -141,13 +141,13 @@ public class Draw extends JFrame {
 		flowSpeedSpin.setValue(0);
 		flowSpeedPanel.add(flowSpeedSpin);
 		varPanel.add(flowSpeedPanel);
-		
+
 		// atmospheric pressure
 		JPanel atmoPressPanel = new JPanel(new FlowLayout());
 		atmoPressPanel.add(new JLabel("Atmospheric pressure (kPa): "));
 		atmoPressPanel.add(new JTextField("101.325"));
 		varPanel.add(atmoPressPanel);
-		
+
 		//////////////////////////// FOR
 		//////////////////////////// DISPLAYPANEL////////////////////////////////////////////////////////////////
 
@@ -172,21 +172,20 @@ public class Draw extends JFrame {
 		aeroForcePanel.add(new JLabel("Aerodynamic force (N): "));
 		aeroForcePanel.add(new JTextField("placeholder"));
 		displayPanel.add(aeroForcePanel);
-		
-		/*
-		// angle of attack
-		JPanel angleAtkPanel = new JPanel(new FlowLayout());
-		angleAtkPanel.add(new JLabel("Angle of Attack: "));
-		JTextField atkTextField = new JTextField("placeholder");
-		displayPanel.add(angleAtkPanel);
 
-		*/
+		/*
+		 * // angle of attack JPanel angleAtkPanel = new JPanel(new FlowLayout());
+		 * angleAtkPanel.add(new JLabel("Angle of Attack: ")); JTextField atkTextField =
+		 * new JTextField("placeholder"); displayPanel.add(angleAtkPanel);
+		 * 
+		 */
 		JPanel refAreaPanel = new JPanel(new FlowLayout());
 		refAreaPanel.add(new JLabel("Reference area (m^2): "));
 		refAreaPanel.add(new JTextField("placeholder"));
 		displayPanel.add(refAreaPanel);
 
-		////////////////////////////////////////BUTTON FUNCTIONALITY////////////////////////////////////////////////////
+		//////////////////////////////////////// BUTTON
+		//////////////////////////////////////// FUNCTIONALITY////////////////////////////////////////////////////
 
 		// foil options
 		// NOTE: predefined shapes should be automatically centered and a shape
@@ -289,7 +288,7 @@ public class Draw extends JFrame {
 		btnRun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(runSimulation);
-				//Controller.createForceVector();
+				// Controller.createForceVector();
 				// when button is clicked the state of the program will switch
 				// to start calculating
 				if (runSimulation) {
@@ -300,6 +299,7 @@ public class Draw extends JFrame {
 					System.out.println("Running simulator");
 					btnRun.setText("Stop");
 					runSimulation = true;
+					 ((JTextField) aeroForcePanel.getComponents()[1]).setText("1");
 				}
 			}
 
@@ -310,7 +310,7 @@ public class Draw extends JFrame {
 			public void stateChanged(ChangeEvent evt) {
 				double angle = Math.toRadians(Double.parseDouble(angleSpin.getValue().toString()));
 				Controller.setAng(angle);
-				//angleSlider.setValue((int) angle);
+				// angleSlider.setValue((int) angle);
 				repaint();
 			}
 		});
@@ -318,7 +318,7 @@ public class Draw extends JFrame {
 		// changes air flow speed
 		flowSpeedSpin.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
-				assert(flowSpeedSpin.getValue() != null);
+				assert (flowSpeedSpin.getValue() != null);
 				int flowSpeed = (int) flowSpeedSpin.getValue();
 				Controller.flowSpeed = flowSpeed;
 				System.out.println("Current flow speed: " + flowSpeed);
@@ -341,7 +341,7 @@ public class Draw extends JFrame {
 		setVisible(true); // show it
 		requestFocus(); // set the focus to JFrame to receive KeyEvent
 	}
-	
+
 	public void updateValues() {
 		Component[] varPanelArr = varPanel.getComponents();
 		System.out.println(Arrays.toString(varPanelArr));
@@ -350,11 +350,12 @@ public class Draw extends JFrame {
 		flowVelocity = Double.parseDouble((((JSpinner) varPanelArr[9]).getValue()).toString());
 		atmoPressure = Double.parseDouble(((JTextField) varPanelArr[10]).getText());
 	}
+
 	public double getFlowVelocity() {
 		return flowVelocity;
 	}
 
 	public double getAtmoPressure() {
-		return atmoPressure; 
+		return atmoPressure;
 	}
 }
